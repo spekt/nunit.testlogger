@@ -73,7 +73,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
             string filename = string.IsNullOrEmpty(e.Result.TestCase.Source) ? string.Empty : Path.GetFileName(e.Result.TestCase.CodeFilePath);
             string outcome = e.Result.Outcome.ToString();
 
-            allArgs.Add("-Name " + name);
+            allArgs.Add(name);
             if (!string.IsNullOrEmpty(filename))
             {
                 allArgs.Add("-FileName " + filename);
@@ -162,7 +162,13 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
 
             using (var activeProcess = new Process { StartInfo = processInfo })
             {
+                activeProcess.OutputDataReceived += (sender, arg) => Console.WriteLine(arg.Data);
+                activeProcess.ErrorDataReceived += (sender, arg) => Console.WriteLine(arg.Data);
+
                 activeProcess.Start();
+
+                activeProcess.BeginOutputReadLine();
+                activeProcess.BeginErrorReadLine();
                 activeProcess.WaitForExit();
             }
         }
