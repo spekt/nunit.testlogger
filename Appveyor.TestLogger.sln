@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26224.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appveyor.TestLogger", "Appveyor.TestLogger\Appveyor.TestLogger.csproj", "{8A88948F-14B9-4E51-9A39-8BC6A63478EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Appveyor.TestLogger", "Appveyor.TestLogger\Appveyor.TestLogger.csproj", "{8A88948F-14B9-4E51-9A39-8BC6A63478EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appveyor.TestLogger.Tests", "Appveyor.TestLogger.Tests\Appveyor.TestLogger.Tests.csproj", "{D36E747C-A815-4193-A338-B36A31E4C951}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Appveyor.TestLogger.Tests", "Appveyor.TestLogger.Tests\Appveyor.TestLogger.Tests.csproj", "{D36E747C-A815-4193-A338-B36A31E4C951}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuspec", "nuspec", "{8B12E7F5-C368-473F-B1A4-EBD988CAA579}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nuspec.Appveyor.TestLogger", "Nuspec\Nuspec.Appveyor.TestLogger.csproj", "{789D21B2-0C87-47FE-B48F-6FA4ED02D1B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +25,15 @@ Global
 		{D36E747C-A815-4193-A338-B36A31E4C951}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D36E747C-A815-4193-A338-B36A31E4C951}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D36E747C-A815-4193-A338-B36A31E4C951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{789D21B2-0C87-47FE-B48F-6FA4ED02D1B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{789D21B2-0C87-47FE-B48F-6FA4ED02D1B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{789D21B2-0C87-47FE-B48F-6FA4ED02D1B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{789D21B2-0C87-47FE-B48F-6FA4ED02D1B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{789D21B2-0C87-47FE-B48F-6FA4ED02D1B9} = {8B12E7F5-C368-473F-B1A4-EBD988CAA579}
 	EndGlobalSection
 EndGlobal

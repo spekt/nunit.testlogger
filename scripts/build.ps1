@@ -6,7 +6,19 @@ Param(
     [Parameter(Mandatory=$false)]
     [ValidateSet("Debug", "Release")]
     [Alias("c")]
-    [System.String] $Configuration = "Debug"
+    [System.String] $Configuration = "Debug",
+
+    [Parameter(Mandatory=$false)]
+    [Alias("v")]
+    [System.String] $Version = "1.0",
+
+    [Parameter(Mandatory=$false)]
+    [Alias("vs")]
+    [System.String] $VersionSuffix = "dev",
+
+    [Parameter(Mandatory=$false)]
+    [Alias("ff")]
+    [System.Boolean] $FailFast = $true
 )
 
 #
@@ -32,6 +44,14 @@ $env:DOTNET_CLI_VERSION = "latest"
 #
 $LEB_Solution = "Appveyor.TestLogger.sln"
 $LEB_TestProject = Join-Path $env:LE_ROOT_DIR "Appveyor.TestLogger.Tests\Appveyor.TestLogger.Tests.csproj"
+$LEB_SrcProject = Join-Path $env:LE_ROOT_DIR "Appveyor.TestLogger\Appveyor.TestLogger.csproj"
+$LEB_Configuration = $Configuration
+$LEB_Version = $Version
+$LEB_VersionSuffix = $VersionSuffix
+$LEB_FullVersion = if ($VersionSuffix -ne '') {$Version + "-" + $VersionSuffix} else {$Version}
+
+# Capture error state in any step globally to modify return code
+$Script:ScriptFailed = $false
 
 
 function Write-Log ([string] $message)
@@ -97,18 +117,57 @@ function Restore-Package
     Write-Log "Restore-Package: Complete. {$(Get-ElapsedTime($timer))}"
 }
 
+function Invoke-Build
+{
+    $timer = Start-Timer
+    Write-Log "Invoke-Build: Start build."
+    $dotnetExe = Get-DotNetPath
+
+    Write-Log ".. .. Build: Source: $LEB_SrcProject"
+    Write-Log "$dotnetExe build $LEB_SrcProject --configuration $LEB_Configuration -v:minimal -p:Version=$LEB_FullVersion"
+    & $dotnetExe build $LEB_SrcProject --configuration $LEB_Configuration -v:minimal -p:Version=$LEB_FullVersion
+    Write-Log ".. .. Build: Complete."
+
+    if ($lastExitCode -ne 0) {
+        Set-ScriptFailed
+    }
+
+    Write-Log "Invoke-Build: Complete. {$(Get-ElapsedTime($timer))}"
+}
+
 function Run-Test
 {
     $timer = Start-Timer
     $dotnetExe = Get-DotNetPath
 
-    $testAdapterPath = Join-Path $env:LE_ROOT_DIR "Appveyor.TestLogger.Tests\bin\$Configuration\netcoreapp1.0"
+    $testAdapterPath = Join-Path $env:LE_ROOT_DIR "Appveyor.TestLogger.Tests\bin\$LEB_Configuration\netcoreapp1.0"
 
     Write-Log ".. .. Run-Test: Source: $LEB_TestProject"
-    & $dotnetExe test $LEB_TestProject --test-adapter-path $testAdapterPath --configuration:$Configuration --logger:Appveyor
+    & $dotnetExe test $LEB_TestProject --test-adapter-path $testAdapterPath --configuration:$LEB_Configuration --logger:Appveyor
 
     Write-Log "Run-Test: Complete. {$(Get-ElapsedTime($timer))}"
 }
+
+function Create-NugetPackages
+{
+    $timer = Start-Timer
+    $dotnetExe = Get-DotNetPath
+
+    Write-Log "Create-NugetPackages: Started."
+    $leNuspecProject = Join-Path $env:LE_ROOT_DIR "Nuspec\Nuspec.Appveyor.TestLogger.csproj"
+    $lePackageDirectory = Join-Path $env:LE_ROOT_DIR "nugetPackage"
+
+    New-Item -ItemType directory -Path $lePackageDirectory -Force | Out-Null
+
+    # Copy Appveyor logger dll in Nuspec folder
+    $sourceFile = Join-Path $env:LE_ROOT_DIR "Appveyor.TestLogger\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.Appveyor.TestAdapter.dll"
+    Copy-Item $sourceFile $lePackageDirectory -Force
+
+    & $dotnetExe pack --no-build $leNuspecProject -o $lePackageDirectory -p:Version=$LEB_FullVersion
+
+    Write-Log "Create-NugetPackages: Complete. {$(Get-ElapsedTime($timer))}"
+}
+
 
 #
 # Helper functions
@@ -134,6 +193,15 @@ function Get-ElapsedTime([System.Diagnostics.Stopwatch] $timer)
     return $timer.Elapsed
 }
 
+function Set-ScriptFailed
+{
+    if ($FailFast -eq $true) {
+        Write-Error "Build failed. Stopping as fail fast is set."
+    }
+
+    $Script:ScriptFailed = $true
+}
+
 
 # Execute build
 $timer = Start-Timer
@@ -144,6 +212,8 @@ Write-Log "Test platform build variables: "
 Get-Variable | Where-Object -FilterScript { $_.Name.StartsWith("LEB_") } | Format-Table
 Install-DotNetCli
 Restore-Package
+Invoke-Build
 Run-Test
+Create-NugetPackages
 Write-Log "Build complete. {$(Get-ElapsedTime($timer))}"
 if ($Script:ScriptFailed) { Exit 1 } else { Exit 0 }

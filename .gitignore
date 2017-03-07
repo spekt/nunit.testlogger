@@ -95,5 +95,5 @@ ehthumbs.db
 # Custom ignores
 # ===========================
 packages
-artifacts
+nugetPackage
 [tT]ools
