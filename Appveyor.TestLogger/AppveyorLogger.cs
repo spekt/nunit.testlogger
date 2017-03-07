@@ -70,7 +70,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
         {
             var allArgs = new List<string>();
             string name = e.Result.TestCase.DisplayName;
-            string filename = string.IsNullOrEmpty(e.Result.TestCase.Source) ? string.Empty : Path.GetFileName(e.Result.TestCase.CodeFilePath);
+            string filename = string.IsNullOrEmpty(e.Result.TestCase.Source) ? string.Empty : Path.GetFileName(e.Result.TestCase.Source);
             string outcome = e.Result.Outcome.ToString();
 
             allArgs.Add("-Name " + name);
@@ -83,7 +83,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
 
             if (e.Result.Outcome == TestOutcome.Passed || e.Result.Outcome == TestOutcome.Failed)
             {
-                double duration = e.Result.Duration.TotalMilliseconds;
+                int duration = Convert.ToInt32(e.Result.Duration.TotalMilliseconds);
 
                 string errorMessage = e.Result.ErrorMessage;
                 string errorStackTrace = e.Result.ErrorStackTrace;
