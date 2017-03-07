@@ -77,7 +77,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
             allArgs.Add("-Framework " + "MSTest");
             if (!string.IsNullOrEmpty(filename))
             {
-                allArgs.Add("-FileName " + filename);
+                allArgs.Add("-FileName " + this.AddDoubleQuotes(filename));
             }
             allArgs.Add("-outcome " + outcome);
 
@@ -108,19 +108,19 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
 
                 if (!string.IsNullOrEmpty(errorMessage))
                 {
-                    allArgs.Add("-ErrorMessage " + errorMessage);
+                    allArgs.Add("-ErrorMessage " + this.AddDoubleQuotes(errorMessage));
                 }
                 if (!string.IsNullOrEmpty(errorStackTrace))
                 {
-                    allArgs.Add("-ErrorStackTrace " + errorStackTrace);
+                    allArgs.Add("-ErrorStackTrace " + this.AddDoubleQuotes(errorStackTrace));
                 }
                 if (!string.IsNullOrEmpty(stdOut.ToString()))
                 {
-                    allArgs.Add("-StdOut " + stdOut.ToString());
+                    allArgs.Add("-StdOut " + this.AddDoubleQuotes(stdOut.ToString()));
                 }
                 if (!string.IsNullOrEmpty(stdErr.ToString()))
                 {
-                    allArgs.Add("-StdErr" + stdErr.ToString());
+                    allArgs.Add("-StdErr" + this.AddDoubleQuotes(stdErr.ToString()));
                 }
             }
             else
@@ -183,6 +183,11 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
             }
 
             return arg;
+        }
+
+        private string AddDoubleQuotes(string x)
+        {
+            return "\"" + x + "\"";
         }
     }
 }
