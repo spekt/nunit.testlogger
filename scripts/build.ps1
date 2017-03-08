@@ -43,8 +43,9 @@ $env:DOTNET_CLI_VERSION = "latest"
 # Build configuration
 #
 $LEB_Solution = "Appveyor.TestLogger.sln"
-$LEB_TestProject = Join-Path $env:LE_ROOT_DIR "Appveyor.TestLogger.Tests\Appveyor.TestLogger.Tests.csproj"
-$LEB_SrcProject = Join-Path $env:LE_ROOT_DIR "Appveyor.TestLogger\Appveyor.TestLogger.csproj"
+$LEB_NetCoreTestProject = Join-Path $env:LE_ROOT_DIR "test\Appveyor.TestLogger.NetCore.Tests\Appveyor.TestLogger.NetCore.Tests.csproj"
+$LEB_NetFullTestProject = Join-Path $env:LE_ROOT_DIR "test\Appveyor.TestLogger.NetFull.Tests\Appveyor.TestLogger.NetFull.Tests.csproj"
+$LEB_nuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\Nuspec.Appveyor.TestLogger.csproj"
 $LEB_Configuration = $Configuration
 $LEB_Version = $Version
 $LEB_VersionSuffix = $VersionSuffix
@@ -108,6 +109,9 @@ function Restore-Package
 
     Write-Log ".. .. Restore-Package: Source: $LEB_Solution"
     & $dotnetExe restore $LEB_Solution --packages $env:LE_PACKAGES_DIR -v:minimal -warnaserror
+
+    Write-Log ".. .. Restore-Package: Source: $LEB_nuspecProject"
+    & $dotnetExe restore $LEB_nuspecProject --packages $env:LE_PACKAGES_DIR -v:minimal -warnaserror
     Write-Log ".. .. Restore-Package: Complete."
 
     if ($lastExitCode -ne 0) {
@@ -123,9 +127,9 @@ function Invoke-Build
     Write-Log "Invoke-Build: Start build."
     $dotnetExe = Get-DotNetPath
 
-    Write-Log ".. .. Build: Source: $LEB_SrcProject"
-    Write-Log "$dotnetExe build $LEB_SrcProject --configuration $LEB_Configuration -v:minimal -p:Version=$LEB_FullVersion"
-    & $dotnetExe build $LEB_SrcProject --configuration $LEB_Configuration -v:minimal -p:Version=$LEB_FullVersion
+    Write-Log ".. .. Build: Source: $LEB_Solution"
+    Write-Log "$dotnetExe build $LEB_Solution --configuration $LEB_Configuration -v:minimal -p:Version=$LEB_FullVersion"
+    & $dotnetExe build $LEB_Solution --configuration $LEB_Configuration -v:minimal -p:Version=$LEB_FullVersion
     Write-Log ".. .. Build: Complete."
 
     if ($lastExitCode -ne 0) {
@@ -140,10 +144,13 @@ function Run-Test
     $timer = Start-Timer
     $dotnetExe = Get-DotNetPath
 
-    $testAdapterPath = Join-Path $env:LE_ROOT_DIR "Appveyor.TestLogger.Tests\bin\$LEB_Configuration\netcoreapp1.0"
+    Write-Log ".. .. Run-Test: Source: $LEB_NetCoreTestProject"
+    $testAdapterPath = Join-Path $env:LE_ROOT_DIR "test\Appveyor.TestLogger.NetCore.Tests\bin\$LEB_Configuration\netcoreapp1.0"
 
-    Write-Log ".. .. Run-Test: Source: $LEB_TestProject"
-    & $dotnetExe test $LEB_TestProject --test-adapter-path $testAdapterPath --configuration:$LEB_Configuration --logger:Appveyor
+    & $dotnetExe test $LEB_NetCoreTestProject --test-adapter-path $testAdapterPath --configuration:$LEB_Configuration --logger:Appveyor
+	
+	Write-Log ".. .. Run-Test: Source: $LEB_NetFullTestProject"
+    & $dotnetExe test $LEB_NetFullTestProject --configuration:$LEB_Configuration --logger:Appveyor
 
     Write-Log "Run-Test: Complete. {$(Get-ElapsedTime($timer))}"
 }
@@ -154,16 +161,14 @@ function Create-NugetPackages
     $dotnetExe = Get-DotNetPath
 
     Write-Log "Create-NugetPackages: Started."
-    $leNuspecProject = Join-Path $env:LE_ROOT_DIR "Nuspec\Nuspec.Appveyor.TestLogger.csproj"
     $lePackageDirectory = Join-Path $env:LE_ROOT_DIR "nugetPackage"
-
     New-Item -ItemType directory -Path $lePackageDirectory -Force | Out-Null
 
     # Copy Appveyor logger dll in Nuspec folder
-    $sourceFile = Join-Path $env:LE_ROOT_DIR "Appveyor.TestLogger\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.Appveyor.TestAdapter.dll"
+    $sourceFile = Join-Path $env:LE_ROOT_DIR "src\Appveyor.TestLogger\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.Appveyor.TestAdapter.dll"
     Copy-Item $sourceFile $lePackageDirectory -Force
 
-    & $dotnetExe pack --no-build $leNuspecProject -o $lePackageDirectory -p:Version=$LEB_FullVersion
+    & $dotnetExe pack --no-build $LEB_nuspecProject -o $lePackageDirectory -p:Version=$LEB_FullVersion
 
     Write-Log "Create-NugetPackages: Complete. {$(Get-ElapsedTime($timer))}"
 }

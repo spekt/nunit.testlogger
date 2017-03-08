@@ -4,10 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Appveyor.TestLogger.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class NetCoreTestClass
     {
         [TestMethod]
-        public void PassMethod1()
+        public void NetCorePassMethod1()
         {
             Console.Error.Write("StdError output of PassMethod1");
             Console.Out.WriteLine("StdOut output of PassMethod1");
@@ -15,7 +15,7 @@ namespace Appveyor.TestLogger.Tests
         }
 
         [TestMethod]
-        public void PassMethod2()
+        public void NetCorePassMethod2()
         {
             Console.Error.Write("StdError output of PassMethod2");
             Console.Out.WriteLine("StdOut output of PassMethod2");
@@ -23,7 +23,7 @@ namespace Appveyor.TestLogger.Tests
         }
 
         [TestMethod]
-        public void FailMethod1()
+        public void NetCoreFailMethod1()
         {
             Console.Error.Write("StdError output of FailMethod1");
             Console.Out.WriteLine("StdOut output of FailMethod1");
@@ -33,7 +33,7 @@ namespace Appveyor.TestLogger.Tests
         }
 
         [TestMethod]
-        public void FailMethod2()
+        public void NetCoreFailMethod2()
         {
             Console.Error.Write("StdError output of FailMethod2");
             Console.Out.WriteLine("StdOut output of FailMethod2");
@@ -44,13 +44,13 @@ namespace Appveyor.TestLogger.Tests
 
         [TestMethod]
         [Ignore]
-        public void SkipTest1()
+        public void NetCoreSkipTest1()
         {
         }
 
         [TestMethod]
         [Ignore]
-        public void SkipTest2()
+        public void NetCoreSkipTest2()
         {
         }
     }
