@@ -74,7 +74,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
             string outcome = e.Result.Outcome.ToString();
 
             allArgs.Add("-Name " + name);
-            allArgs.Add("-Framework " + "MSTest");
+            allArgs.Add("-Framework " + e.Result.TestCase.ExecutorUri.ToString());
             if (!string.IsNullOrEmpty(filename))
             {
                 allArgs.Add("-FileName " + this.AddDoubleQuotes(filename));
