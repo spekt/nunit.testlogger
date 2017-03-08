@@ -161,6 +161,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
                 RedirectStandardOutput = true
             };
 
+            Console.WriteLine("Logging: " + processInfo.Arguments);
             using (var activeProcess = new Process { StartInfo = processInfo })
             {
                 activeProcess.OutputDataReceived += (sender, arg) => Console.WriteLine(arg.Data);
