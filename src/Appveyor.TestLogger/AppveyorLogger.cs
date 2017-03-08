@@ -120,7 +120,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
                 }
                 if (!string.IsNullOrEmpty(stdErr.ToString()))
                 {
-                    allArgs.Add("-StdErr" + this.AddDoubleQuotes(stdErr.ToString()));
+                    allArgs.Add("-StdErr " + this.AddDoubleQuotes(stdErr.ToString()));
                 }
             }
             else
