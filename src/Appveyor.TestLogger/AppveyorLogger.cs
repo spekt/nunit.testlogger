@@ -54,7 +54,6 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
             this.NotNull(e, "e");
 
             // Add code to handle message
-
         }
 
         /// <summary>

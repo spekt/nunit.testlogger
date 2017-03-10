@@ -45,7 +45,8 @@ $env:DOTNET_CLI_VERSION = "latest"
 $LEB_Solution = "Appveyor.TestLogger.sln"
 $LEB_NetCoreTestProject = Join-Path $env:LE_ROOT_DIR "test\Appveyor.TestLogger.NetCore.Tests\Appveyor.TestLogger.NetCore.Tests.csproj"
 $LEB_NetFullTestProject = Join-Path $env:LE_ROOT_DIR "test\Appveyor.TestLogger.NetFull.Tests\Appveyor.TestLogger.NetFull.Tests.csproj"
-$LEB_nuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\Nuspec.Appveyor.TestLogger.csproj"
+$LEB_AppveyorNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\Nuspec.Appveyor.TestLogger.csproj"
+$LEB_XunitXmlNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\Nuspec.XunitXml.TestLogger.csproj"
 $LEB_Configuration = $Configuration
 $LEB_Version = $Version
 $LEB_VersionSuffix = $VersionSuffix
@@ -110,8 +111,12 @@ function Restore-Package
     Write-Log ".. .. Restore-Package: Source: $LEB_Solution"
     & $dotnetExe restore $LEB_Solution --packages $env:LE_PACKAGES_DIR -v:minimal -warnaserror
 
-    Write-Log ".. .. Restore-Package: Source: $LEB_nuspecProject"
-    & $dotnetExe restore $LEB_nuspecProject --packages $env:LE_PACKAGES_DIR -v:minimal -warnaserror
+    Write-Log ".. .. Restore-Package: Source: $LEB_AppveyorNuspecProject"
+    & $dotnetExe restore $LEB_AppveyorNuspecProject --packages $env:LE_PACKAGES_DIR -v:minimal -warnaserror
+    Write-Log ".. .. Restore-Package: Complete."
+
+    Write-Log ".. .. Restore-Package: Source: $LEB_XunitXmlNuspecProject"
+    & $dotnetExe restore $LEB_XunitXmlNuspecProject --packages $env:LE_PACKAGES_DIR -v:minimal -warnaserror
     Write-Log ".. .. Restore-Package: Complete."
 
     if ($lastExitCode -ne 0) {
@@ -164,11 +169,15 @@ function Create-NugetPackages
     $lePackageDirectory = Join-Path $env:LE_ROOT_DIR "nugetPackage"
     New-Item -ItemType directory -Path $lePackageDirectory -Force | Out-Null
 
-    # Copy Appveyor logger dll in Nuspec folder
+    # Copy Appveyor and xunit xml logger dll in Nuspec folder
     $sourceFile = Join-Path $env:LE_ROOT_DIR "src\Appveyor.TestLogger\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.Appveyor.TestAdapter.dll"
     Copy-Item $sourceFile $lePackageDirectory -Force
 
-    & $dotnetExe pack --no-build $LEB_nuspecProject -o $lePackageDirectory -p:Version=$LEB_FullVersion
+    $sourceFile = Join-Path $env:LE_ROOT_DIR "src\Xunit.Xml.TestLogger\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter.dll"
+    Copy-Item $sourceFile $lePackageDirectory -Force
+
+    & $dotnetExe pack --no-build $LEB_AppveyorNuspecProject -o $lePackageDirectory -p:Version=$LEB_FullVersion
+    & $dotnetExe pack --no-build $LEB_XunitXmlNuspecProject -o $lePackageDirectory -p:Version=$LEB_FullVersion
 
     Write-Log "Create-NugetPackages: Complete. {$(Get-ElapsedTime($timer))}"
 }
@@ -218,7 +227,7 @@ Get-Variable | Where-Object -FilterScript { $_.Name.StartsWith("LEB_") } | Forma
 Install-DotNetCli
 Restore-Package
 Invoke-Build
-Run-Test
 Create-NugetPackages
+Run-Test
 Write-Log "Build complete. {$(Get-ElapsedTime($timer))}"
 if ($Script:ScriptFailed) { Exit 1 } else { Exit 0 }

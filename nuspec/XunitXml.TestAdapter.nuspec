@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>XunitXml.TestAdapter</id>
+    <version>$Version$</version>
+    <title>XunitXml.TestAdapter</title>
+    <authors>Faizan2304</authors>
+    <owners>Faizan2304</owners>
+	<projectUrl>https://github.com/Faizan2304/LoggerExtensions</projectUrl>
+	<description>Xml logger for xunit when test is running with "dotnet test"</description>
+  </metadata>
+  <files>
+    <file src="..\nugetPackage\Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter.dll" target="build\_common\" />
+
+    <!-- Net Core -->
+    <file src="XunitXml.TestAdapter.props" target="build\netstandard1.0\" />
+
+    <!-- Desktop -->
+    <file src="XunitXml.TestAdapter.props" target="build\net45\" />
+  </files>
+</package>

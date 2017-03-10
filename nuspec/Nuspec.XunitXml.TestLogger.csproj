@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType> 
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+	<NuspecFile>XunitXml.TestAdapter.nuspec</NuspecFile>
+	<NuspecProperties>version=$(Version)</NuspecProperties> 
+  </PropertyGroup>
+  
+</Project>

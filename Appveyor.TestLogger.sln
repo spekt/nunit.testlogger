@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Appveyor.TestLogger.NetCore
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appveyor.TestLogger.NetFull.Tests", "test\Appveyor.TestLogger.NetFull.Tests\Appveyor.TestLogger.NetFull.Tests.csproj", "{F577A541-4D2E-4E78-A8A2-55801521FC24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xunit.Xml.TestLogger", "src\Xunit.Xml.TestLogger\Xunit.Xml.TestLogger.csproj", "{3EB2A7EF-3ED6-4A64-8C2E-6436148694B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{F577A541-4D2E-4E78-A8A2-55801521FC24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F577A541-4D2E-4E78-A8A2-55801521FC24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F577A541-4D2E-4E78-A8A2-55801521FC24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EB2A7EF-3ED6-4A64-8C2E-6436148694B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EB2A7EF-3ED6-4A64-8C2E-6436148694B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EB2A7EF-3ED6-4A64-8C2E-6436148694B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EB2A7EF-3ED6-4A64-8C2E-6436148694B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,5 +45,6 @@ Global
 		{A85D8FDB-64BA-4380-86B2-F2B326D80291} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
 		{9892E1B6-DA57-4FC7-8317-F18D3E413F9E} = {2A90596D-42AC-49DB-B5BF-72E1AFD7A066}
 		{F577A541-4D2E-4E78-A8A2-55801521FC24} = {2A90596D-42AC-49DB-B5BF-72E1AFD7A066}
+		{3EB2A7EF-3ED6-4A64-8C2E-6436148694B1} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
 	EndGlobalSection
 EndGlobal
