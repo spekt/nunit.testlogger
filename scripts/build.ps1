@@ -160,7 +160,8 @@ function Run-Test
     $testProject = Join-Path $LEB_TestProjectsDir "Xunit.Xml.TestLogger.NetCore.Tests\Xunit.Xml.TestLogger.NetCore.Tests.csproj"
     $testAdapterPath = Join-Path $LEB_TestProjectsDir "Xunit.Xml.TestLogger.NetCore.Tests\bin\$LEB_Configuration\netcoreapp1.0"
     Write-Log ".. .. Run-Test: Source: $testProject"
-    & $dotnetExe test $testProject --test-adapter-path $testAdapterPath --configuration:$LEB_Configuration --logger:"xunit;LogFilePath=loggerFile.xml"
+    # & $dotnetExe test $testProject --test-adapter-path $testAdapterPath --configuration:$LEB_Configuration --logger:"xunit;LogFilePath=loggerFile.xml"
+    & $dotnetExe test $testProject --test-adapter-path $testAdapterPath --configuration:$LEB_Configuration
 
     # Check xunit logger is creating logger file
     $loggerFilePath = Join-Path $LEB_TestProjectsDir "Xunit.Xml.TestLogger.NetCore.Tests\loggerFile.xml"
@@ -170,7 +171,8 @@ function Run-Test
 
     $testProject = Join-Path $LEB_TestProjectsDir "Xunit.Xml.TestLogger.NetFull.Tests\Xunit.Xml.TestLogger.NetFull.Tests.csproj"
     Write-Log ".. .. Run-Test: Source: $testProject"
-    & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:xunit
+    # & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:xunit
+    & $dotnetExe test $testProject --configuration:$LEB_Configuration
 
     # Check xunit logger is creating logger file
     $loggerFilePath = Join-Path $LEB_TestProjectsDir "Xunit.Xml.TestLogger.NetFull.Tests\TestResults\TestResults.xml"
