@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType> 
     <TargetFramework>netcoreapp1.0</TargetFramework>
-	<NuspecFile>Appveyor.TestAdapter.nuspec</NuspecFile>
+	<NuspecFile>Appveyor.TestLogger.nuspec</NuspecFile>
 	<NuspecProperties>version=$(Version)</NuspecProperties> 
   </PropertyGroup>
   

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Appveyor.TestAdapter</id>
+    <id>Appveyor.TestLogger</id>
     <version>$Version$</version>
-    <title>Appveyor.TestAdapter</title>
+    <title>Appveyor.TestLogger</title>
     <authors>Faizan2304</authors>
     <owners>Faizan2304</owners>
 	<projectUrl>https://github.com/Faizan2304/LoggerExtensions</projectUrl>
@@ -13,9 +13,9 @@
     <file src="..\nugetPackage\Microsoft.VisualStudio.TestPlatform.Extension.Appveyor.TestAdapter.dll" target="build\_common\" />
 
     <!-- Net Core -->
-    <file src="Appveyor.TestAdapter.props" target="build\netstandard1.0\" />
+    <file src="Appveyor.TestLogger.props" target="build\netstandard1.0\" />
 
     <!-- Desktop -->
-    <file src="Appveyor.TestAdapter.props" target="build\net45\" />
+    <file src="Appveyor.TestLogger.props" target="build\net45\" />
   </files>
 </package>
