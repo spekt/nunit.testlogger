@@ -223,6 +223,14 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter
             }
 
             var doc = new XDocument(CreateAssembliesElement(resultList));
+
+            // Create directory if not exist
+            var loggerFileDirPath = Path.GetDirectoryName(outputFilePath);
+            if (!Directory.Exists(loggerFileDirPath))
+            {
+                Directory.CreateDirectory(loggerFileDirPath);
+            }
+
             doc.Save(File.OpenWrite(outputFilePath));
         }
 
