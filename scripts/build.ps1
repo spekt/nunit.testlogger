@@ -10,7 +10,7 @@ Param(
 
     [Parameter(Mandatory=$false)]
     [Alias("v")]
-    [System.String] $Version = "1.0",
+    [System.String] $Version = "1.0.0",
 
     [Parameter(Mandatory=$false)]
     [Alias("vs")]
@@ -42,9 +42,8 @@ $env:DOTNET_CLI_VERSION = "latest"
 #
 # Build configuration
 #
-$LEB_Solution = "Appveyor.TestLogger.sln"
-$LEB_NetCoreTestProject = Join-Path $env:LE_ROOT_DIR "test\Appveyor.TestLogger.NetCore.Tests\Appveyor.TestLogger.NetCore.Tests.csproj"
-$LEB_NetFullTestProject = Join-Path $env:LE_ROOT_DIR "test\Appveyor.TestLogger.NetFull.Tests\Appveyor.TestLogger.NetFull.Tests.csproj"
+$LEB_Solution = "TestPlatform.TestLoggers.sln"
+$LEB_TestProjectsDir = Join-Path $env:LE_ROOT_DIR "test"
 $LEB_AppveyorNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\Nuspec.Appveyor.TestLogger.csproj"
 $LEB_XunitXmlNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\Nuspec.XunitXml.TestLogger.csproj"
 $LEB_Configuration = $Configuration
@@ -149,13 +148,22 @@ function Run-Test
     $timer = Start-Timer
     $dotnetExe = Get-DotNetPath
 
-    Write-Log ".. .. Run-Test: Source: $LEB_NetCoreTestProject"
-    $testAdapterPath = Join-Path $env:LE_ROOT_DIR "test\Appveyor.TestLogger.NetCore.Tests\bin\$LEB_Configuration\netcoreapp1.0"
+    $testProject = Join-Path $LEB_TestProjectsDir "Appveyor.TestLogger.NetCore.Tests\Appveyor.TestLogger.NetCore.Tests.csproj"
+    $testAdapterPath = Join-Path $LEB_TestProjectsDir "Appveyor.TestLogger.NetCore.Tests\bin\$LEB_Configuration\netcoreapp1.0"
 
-    & $dotnetExe test $LEB_NetCoreTestProject --test-adapter-path $testAdapterPath --configuration:$LEB_Configuration --logger:Appveyor
+    Write-Log ".. .. Run-Test: Source: $testProject"
+    & $dotnetExe test $testProject --test-adapter-path $testAdapterPath --configuration:$LEB_Configuration --logger:Appveyor
+
+    $testProject = Join-Path $LEB_TestProjectsDir "Appveyor.TestLogger.NetFull.Tests\Appveyor.TestLogger.NetFull.Tests.csproj"
+
+    Write-Log ".. .. Run-Test: Source: $testProject"
+    & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:Appveyor
 	
-	Write-Log ".. .. Run-Test: Source: $LEB_NetFullTestProject"
-    & $dotnetExe test $LEB_NetFullTestProject --configuration:$LEB_Configuration --logger:Appveyor
+    $testProject = Join-Path $LEB_TestProjectsDir "Xunit.Xml.TestLogger.NetCore.Tests\Xunit.Xml.TestLogger.NetCore.Tests.csproj"
+    $testAdapterPath = Join-Path $LEB_TestProjectsDir "Xunit.Xml.TestLogger.NetCore.Tests\bin\$LEB_Configuration\netcoreapp1.0"
+
+    Write-Log ".. .. Run-Test: Source: $testProject"
+    & $dotnetExe test $testProject --test-adapter-path $testAdapterPath --configuration:$LEB_Configuration --logger:"xunit;LogFilePath=loggerFile.xml"
 
     Write-Log "Run-Test: Complete. {$(Get-ElapsedTime($timer))}"
 }
