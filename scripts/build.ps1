@@ -1,5 +1,4 @@
-# Copyright (c) Microsoft. All rights reserved.
-# Build script for Test Platform.
+# Build script
 
 [CmdletBinding()]
 Param(
