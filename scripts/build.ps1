@@ -150,20 +150,33 @@ function Run-Test
 
     $testProject = Join-Path $LEB_TestProjectsDir "Appveyor.TestLogger.NetCore.Tests\Appveyor.TestLogger.NetCore.Tests.csproj"
     $testAdapterPath = Join-Path $LEB_TestProjectsDir "Appveyor.TestLogger.NetCore.Tests\bin\$LEB_Configuration\netcoreapp1.0"
-
     Write-Log ".. .. Run-Test: Source: $testProject"
     & $dotnetExe test $testProject --test-adapter-path $testAdapterPath --configuration:$LEB_Configuration --logger:Appveyor
 
     $testProject = Join-Path $LEB_TestProjectsDir "Appveyor.TestLogger.NetFull.Tests\Appveyor.TestLogger.NetFull.Tests.csproj"
-
     Write-Log ".. .. Run-Test: Source: $testProject"
     & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:Appveyor
 	
     $testProject = Join-Path $LEB_TestProjectsDir "Xunit.Xml.TestLogger.NetCore.Tests\Xunit.Xml.TestLogger.NetCore.Tests.csproj"
     $testAdapterPath = Join-Path $LEB_TestProjectsDir "Xunit.Xml.TestLogger.NetCore.Tests\bin\$LEB_Configuration\netcoreapp1.0"
-
     Write-Log ".. .. Run-Test: Source: $testProject"
     & $dotnetExe test $testProject --test-adapter-path $testAdapterPath --configuration:$LEB_Configuration --logger:"xunit;LogFilePath=loggerFile.xml"
+
+    # Check xunit logger is creating logger file
+    $loggerFilePath = Join-Path $LEB_TestProjectsDir "Xunit.Xml.TestLogger.NetCore.Tests\loggerFile.xml"
+    if( -not(Test-Path $loggerFilePath)){
+        Write-Error "File $loggerFilePath does not exist"
+    }
+
+    $testProject = Join-Path $LEB_TestProjectsDir "Xunit.Xml.TestLogger.NetFull.Tests\Xunit.Xml.TestLogger.NetFull.Tests.csproj"
+    Write-Log ".. .. Run-Test: Source: $testProject"
+    & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:xunit
+
+    # Check xunit logger is creating logger file
+    $loggerFilePath = Join-Path $LEB_TestProjectsDir "Xunit.Xml.TestLogger.NetFull.Tests\TestResults\TestResults.xml"
+    if( -not(Test-Path $loggerFilePath)){
+        Write-Error "File $loggerFilePath does not exist"
+    }
 
     Write-Log "Run-Test: Complete. {$(Get-ElapsedTime($timer))}"
 }
