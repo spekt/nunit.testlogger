@@ -231,7 +231,10 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter
                 Directory.CreateDirectory(loggerFileDirPath);
             }
 
-            doc.Save(File.OpenWrite(outputFilePath));
+            using (var f = File.Create(outputFilePath))
+            {
+                doc.Save(f);
+            }
         }
 
         private XElement CreateAssembliesElement(List<TestResultInfo> results)
