@@ -36,6 +36,7 @@ Write-Verbose "Setup dotnet configuration."
 $env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = 1 
 $env:NUGET_PACKAGES = $env:LE_PACKAGES_DIR
 $env:DOTNET_CLI_VERSION = "latest"
+$env:NUGET_EXE_Version = "3.4.3"
 
 
 #
@@ -43,8 +44,8 @@ $env:DOTNET_CLI_VERSION = "latest"
 #
 $LEB_Solution = "TestPlatform.TestLoggers.sln"
 $LEB_TestProjectsDir = Join-Path $env:LE_ROOT_DIR "test"
-$LEB_AppveyorNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\Nuspec.Appveyor.TestLogger.csproj"
-$LEB_XunitXmlNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\Nuspec.XunitXml.TestLogger.csproj"
+$LEB_AppveyorNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\Appveyor.TestLogger.nuspec"
+$LEB_XunitXmlNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\XunitXml.TestLogger.nuspec"
 $LEB_Configuration = $Configuration
 $LEB_Version = $Version
 $LEB_VersionSuffix = $VersionSuffix
@@ -69,7 +70,7 @@ function Install-DotNetCli
 {
     $timer = Start-Timer
     Write-Log "Install-DotNetCli: Get dotnet-install.ps1 script..."
-    $dotnetInstallRemoteScript = "https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.ps1"
+    $dotnetInstallRemoteScript = "https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.ps1"
     $dotnetInstallScript = Join-Path $env:LE_TOOLS_DIR "dotnet-install.ps1"
     if (-not (Test-Path $env:LE_TOOLS_DIR)) {
         New-Item $env:LE_TOOLS_DIR -Type Directory | Out-Null
@@ -92,11 +93,17 @@ function Install-DotNetCli
     Write-Log "Install-DotNetCli: Get the latest dotnet cli toolset..."
     $dotnetInstallPath = Join-Path $env:LE_TOOLS_DIR "dotnet"
     New-Item -ItemType directory -Path $dotnetInstallPath -Force | Out-Null
-    & $dotnetInstallScript -InstallDir $dotnetInstallPath -NoPath -Version $env:DOTNET_CLI_VERSION
+    & $dotnetInstallScript -Channel "master" -InstallDir $dotnetInstallPath -NoPath -Version $env:DOTNET_CLI_VERSION
 
-    # Uncomment to pull in additional shared frameworks.
-    # This is added to get netcoreapp1.1 shared components.
-    #& $dotnetInstallScript -InstallDir $dotnetInstallPath -SharedRuntime -Version '1.1.0' -Channel 'release/1.1.0'
+    # Pull in additional shared frameworks.
+    # Get netcoreapp1.0 shared components.
+    & $dotnetInstallScript -InstallDir $dotnetInstallPath -SharedRuntime -Version '1.0.5' -Channel 'preview'
+
+    # Get netcoreapp1.1 shared components.
+    & $dotnetInstallScript -InstallDir $dotnetInstallPath -SharedRuntime -Version '1.1.2' -Channel 'release/1.1.0'
+
+    # Get shared components which is compatible with dotnet cli version $env:DOTNET_CLI_VERSION
+    & $dotnetInstallScript -InstallDir $dotnetInstallPath -SharedRuntime -Version $env:DOTNET_RUNTIME_VERSION -Channel 'master'
 
     Write-Log "Install-DotNetCli: Complete. {$(Get-ElapsedTime($timer))}"
 }
@@ -108,14 +115,6 @@ function Restore-Package
 
     Write-Log ".. .. Restore-Package: Source: $LEB_Solution"
     & $dotnetExe restore $LEB_Solution --packages $env:LE_PACKAGES_DIR -v:minimal -warnaserror
-
-    Write-Log ".. .. Restore-Package: Source: $LEB_AppveyorNuspecProject"
-    & $dotnetExe restore $LEB_AppveyorNuspecProject --packages $env:LE_PACKAGES_DIR -v:minimal -warnaserror
-    Write-Log ".. .. Restore-Package: Complete."
-
-    Write-Log ".. .. Restore-Package: Source: $LEB_XunitXmlNuspecProject"
-    & $dotnetExe restore $LEB_XunitXmlNuspecProject --packages $env:LE_PACKAGES_DIR -v:minimal -warnaserror
-    Write-Log ".. .. Restore-Package: Complete."
 
     if ($lastExitCode -ne 0) {
         Set-ScriptFailed
@@ -196,8 +195,14 @@ function Create-NugetPackages
     $sourceFile = Join-Path $env:LE_ROOT_DIR "src\Xunit.Xml.TestLogger\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter.dll"
     Copy-Item $sourceFile $lePackageDirectory -Force
 
-    & $dotnetExe pack --no-build $LEB_AppveyorNuspecProject -o $lePackageDirectory -p:Version=$LEB_FullVersion
-    & $dotnetExe pack --no-build $LEB_XunitXmlNuspecProject -o $lePackageDirectory -p:Version=$LEB_FullVersion
+    $nugetExe = Join-Path $env:LE_PACKAGES_DIR -ChildPath "Nuget.CommandLine" | Join-Path -ChildPath $env:NUGET_EXE_Version | Join-Path -ChildPath "tools\NuGet.exe"
+
+    # Call nuget pack on these components.
+    Write-Log ".. .. Create-NugetPackages: $nugetExe pack $LEB_AppveyorNuspecProject -OutputDirectory $lePackageDirectory -Version $LEB_FullVersion -Properties Version=$LEB_FullVersion"
+    & $nugetExe pack $LEB_AppveyorNuspecProject -OutputDirectory $lePackageDirectory -Version $LEB_FullVersion -Properties Version=$LEB_FullVersion
+
+    Write-Log ".. .. Create-NugetPackages: $nugetExe pack $LEB_XunitXmlNuspecProject -OutputDirectory $lePackageDirectory -Version $LEB_FullVersion -Properties Version=$LEB_FullVersion"
+    & $nugetExe pack $LEB_XunitXmlNuspecProject -OutputDirectory $lePackageDirectory -Version $LEB_FullVersion -Properties Version=$LEB_FullVersion
 
     Write-Log "Create-NugetPackages: Complete. {$(Get-ElapsedTime($timer))}"
 }

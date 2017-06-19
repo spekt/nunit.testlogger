@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26224.1
+VisualStudioVersion = 15.0.26507.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3FB5E8BF-B24A-4246-97B8-B98E028457BF}"
 EndProject
@@ -15,7 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Appveyor.TestLogger.NetFull
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xunit.Xml.TestLogger", "src\Xunit.Xml.TestLogger\Xunit.Xml.TestLogger.csproj", "{3EB2A7EF-3ED6-4A64-8C2E-6436148694B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xunit.Xml.TestLogger.NetCore.Tests", "test\Xunit.Xml.TestLogger.NetCore.Tests\Xunit.Xml.TestLogger.NetCore.Tests.csproj", "{75A4F98C-A61B-433E-8977-61EAF5D6DF17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xunit.Xml.TestLogger.NetCore.Tests", "test\Xunit.Xml.TestLogger.NetCore.Tests\Xunit.Xml.TestLogger.NetCore.Tests.csproj", "{75A4F98C-A61B-433E-8977-61EAF5D6DF17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalPackage", "ExternalPackage", "{FAA6D063-39D2-4F32-997C-6DA27BC9B489}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restore", "src\ExternalPackage\Restore.csproj", "{5E600330-4DDD-4D5A-B668-E8AD545025DD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xunit.Xml.TestLogger.NetFull.Tests", "test\Xunit.Xml.TestLogger.NetFull.Tests\Xunit.Xml.TestLogger.NetFull.Tests.csproj", "{269D6102-6163-4AD8-A89A-9965B9F24A52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +49,14 @@ Global
 		{75A4F98C-A61B-433E-8977-61EAF5D6DF17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75A4F98C-A61B-433E-8977-61EAF5D6DF17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75A4F98C-A61B-433E-8977-61EAF5D6DF17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E600330-4DDD-4D5A-B668-E8AD545025DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E600330-4DDD-4D5A-B668-E8AD545025DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E600330-4DDD-4D5A-B668-E8AD545025DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E600330-4DDD-4D5A-B668-E8AD545025DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{269D6102-6163-4AD8-A89A-9965B9F24A52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{269D6102-6163-4AD8-A89A-9965B9F24A52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{269D6102-6163-4AD8-A89A-9965B9F24A52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{269D6102-6163-4AD8-A89A-9965B9F24A52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,5 +67,8 @@ Global
 		{F577A541-4D2E-4E78-A8A2-55801521FC24} = {2A90596D-42AC-49DB-B5BF-72E1AFD7A066}
 		{3EB2A7EF-3ED6-4A64-8C2E-6436148694B1} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
 		{75A4F98C-A61B-433E-8977-61EAF5D6DF17} = {2A90596D-42AC-49DB-B5BF-72E1AFD7A066}
+		{FAA6D063-39D2-4F32-997C-6DA27BC9B489} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
+		{5E600330-4DDD-4D5A-B668-E8AD545025DD} = {FAA6D063-39D2-4F32-997C-6DA27BC9B489}
+		{269D6102-6163-4AD8-A89A-9965B9F24A52} = {2A90596D-42AC-49DB-B5BF-72E1AFD7A066}
 	EndGlobalSection
 EndGlobal
