@@ -7,10 +7,10 @@
     <authors>Faizan2304</authors>
     <owners>Faizan2304</owners>
 	<projectUrl>https://github.com/Faizan2304/LoggerExtensions</projectUrl>
-	<description>Xml logger for xunit when test is running with "dotnet test"</description>
+	<description>Xml logger for xunit when test is running with "dotnet test". This package is applicable for "dotnet test" which got shipped with visual studio 2017 update 1 and onwards.</description>
   </metadata>
   <files>
-    <file src="..\nugetPackage\Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter.dll" target="build\_common\" />
+    <file src="..\nugetPackage\Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestLogger.dll" target="build\_common\" />
 
     <!-- Net Core -->
     <file src="XunitXml.TestLogger.props" target="build\netstandard1.0\" />

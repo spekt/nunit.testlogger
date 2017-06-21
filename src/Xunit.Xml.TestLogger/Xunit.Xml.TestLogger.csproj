@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
-    <AssemblyName>Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter</AssemblyName>
+    <AssemblyName>Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestLogger</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Label="Configuration">
-    <RootNamespace>Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter</RootNamespace>
+    <RootNamespace>Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestLogger</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,5 +1,5 @@
 ﻿
-namespace Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter
+namespace Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestLogger
 {
     using System;
     using System.Collections.Generic;
@@ -235,6 +235,9 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter
             {
                 doc.Save(f);
             }
+
+            String resultsFileMessage = String.Format(CultureInfo.CurrentCulture, "Results File: {0}", outputFilePath);
+            Console.WriteLine(resultsFileMessage);
         }
 
         private XElement CreateAssembliesElement(List<TestResultInfo> results)

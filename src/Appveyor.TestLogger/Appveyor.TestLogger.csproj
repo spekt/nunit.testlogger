@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
-    <AssemblyName>Microsoft.VisualStudio.TestPlatform.Extension.Appveyor.TestAdapter</AssemblyName>
+    <AssemblyName>Microsoft.VisualStudio.TestPlatform.Extension.Appveyor.TestLogger</AssemblyName>
   </PropertyGroup>
   
   <PropertyGroup Label="Configuration">
