@@ -23,6 +23,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restore", "src\ExternalPack
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xunit.Xml.TestLogger.NetFull.Tests", "test\Xunit.Xml.TestLogger.NetFull.Tests\Xunit.Xml.TestLogger.NetFull.Tests.csproj", "{269D6102-6163-4AD8-A89A-9965B9F24A52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.Xml.TestLogger.NetCore.Tests", "test\NUnit.Xml.TestLogger.NetCore.Tests\NUnit.Xml.TestLogger.NetCore.Tests.csproj", "{AEA0096F-64C1-4A10-9AD5-B4BB5A990D5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.Xml.TestLogger.NetFull.Tests", "test\NUnit.Xml.TestLogger.NetFull.Tests\NUnit.Xml.TestLogger.NetFull.Tests.csproj", "{01F109DC-1379-4AB2-86E8-83CA1A06B39F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.Xml.TestLogger", "src\NUnit.Xml.TestLogger\NUnit.Xml.TestLogger.csproj", "{E8C9763A-ED00-4093-A311-E8B13DCDD75F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +63,18 @@ Global
 		{269D6102-6163-4AD8-A89A-9965B9F24A52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{269D6102-6163-4AD8-A89A-9965B9F24A52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{269D6102-6163-4AD8-A89A-9965B9F24A52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEA0096F-64C1-4A10-9AD5-B4BB5A990D5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEA0096F-64C1-4A10-9AD5-B4BB5A990D5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEA0096F-64C1-4A10-9AD5-B4BB5A990D5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEA0096F-64C1-4A10-9AD5-B4BB5A990D5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01F109DC-1379-4AB2-86E8-83CA1A06B39F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01F109DC-1379-4AB2-86E8-83CA1A06B39F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01F109DC-1379-4AB2-86E8-83CA1A06B39F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01F109DC-1379-4AB2-86E8-83CA1A06B39F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8C9763A-ED00-4093-A311-E8B13DCDD75F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8C9763A-ED00-4093-A311-E8B13DCDD75F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8C9763A-ED00-4093-A311-E8B13DCDD75F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8C9763A-ED00-4093-A311-E8B13DCDD75F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,5 +88,8 @@ Global
 		{FAA6D063-39D2-4F32-997C-6DA27BC9B489} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
 		{5E600330-4DDD-4D5A-B668-E8AD545025DD} = {FAA6D063-39D2-4F32-997C-6DA27BC9B489}
 		{269D6102-6163-4AD8-A89A-9965B9F24A52} = {2A90596D-42AC-49DB-B5BF-72E1AFD7A066}
+		{AEA0096F-64C1-4A10-9AD5-B4BB5A990D5A} = {2A90596D-42AC-49DB-B5BF-72E1AFD7A066}
+		{01F109DC-1379-4AB2-86E8-83CA1A06B39F} = {2A90596D-42AC-49DB-B5BF-72E1AFD7A066}
+		{E8C9763A-ED00-4093-A311-E8B13DCDD75F} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
 	EndGlobalSection
 EndGlobal
