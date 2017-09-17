@@ -1,18 +1,17 @@
-﻿
-namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
+﻿namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
 {
     using Microsoft.VisualStudio.TestPlatform.ObjectModel;
     using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
     using Microsoft.VisualStudio.TestPlatform.ObjectModel.Logging;
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
+    using System.Globalization;
     using System.IO;
     using System.Text;
 
     [FriendlyName(AppveyorLogger.FriendlyName)]
     [ExtensionUri(AppveyorLogger.ExtensionUri)]
-    class AppveyorLogger : ITestLogger
+    public class AppveyorLogger : ITestLogger
     {
         /// <summary>
         /// Uri used to uniquely identify the Appveyor logger.
@@ -24,6 +23,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
         /// </summary>
         public const string FriendlyName = "Appveyor";
 
+        private AppveyorLoggerQueue queue;
+
         /// <summary>
         /// Initializes the Test Logger.
         /// </summary>
@@ -31,7 +32,21 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
         /// <param name="testRunDirectory">Test Run Directory</param>
         public void Initialize(TestLoggerEvents events, string testRunDirectory)
         {
-            this.NotNull(events, nameof(events));
+            NotNull(events, nameof(events));
+
+            string appveyorApiUrl = Environment.GetEnvironmentVariable("APPVEYOR_API_URL");
+
+            if (appveyorApiUrl == null)
+            {
+                Console.WriteLine("Appveyor.TestLogger: Not an AppVeyor run.  Environment variable 'APPVEYOR_API_URL' not set.");
+                return;
+            }
+
+#if DEBUG
+            Console.WriteLine("Appveyor.TestLogger: Logging to {0}", appveyorApiUrl);
+#endif
+
+            queue = new AppveyorLoggerQueue(appveyorApiUrl);
 
             // Register for the events.
             events.TestRunMessage += this.TestMessageHandler;
@@ -50,8 +65,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
         /// </param>
         private void TestMessageHandler(object sender, TestRunMessageEventArgs e)
         {
-            this.NotNull(sender, "sender");
-            this.NotNull(e, "e");
+            NotNull(sender, nameof(sender));
+            NotNull(e, nameof(e));
 
             // Add code to handle message
         }
@@ -67,18 +82,19 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
         /// </param>
         private void TestResultHandler(object sender, TestResultEventArgs e)
         {
-            var allArgs = new List<string>();
-            string name = e.Result.TestCase.DisplayName;
+            string name = e.Result.TestCase.FullyQualifiedName;
             string filename = string.IsNullOrEmpty(e.Result.TestCase.Source) ? string.Empty : Path.GetFileName(e.Result.TestCase.Source);
             string outcome = e.Result.Outcome.ToString();
 
-            allArgs.Add("-Name " + name);
-            allArgs.Add("-Framework " + e.Result.TestCase.ExecutorUri.ToString());
+            var testResult = new Dictionary<string, string>();
+            testResult.Add("testName", name);
+            testResult.Add("testFramework", e.Result.TestCase.ExecutorUri.ToString());
+            testResult.Add("outcome", outcome);
+
             if (!string.IsNullOrEmpty(filename))
             {
-                allArgs.Add("-FileName " + this.AddDoubleQuotes(filename));
+                testResult.Add("fileName", filename);
             }
-            allArgs.Add("-outcome " + outcome);
 
             if (e.Result.Outcome == TestOutcome.Passed || e.Result.Outcome == TestOutcome.Failed)
             {
@@ -102,24 +118,23 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
                     }
                 }
 
-
-                allArgs.Add("-Duration " + duration);
+                testResult.Add("durationMilliseconds", duration.ToString(CultureInfo.InvariantCulture));
 
                 if (!string.IsNullOrEmpty(errorMessage))
                 {
-                    allArgs.Add("-ErrorMessage " + this.AddDoubleQuotes(errorMessage));
+                    testResult.Add("ErrorMessage", errorMessage);
                 }
                 if (!string.IsNullOrEmpty(errorStackTrace))
                 {
-                    allArgs.Add("-ErrorStackTrace " + this.AddDoubleQuotes(errorStackTrace));
+                    testResult.Add("ErrorStackTrace", errorStackTrace);
                 }
                 if (!string.IsNullOrEmpty(stdOut.ToString()))
                 {
-                    allArgs.Add("-StdOut " + this.AddDoubleQuotes(stdOut.ToString()));
+                    testResult.Add("StdOut", stdOut.ToString());
                 }
                 if (!string.IsNullOrEmpty(stdErr.ToString()))
                 {
-                    allArgs.Add("-StdErr " + this.AddDoubleQuotes(stdErr.ToString()));
+                    testResult.Add("StdErr", stdErr.ToString());
                 }
             }
             else
@@ -127,7 +142,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
                 // Handle output type skip, NotFound and None
             }
 
-            this.PublishTestResult(allArgs);
+            PublishTestResult(testResult);
         }
 
 
@@ -142,38 +157,32 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
         /// </param>
         private void TestRunCompleteHandler(object sender, TestRunCompleteEventArgs e)
         {
-            // handle test run complete
+            queue.Flush();
         }
 
-        private void PublishTestResult(IEnumerable<string> args)
+        private void PublishTestResult(Dictionary<string, string> testResult)
         {
-            string publishTestResultExe = "appveyor";
-            string functionToCall = "AddTest";
+            var jsonSb = new StringBuilder();
+            jsonSb.Append("{");
 
-            var processInfo = new ProcessStartInfo
+            bool firstItem = true;
+            foreach (var field in testResult)
             {
-                FileName = publishTestResultExe,
-                Arguments = functionToCall + " " + string.Join(" ", args),
-                UseShellExecute = false,
-                CreateNoWindow = true,
-                RedirectStandardError = true,
-                RedirectStandardOutput = true
-            };
-
-            using (var activeProcess = new Process { StartInfo = processInfo })
-            {
-                activeProcess.OutputDataReceived += (sender, arg) => Console.WriteLine(arg.Data);
-                activeProcess.ErrorDataReceived += (sender, arg) => Console.WriteLine(arg.Data);
-
-                activeProcess.Start();
-
-                activeProcess.BeginOutputReadLine();
-                activeProcess.BeginErrorReadLine();
-                activeProcess.WaitForExit();
+                if (!firstItem)
+                {
+                    jsonSb.Append(",");
+                }
+                firstItem = false;
+                jsonSb.Append("\"" + field.Key + "\": ");
+                JsonEscape.SerializeString(field.Value, jsonSb);
             }
+
+            jsonSb.Append("}");
+
+            queue.Enqueue(jsonSb.ToString());
         }
 
-        private T NotNull<T>(T arg, string parameterName)
+        private static T NotNull<T>(T arg, string parameterName)
         {
             if (arg == null)
             {
@@ -181,11 +190,6 @@ namespace Microsoft.VisualStudio.TestPlatform.Extensions.Appveyor.TestLogger
             }
 
             return arg;
-        }
-
-        private string AddDoubleQuotes(string x)
-        {
-            return "\"" + x + "\"";
         }
     }
 }
