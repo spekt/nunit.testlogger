@@ -60,6 +60,9 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestLogger
             {"Test Method Cleanup Failure", "test-method-cleanup"}
         };
 
+        // Disabling warning CS0659: 'XunitXmlTestLogger.TestResultInfo' overrides Object.Equals(object o) but does not override Object.GetHashCode()
+        // As this is a false alarm here.
+#pragma warning disable 0659
         private class TestResultInfo
         {
             public readonly TestCase TestCase;
@@ -114,6 +117,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestLogger
                 return false;
             }
         }
+
+#pragma warning restore 0659
 
         public void Initialize(TestLoggerEvents events, string testResultsDirPath)
         {
