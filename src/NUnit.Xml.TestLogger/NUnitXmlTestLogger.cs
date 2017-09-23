@@ -27,15 +27,11 @@
         public const string FriendlyName = "nunit";
 
         public const string LogFilePathKey = "LogFilePath";
-        public const string EnvironmentKey = "Environment";
-        public const string NUnitVersionKey = "NUnitVersion";
 
         private const string ResultStatusPassed = "Passed";
         private const string ResultStatusFailed = "Failed";
 
         private string outputFilePath;
-        private string environmentOpt;
-        private string nunitVersionOpt;
 
         private readonly object resultsGuard = new object();
         private List<TestResultInfo> results;
@@ -127,9 +123,6 @@
             {
                 throw new ArgumentException($"Expected {LogFilePathKey} or {DefaultLoggerParameterNames.TestRunDirectory} parameter", nameof(parameters));
             }
-
-            parameters.TryGetValue(EnvironmentKey, out environmentOpt);
-            parameters.TryGetValue(NUnitVersionKey, out nunitVersionOpt);
         }
 
         private void InitializeImpl(TestLoggerEvents events, string outputPath)
@@ -145,7 +138,7 @@
                 results = new List<TestResultInfo>();
             }
 
-            localStartTime = DateTime.Now;
+            localStartTime = DateTime.UtcNow;
         }
 
         /// <summary>
@@ -216,9 +209,7 @@
 
             element.SetAttributeValue("id", 2);
 
-            var resultString = DetermineResultFromDescendants(element, "test-suite");
-            element.SetAttributeValue("result", resultString);
-            element.SetAttributeValue("time", results.Sum(x => x.Time.TotalSeconds));
+            element.SetAttributeValue("duration", results.Sum(x => x.Time.TotalSeconds));
 
             var total = testSuites.Sum(x => (int) x.Attribute("total"));
 
@@ -226,27 +217,19 @@
             element.SetAttributeValue("testcasecount", total);
             element.SetAttributeValue("total", total);
             element.SetAttributeValue("passed", testSuites.Sum(x => (int) x.Attribute("passed")));
-            element.SetAttributeValue("failed", testSuites.Sum(x => (int) x.Attribute("failed")));
+
+            var failed = testSuites.Sum(x => (int) x.Attribute("failed"));
+            element.SetAttributeValue("failed", failed);
             element.SetAttributeValue("skipped", testSuites.Sum(x => (int) x.Attribute("skipped")));
 
-            element.SetAttributeValue("run-date", localStartTime.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
-            element.SetAttributeValue("run-time", localStartTime.ToString("HH:mm:ss", CultureInfo.InvariantCulture));
+            var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
+            element.SetAttributeValue("result", resultString);
+
+            const string dateFormat = "yyyy-MM-ddT HH:mm:ssZ";
+            element.SetAttributeValue("start-time", localStartTime.ToString("yyyy-MM-dd HH:mm:ssZ", CultureInfo.InvariantCulture));
+            element.SetAttributeValue("end-time", DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ssZ", CultureInfo.InvariantCulture));
 
             return element;
-        }
-
-        private static string DetermineResultFromDescendants(XElement element, string descendantElementName)
-        {
-            string resultString = ResultStatusPassed;
-            foreach (var x in element.Descendants(descendantElementName))
-            {
-                if (ResultStatusFailed.Equals((string) x.Attribute("result"), StringComparison.OrdinalIgnoreCase))
-                {
-                    resultString = ResultStatusFailed;
-                    break;
-                }
-            }
-            return resultString;
         }
 
         private XElement CreateTestSuiteElement(IGrouping<string, TestResultInfo> resultsByAssembly)
@@ -291,8 +274,10 @@
             element.SetAttributeValue("passed", passed);
             element.SetAttributeValue("failed", failed);
             element.SetAttributeValue("skipped", skipped);
-            element.SetAttributeValue("time", time.TotalSeconds.ToString("N3", CultureInfo.InvariantCulture));
+            element.SetAttributeValue("duration", time.TotalSeconds);
             element.SetAttributeValue("errors", errors);
+            var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
+            element.SetAttributeValue("result", resultString);
 
             return element;
         }
@@ -374,14 +359,15 @@
             element.SetAttributeValue("name", name);
             element.SetAttributeValue("fullname", resultsByType.Key);
 
-            var resultString = DetermineResultFromDescendants(element, "test-case");
-            element.SetAttributeValue("result", resultString);
-
             element.SetAttributeValue("total", total);
             element.SetAttributeValue("passed", passed);
             element.SetAttributeValue("failed", failed);
             element.SetAttributeValue("skipped", skipped);
-            element.SetAttributeValue("time", time.TotalSeconds.ToString("N3", CultureInfo.InvariantCulture));
+
+            var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
+            element.SetAttributeValue("result", resultString);
+            element.SetAttributeValue("result", resultString);
+            element.SetAttributeValue("duration", time.TotalSeconds);
 
             return (element, total, passed, failed, skipped, error, time);
         }
@@ -392,7 +378,7 @@
                 new XAttribute("name", result.Name),
                 new XAttribute("fullname", result.Type + "." + result.Method),
                 new XAttribute("result", OutcomeToString(result.Outcome)),
-                new XAttribute("time", result.Time.TotalSeconds.ToString("N7", CultureInfo.InvariantCulture)),
+                new XAttribute("duration", result.Time.TotalSeconds),
                 new XAttribute("asserts", 0));
 
             StringBuilder stdOut = new StringBuilder();
@@ -416,7 +402,7 @@
 
         private static bool TryParseName(string testCaseName, out string metadataTypeName, out string metadataMethodName, out string metadataMethodArguments)
         {
-            // This is fragile. The FQN is constructed by a test adapter. 
+            // This is fragile. The FQN is constructed by a test adapter.
             // There is no enforcement that the FQN starts with metadata type name.
 
             string typeAndMethodName;
@@ -479,8 +465,8 @@
         {
             if (str != null)
             {
-                // From xml spec (http://www.w3.org/TR/xml/#charsets) valid chars: 
-                // #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]  
+                // From xml spec (http://www.w3.org/TR/xml/#charsets) valid chars:
+                // #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
 
                 // we are handling only #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD]
                 // because C# support unicode character in range \u0000 to \uFFFF
