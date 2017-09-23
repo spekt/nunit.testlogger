@@ -98,3 +98,6 @@ ehthumbs.db
 packages
 nugetPackage
 [tT]ools
+
+# Rider
+.idea
