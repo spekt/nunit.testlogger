@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>    
-    <TargetFramework>net46</TargetFramework>
+  <PropertyGroup>
+    <TargetFramework>net451</TargetFramework>
     <Version Condition=" '$(LoggerVersion)' == '' ">1.0.0-dev</Version>
   </PropertyGroup>
 
