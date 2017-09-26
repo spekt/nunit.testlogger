@@ -126,7 +126,8 @@ function Invoke-Build
     Write-Log "Invoke-Build: Start build."
     $dotnetExe = Get-DotNetPath
 
-    $LoggerProjects = (Join-Path $env:LE_ROOT_DIR "src\Appveyor.TestLogger\Appveyor.TestLogger.csproj"),(Join-Path $env:LE_ROOT_DIR "src\Xunit.Xml.TestLogger\Xunit.Xml.TestLogger.csproj")
+    $LoggerProjects = (Join-Path $env:LE_ROOT_DIR "src\Appveyor.TestLogger\Appveyor.TestLogger.csproj"),(Join-Path $env:LE_ROOT_DIR "src\Xunit.Xml.TestLogger\Xunit.Xml.TestLogger.csproj"),(Join-Path $env:LE_ROOT_DIR "src\NUnit.Xml.TestLogger\NUnit.Xml.TestLogger.csproj"),(Join-Path $env:LE_ROOT_DIR "src\Appveyor.TestLogger.TestAdapter\Appveyor.TestLogger.TestAdapter.csproj"),(Join-Path $env:LE_ROOT_DIR "src\NUnit.Xml.TestLogger.TestAdapter\NUnit.Xml.TestLogger.TestAdapter.csproj"),(Join-Path $env:LE_ROOT_DIR "src\Xunit.Xml.TestLogger.TestAdapter\Xunit.Xml.TestLogger.TestAdapter.csproj")
+	
     ForEach ($proj in $LoggerProjects) {
         Write-Log ".. .. Build: $dotnetExe build $proj --configuration $LEB_Configuration -v:minimal -p:Version=$LEB_FullVersion"
         & $dotnetExe build $proj --configuration $LEB_Configuration -v:minimal -p:Version=$LEB_FullVersion
@@ -146,16 +147,29 @@ function Create-NugetPackages
 
     $AppveyorNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\Appveyor.TestLogger.nuspec"
     $XunitXmlNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\XunitXml.TestLogger.nuspec"
+	$NunitXmlNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\NunitXml.TestLogger.nuspec"
 
     Write-Log "Create-NugetPackages: Started."
     $lePackageDirectory = Join-Path $env:LE_ROOT_DIR "nugetPackage"
     New-Item -ItemType directory -Path $lePackageDirectory -Force | Out-Null
 
-    # Copy Appveyor and xunit xml logger dll in Nuspec folder
+    # Copy Appveyor Nunit and Nunit xml logger dll in Nuspec folder
     $sourceFile = Join-Path $env:LE_ROOT_DIR "src\Appveyor.TestLogger\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.Appveyor.TestLogger.dll"
+    Copy-Item $sourceFile $lePackageDirectory -Force
+	
+	$sourceFile = Join-Path $env:LE_ROOT_DIR "src\Appveyor.TestLogger.Testadapter\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.Appveyor.TestAdapter.dll"
     Copy-Item $sourceFile $lePackageDirectory -Force
 
     $sourceFile = Join-Path $env:LE_ROOT_DIR "src\Xunit.Xml.TestLogger\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestLogger.dll"
+    Copy-Item $sourceFile $lePackageDirectory -Force
+	
+	$sourceFile = Join-Path $env:LE_ROOT_DIR "src\Xunit.Xml.TestLogger.TestAdapter\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter.dll"
+    Copy-Item $sourceFile $lePackageDirectory -Force
+	
+	$sourceFile = Join-Path $env:LE_ROOT_DIR "src\Nunit.Xml.TestLogger\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.Nunit.Xml.TestLogger.dll"
+    Copy-Item $sourceFile $lePackageDirectory -Force
+	
+	$sourceFile = Join-Path $env:LE_ROOT_DIR "src\Nunit.Xml.TestLogger.TestAdapter\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.Nunit.Xml.TestAdapter.dll"
     Copy-Item $sourceFile $lePackageDirectory -Force
 
     $nugetExe = Join-Path $env:LE_PACKAGES_DIR -ChildPath "Nuget.CommandLine" | Join-Path -ChildPath $env:NUGET_EXE_Version | Join-Path -ChildPath "tools\NuGet.exe"
@@ -166,17 +180,23 @@ function Create-NugetPackages
 
     Write-Log ".. .. Create-NugetPackages: $nugetExe pack $XunitXmlNuspecProject -OutputDirectory $lePackageDirectory -Version $LEB_FullVersion -Properties Version=$LEB_FullVersion"
     & $nugetExe pack $XunitXmlNuspecProject -OutputDirectory $lePackageDirectory -Version $LEB_FullVersion -Properties Version=$LEB_FullVersion
+	
+	Write-Log ".. .. Create-NugetPackages: $nugetExe pack $NunitXmlNuspecProject -OutputDirectory $lePackageDirectory -Version $LEB_FullVersion -Properties Version=$LEB_FullVersion"
+    & $nugetExe pack $NunitXmlNuspecProject -OutputDirectory $lePackageDirectory -Version $LEB_FullVersion -Properties Version=$LEB_FullVersion
 
     Write-Log "Create-NugetPackages: Complete. {$(Get-ElapsedTime($timer))}"
 }
 
 function Run-Test
 {
+    Write-Log "Run-Test: Started."
+
     $timer = Start-Timer
 
     #remove previously built packages to force getting them from the nugetPackages directory.
     Remove-Item -Recurse -Force (Join-Path $env:LE_PACKAGES_DIR "appveyor.testlogger") -ErrorAction Ignore
     Remove-Item -Recurse -Force (Join-Path $env:LE_PACKAGES_DIR "xunitxml.testlogger") -ErrorAction Ignore
+    Remove-Item -Recurse -Force (Join-Path $env:LE_PACKAGES_DIR "nunitxml.testlogger") -ErrorAction Ignore
 
     $dotnetExe = Get-DotNetPath
 
@@ -193,7 +213,7 @@ function Run-Test
     $testProject = Join-Path $TestProjectsDir "Xunit.Xml.TestLogger.NetCore.Tests\Xunit.Xml.TestLogger.NetCore.Tests.csproj"
     $loggerFilePath = Join-Path $TestProjectsDir "Xunit.Xml.TestLogger.NetCore.Tests\loggerFile.xml"
     Remove-Item $loggerFilePath -ErrorAction Ignore
-    Write-Log '.. .. Run-Test: & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:"xunit;LogFilePath=loggerFile.xml" -p:LoggerVersion=$LEB_FullVersion'
+    Write-Log ".. .. Run-Test: & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:xunit;LogFilePath=loggerFile.xml -p:LoggerVersion=$LEB_FullVersion"
     & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:"xunit;LogFilePath=loggerFile.xml" -p:LoggerVersion=$LEB_FullVersion
 
     # Check xunit logger is creating logger file
@@ -209,6 +229,30 @@ function Run-Test
     & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:xunit -p:LoggerVersion=$LEB_FullVersion
 
     # Check xunit logger is creating logger file
+    if( -not(Test-Path $loggerFilePath)){
+        Write-Error "File $loggerFilePath does not exist"
+        Set-ScriptFailed
+    }
+
+    $testProject = Join-Path $TestProjectsDir "Nunit.Xml.TestLogger.NetCore.Tests\Nunit.Xml.TestLogger.NetCore.Tests.csproj"
+    $loggerFilePath = Join-Path $TestProjectsDir "Nunit.Xml.TestLogger.NetCore.Tests\loggerFile.xml"
+    Remove-Item $loggerFilePath -ErrorAction Ignore
+    Write-Log ".. .. Run-Test: & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:nunit;LogFilePath=loggerFile.xml -p:LoggerVersion=$LEB_FullVersion"
+    & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:"nunit;LogFilePath=loggerFile.xml" -p:LoggerVersion=$LEB_FullVersion
+
+    # Check nunit logger is creating logger file
+    if( -not(Test-Path $loggerFilePath)){
+        Write-Error "File $loggerFilePath does not exist"
+        Set-ScriptFailed
+    }
+
+    $testProject = Join-Path $TestProjectsDir "Nunit.Xml.TestLogger.NetFull.Tests\Nunit.Xml.TestLogger.NetFull.Tests.csproj"
+    $loggerFilePath = Join-Path $TestProjectsDir "Nunit.Xml.TestLogger.NetFull.Tests\TestResults\TestResults.xml"
+    Remove-Item $loggerFilePath -ErrorAction Ignore
+    Write-Log ".. .. Run-Test: & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:nunit -p:LoggerVersion=$LEB_FullVersion"
+    & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:nunit -p:LoggerVersion=$LEB_FullVersion
+
+    # Check nunit logger is creating logger file
     if( -not(Test-Path $loggerFilePath)){
         Write-Error "File $loggerFilePath does not exist"
         Set-ScriptFailed

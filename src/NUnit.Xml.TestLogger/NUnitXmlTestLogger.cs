@@ -226,8 +226,8 @@
             element.SetAttributeValue("result", resultString);
 
             const string dateFormat = "yyyy-MM-ddT HH:mm:ssZ";
-            element.SetAttributeValue("start-time", localStartTime.ToString("yyyy-MM-dd HH:mm:ssZ", CultureInfo.InvariantCulture));
-            element.SetAttributeValue("end-time", DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ssZ", CultureInfo.InvariantCulture));
+            element.SetAttributeValue("start-time", localStartTime.ToString(dateFormat, CultureInfo.InvariantCulture));
+            element.SetAttributeValue("end-time", DateTime.UtcNow.ToString(dateFormat, CultureInfo.InvariantCulture));
 
             return element;
         }

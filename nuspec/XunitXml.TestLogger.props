@@ -6,5 +6,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
+    <Content Include="$(MSBuildThisFileDirectory)..\_common\Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter.dll">
+      <Link>Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>False</Visible>
+    </Content>
   </ItemGroup>
 </Project>

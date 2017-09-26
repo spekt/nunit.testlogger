@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26507.0
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3FB5E8BF-B24A-4246-97B8-B98E028457BF}"
 EndProject
@@ -23,11 +23,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restore", "src\ExternalPack
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xunit.Xml.TestLogger.NetFull.Tests", "test\Xunit.Xml.TestLogger.NetFull.Tests\Xunit.Xml.TestLogger.NetFull.Tests.csproj", "{269D6102-6163-4AD8-A89A-9965B9F24A52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.Xml.TestLogger.NetCore.Tests", "test\NUnit.Xml.TestLogger.NetCore.Tests\NUnit.Xml.TestLogger.NetCore.Tests.csproj", "{AEA0096F-64C1-4A10-9AD5-B4BB5A990D5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnit.Xml.TestLogger.NetCore.Tests", "test\NUnit.Xml.TestLogger.NetCore.Tests\NUnit.Xml.TestLogger.NetCore.Tests.csproj", "{AEA0096F-64C1-4A10-9AD5-B4BB5A990D5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.Xml.TestLogger.NetFull.Tests", "test\NUnit.Xml.TestLogger.NetFull.Tests\NUnit.Xml.TestLogger.NetFull.Tests.csproj", "{01F109DC-1379-4AB2-86E8-83CA1A06B39F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnit.Xml.TestLogger.NetFull.Tests", "test\NUnit.Xml.TestLogger.NetFull.Tests\NUnit.Xml.TestLogger.NetFull.Tests.csproj", "{01F109DC-1379-4AB2-86E8-83CA1A06B39F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.Xml.TestLogger", "src\NUnit.Xml.TestLogger\NUnit.Xml.TestLogger.csproj", "{E8C9763A-ED00-4093-A311-E8B13DCDD75F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnit.Xml.TestLogger", "src\NUnit.Xml.TestLogger\NUnit.Xml.TestLogger.csproj", "{E8C9763A-ED00-4093-A311-E8B13DCDD75F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appveyor.TestLogger.TestAdapter", "src\Appveyor.TestLogger.TestAdapter\Appveyor.TestLogger.TestAdapter.csproj", "{140C6885-D79E-4D8D-9F4A-0B40FB2F8AF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.Xml.TestLogger.TestAdapter", "src\NUnit.Xml.TestLogger.TestAdapter\NUnit.Xml.TestLogger.TestAdapter.csproj", "{CACFBF3B-5F0F-408F-983F-58A76761CD39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xunit.Xml.TestLogger.TestAdapter", "src\Xunit.Xml.TestLogger.TestAdapter\Xunit.Xml.TestLogger.TestAdapter.csproj", "{3FEEDF15-7489-4A88-A08A-8B75AEF74C56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +81,18 @@ Global
 		{E8C9763A-ED00-4093-A311-E8B13DCDD75F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8C9763A-ED00-4093-A311-E8B13DCDD75F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8C9763A-ED00-4093-A311-E8B13DCDD75F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{140C6885-D79E-4D8D-9F4A-0B40FB2F8AF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{140C6885-D79E-4D8D-9F4A-0B40FB2F8AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{140C6885-D79E-4D8D-9F4A-0B40FB2F8AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{140C6885-D79E-4D8D-9F4A-0B40FB2F8AF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CACFBF3B-5F0F-408F-983F-58A76761CD39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CACFBF3B-5F0F-408F-983F-58A76761CD39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CACFBF3B-5F0F-408F-983F-58A76761CD39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CACFBF3B-5F0F-408F-983F-58A76761CD39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FEEDF15-7489-4A88-A08A-8B75AEF74C56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FEEDF15-7489-4A88-A08A-8B75AEF74C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FEEDF15-7489-4A88-A08A-8B75AEF74C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FEEDF15-7489-4A88-A08A-8B75AEF74C56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,5 +109,8 @@ Global
 		{AEA0096F-64C1-4A10-9AD5-B4BB5A990D5A} = {2A90596D-42AC-49DB-B5BF-72E1AFD7A066}
 		{01F109DC-1379-4AB2-86E8-83CA1A06B39F} = {2A90596D-42AC-49DB-B5BF-72E1AFD7A066}
 		{E8C9763A-ED00-4093-A311-E8B13DCDD75F} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
+		{140C6885-D79E-4D8D-9F4A-0B40FB2F8AF6} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
+		{CACFBF3B-5F0F-408F-983F-58A76761CD39} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
+		{3FEEDF15-7489-4A88-A08A-8B75AEF74C56} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
 	EndGlobalSection
 EndGlobal
