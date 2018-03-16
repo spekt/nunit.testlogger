@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>TeamCity.TestLogger</id>
+    <version>$Version$</version>
+    <title>TeamCity.TestLogger</title>
+    <authors>Faizan2304,lahma,kevnord</authors>
+    <owners>Faizan2304</owners>
+	<projectUrl>https://github.com/Faizan2304/LoggerExtensions</projectUrl>
+	<description>TeamCity logger that should produce quite compliant TeamCity output when test is running with "dotnet test" or "dotnet vstest".</description>
+  </metadata>
+  <files>
+    <file src="..\nugetPackage\Microsoft.VisualStudio.TestPlatform.Extension.TeamCity.TestLogger.dll" target="build\_common\" />
+    <file src="..\nugetPackage\Microsoft.VisualStudio.TestPlatform.Extension.TeamCity.TestAdapter.dll" target="build\_common\" />
+
+    <!-- Net Core -->
+    <file src="TeamCity.TestLogger.props" target="build\netstandard1.0\" />
+
+    <!-- Desktop -->
+    <file src="TeamCity.TestLogger.props" target="build\net45\" />
+  </files>
+</package>

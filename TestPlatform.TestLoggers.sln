@@ -35,6 +35,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.Xml.TestLogger.TestAd
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xunit.Xml.TestLogger.TestAdapter", "src\Xunit.Xml.TestLogger.TestAdapter\Xunit.Xml.TestLogger.TestAdapter.csproj", "{3FEEDF15-7489-4A88-A08A-8B75AEF74C56}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamCity.TestLogger", "src\TeamCity.TestLogger\TeamCity.TestLogger.csproj", "{E895B088-F8F7-4684-82E5-AF7DBBEF234F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamCity.TestLogger.TestAdapter", "src\TeamCity.TestLogger.TestAdapter\TeamCity.TestLogger.TestAdapter.csproj", "{DF6F5371-5F71-437A-8582-F8AC64A3E542}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamCity.TestLogger.NetCore.Tests", "test\TeamCity.TestLogger.NetCore.Tests\TeamCity.TestLogger.NetCore.Tests.csproj", "{6A5EB673-352A-40FE-B616-F96B3B12936F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamCity.TestLogger.NetFull.Tests", "test\TeamCity.TestLogger.NetFull.Tests\TeamCity.TestLogger.NetFull.Tests.csproj", "{06B4AC28-1F52-422D-B177-ADBDF83E0EF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +101,22 @@ Global
 		{3FEEDF15-7489-4A88-A08A-8B75AEF74C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FEEDF15-7489-4A88-A08A-8B75AEF74C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FEEDF15-7489-4A88-A08A-8B75AEF74C56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E895B088-F8F7-4684-82E5-AF7DBBEF234F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E895B088-F8F7-4684-82E5-AF7DBBEF234F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E895B088-F8F7-4684-82E5-AF7DBBEF234F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E895B088-F8F7-4684-82E5-AF7DBBEF234F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF6F5371-5F71-437A-8582-F8AC64A3E542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF6F5371-5F71-437A-8582-F8AC64A3E542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF6F5371-5F71-437A-8582-F8AC64A3E542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF6F5371-5F71-437A-8582-F8AC64A3E542}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A5EB673-352A-40FE-B616-F96B3B12936F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A5EB673-352A-40FE-B616-F96B3B12936F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A5EB673-352A-40FE-B616-F96B3B12936F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A5EB673-352A-40FE-B616-F96B3B12936F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06B4AC28-1F52-422D-B177-ADBDF83E0EF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06B4AC28-1F52-422D-B177-ADBDF83E0EF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06B4AC28-1F52-422D-B177-ADBDF83E0EF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06B4AC28-1F52-422D-B177-ADBDF83E0EF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,5 +136,12 @@ Global
 		{140C6885-D79E-4D8D-9F4A-0B40FB2F8AF6} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
 		{CACFBF3B-5F0F-408F-983F-58A76761CD39} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
 		{3FEEDF15-7489-4A88-A08A-8B75AEF74C56} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
+		{E895B088-F8F7-4684-82E5-AF7DBBEF234F} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
+		{DF6F5371-5F71-437A-8582-F8AC64A3E542} = {3FB5E8BF-B24A-4246-97B8-B98E028457BF}
+		{6A5EB673-352A-40FE-B616-F96B3B12936F} = {2A90596D-42AC-49DB-B5BF-72E1AFD7A066}
+		{06B4AC28-1F52-422D-B177-ADBDF83E0EF4} = {2A90596D-42AC-49DB-B5BF-72E1AFD7A066}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C6112424-F4F2-47EE-8474-8E34106A17B1}
 	EndGlobalSection
 EndGlobal
