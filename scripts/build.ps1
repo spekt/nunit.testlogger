@@ -126,7 +126,7 @@ function Invoke-Build
     Write-Log "Invoke-Build: Start build."
     $dotnetExe = Get-DotNetPath
 
-    $LoggerProjects = (Join-Path $env:LE_ROOT_DIR "src\Appveyor.TestLogger\Appveyor.TestLogger.csproj"),(Join-Path $env:LE_ROOT_DIR "src\Xunit.Xml.TestLogger\Xunit.Xml.TestLogger.csproj"),(Join-Path $env:LE_ROOT_DIR "src\NUnit.Xml.TestLogger\NUnit.Xml.TestLogger.csproj"),(Join-Path $env:LE_ROOT_DIR "src\Appveyor.TestLogger.TestAdapter\Appveyor.TestLogger.TestAdapter.csproj"),(Join-Path $env:LE_ROOT_DIR "src\NUnit.Xml.TestLogger.TestAdapter\NUnit.Xml.TestLogger.TestAdapter.csproj"),(Join-Path $env:LE_ROOT_DIR "src\Xunit.Xml.TestLogger.TestAdapter\Xunit.Xml.TestLogger.TestAdapter.csproj")
+    $LoggerProjects = (Join-Path $env:LE_ROOT_DIR "src\Appveyor.TestLogger\Appveyor.TestLogger.csproj"),(Join-Path $env:LE_ROOT_DIR "src\TeamCity.TestLogger\TeamCity.TestLogger.csproj"),(Join-Path $env:LE_ROOT_DIR "src\Xunit.Xml.TestLogger\Xunit.Xml.TestLogger.csproj"),(Join-Path $env:LE_ROOT_DIR "src\NUnit.Xml.TestLogger\NUnit.Xml.TestLogger.csproj"),(Join-Path $env:LE_ROOT_DIR "src\Appveyor.TestLogger.TestAdapter\Appveyor.TestLogger.TestAdapter.csproj"),(Join-Path $env:LE_ROOT_DIR "src\TeamCity.TestLogger.TestAdapter\TeamCity.TestLogger.TestAdapter.csproj"),(Join-Path $env:LE_ROOT_DIR "src\NUnit.Xml.TestLogger.TestAdapter\NUnit.Xml.TestLogger.TestAdapter.csproj"),(Join-Path $env:LE_ROOT_DIR "src\Xunit.Xml.TestLogger.TestAdapter\Xunit.Xml.TestLogger.TestAdapter.csproj")
 
     ForEach ($proj in $LoggerProjects) {
         Write-Log ".. .. Build: $dotnetExe build $proj --configuration $LEB_Configuration -v:minimal -p:Version=$LEB_FullVersion"
@@ -148,6 +148,7 @@ function Create-NugetPackages
     $AppveyorNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\Appveyor.TestLogger.nuspec"
     $XunitXmlNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\XunitXml.TestLogger.nuspec"
 	$NunitXmlNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\NunitXml.TestLogger.nuspec"
+	$TeamCityNuspecProject = Join-Path $env:LE_ROOT_DIR "nuspec\TeamCity.TestLogger.nuspec"
 
     Write-Log "Create-NugetPackages: Started."
     $lePackageDirectory = Join-Path $env:LE_ROOT_DIR "nugetPackage"
@@ -172,6 +173,12 @@ function Create-NugetPackages
 	$sourceFile = Join-Path $env:LE_ROOT_DIR "src\Nunit.Xml.TestLogger.TestAdapter\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestAdapter.dll"
     Copy-Item $sourceFile $lePackageDirectory -Force
 
+	$sourceFile = Join-Path $env:LE_ROOT_DIR "src\TeamCity.TestLogger\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.TeamCity.TestLogger.dll"
+    Copy-Item $sourceFile $lePackageDirectory -Force
+
+	$sourceFile = Join-Path $env:LE_ROOT_DIR "src\TeamCity.TestLogger.TestAdapter\bin\$LEB_Configuration\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Extension.TeamCity.TestAdapter.dll"
+    Copy-Item $sourceFile $lePackageDirectory -Force
+
     $nugetExe = Join-Path $env:LE_PACKAGES_DIR -ChildPath "Nuget.CommandLine" | Join-Path -ChildPath $env:NUGET_EXE_Version | Join-Path -ChildPath "tools\NuGet.exe"
 
     # Call nuget pack on these components.
@@ -183,6 +190,9 @@ function Create-NugetPackages
 
 	Write-Log ".. .. Create-NugetPackages: $nugetExe pack $NunitXmlNuspecProject -OutputDirectory $lePackageDirectory -Version $LEB_FullVersion -Properties Version=$LEB_FullVersion"
     & $nugetExe pack $NunitXmlNuspecProject -OutputDirectory $lePackageDirectory -Version $LEB_FullVersion -Properties Version=$LEB_FullVersion
+
+	Write-Log ".. .. Create-NugetPackages: $nugetExe pack $TeamCityNuspecProject -OutputDirectory $lePackageDirectory -Version $LEB_FullVersion -Properties Version=$LEB_FullVersion"
+    & $nugetExe pack $TeamCityNuspecProject -OutputDirectory $lePackageDirectory -Version $LEB_FullVersion -Properties Version=$LEB_FullVersion
 
     Write-Log "Create-NugetPackages: Complete. {$(Get-ElapsedTime($timer))}"
 }
@@ -197,6 +207,7 @@ function Run-Test
     Remove-Item -Recurse -Force (Join-Path $env:LE_PACKAGES_DIR "appveyor.testlogger") -ErrorAction Ignore
     Remove-Item -Recurse -Force (Join-Path $env:LE_PACKAGES_DIR "xunitxml.testlogger") -ErrorAction Ignore
     Remove-Item -Recurse -Force (Join-Path $env:LE_PACKAGES_DIR "nunitxml.testlogger") -ErrorAction Ignore
+    Remove-Item -Recurse -Force (Join-Path $env:LE_PACKAGES_DIR "teamcity.testlogger") -ErrorAction Ignore
 
     $dotnetExe = Get-DotNetPath
 
@@ -257,6 +268,17 @@ function Run-Test
         Write-Error "File $loggerFilePath does not exist"
         Set-ScriptFailed
     }
+
+    # TeamCity
+
+    $testProject = Join-Path $TestProjectsDir "TeamCity.TestLogger.NetCore.Tests\TeamCity.TestLogger.NetCore.Tests.csproj"
+    Write-Log ".. .. Run-Test: & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:teamcity -p:LoggerVersion=$LEB_FullVersion"
+    & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:teamcity -p:LoggerVersion=$LEB_FullVersion
+
+    $testProject = Join-Path $TestProjectsDir "TeamCity.TestLogger.NetFull.Tests\TeamCity.TestLogger.NetFull.Tests.csproj"
+    Write-Log ".. .. Run-Test: & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:teamcity -p:LoggerVersion=$LEB_FullVersion"
+    & $dotnetExe test $testProject --configuration:$LEB_Configuration --logger:teamcity -p:LoggerVersion=$LEB_FullVersion
+
 
     Write-Log "Run-Test: Complete. {$(Get-ElapsedTime($timer))}"
 }

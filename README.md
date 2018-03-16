@@ -39,6 +39,16 @@ A path for the report file can be specified as follows:
 
 `loggerFile.xml` will be generated in the same directory as `test.csproj`.
  
+### TeamCity Logger
+TeamCity logger can generate TeamCity output in the format (https://confluence.jetbrains.com/display/TCD10/Build+Script+Interaction+with+TeamCity).
+
+1. Add a reference to the [TeamCity Logger](https://www.nuget.org/packages/TeamCity.TestLogger) nuget package in test project
+2. Use the following command line in tests
+```
+> dotnet test --test-adapter-path:. --logger:teamcity
+```
+3. Test results are generated and output to the Console.
+
 ### Xunit Logger
 Xunit logger can generate xml reports in the xunit v2 format (https://xunit.github.io/docs/format-xml-v2.html).
 
