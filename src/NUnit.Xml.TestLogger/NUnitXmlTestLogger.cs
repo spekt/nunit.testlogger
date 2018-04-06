@@ -390,6 +390,11 @@
                 }
             }
 
+            if (!string.IsNullOrWhiteSpace(stdOut.ToString()))
+            {
+                element.Add(new XElement("output", new XCData(stdOut.ToString())));
+            }
+
             if (result.Outcome == TestOutcome.Failed)
             {
                 element.Add(new XElement("failure",
