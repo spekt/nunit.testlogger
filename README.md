@@ -38,6 +38,7 @@ A path for the report file can be specified as follows:
 ```
 
 `loggerFile.xml` will be generated in the same directory as `test.csproj`.
+
 4. If you are targeting multiple frameworks in your `test.csproj`, you can enable `AppendTimeStamp` so that `LogFilePath` has `HH:mm:ss:ms` appended.
 ```
 > dotnet test --test-adapter-path:. --logger:nunit;LogFilePath=loggerFile.xml;AppendTimeStamp=true
