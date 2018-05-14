@@ -136,7 +136,7 @@
             // Append HH:mm:ss:ms to outputFilePath to ensure unique output filename
             // This is to prevent the output file from getting overwritten in the case of tests being ran for multiple target frameworks
             var filePathNoExtension = Path.ChangeExtension(filePath, null);
-            return $"{filePathNoExtension}{DateTime.Now.ToString("HH:mm:ss:ms")}.xml";
+            return $"{filePathNoExtension}-{DateTime.Now.ToString("HH:mm:ss:ms")}.xml";
         }
 
         private void InitializeImpl(TestLoggerEvents events, string outputPath)
