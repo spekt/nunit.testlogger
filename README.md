@@ -38,7 +38,12 @@ A path for the report file can be specified as follows:
 ```
 
 `loggerFile.xml` will be generated in the same directory as `test.csproj`.
- 
+4. If you are targeting multiple frameworks in your `test.csproj`, you can enable `AppendTimeStamp` so that `LogFilePath` has `HH:mm:ss:ms` appended.
+```
+> dotnet test --test-adapter-path:. --logger:nunit;LogFilePath=loggerFile.xml;AppendTimeStamp=true
+```
+`loggerFile-19:05:30:336.xml` will be generated for each target framework.
+
 ### Xunit Logger
 Xunit logger can generate xml reports in the xunit v2 format (https://xunit.github.io/docs/format-xml-v2.html).
 

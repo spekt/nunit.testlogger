@@ -28,6 +28,8 @@
 
         public const string LogFilePathKey = "LogFilePath";
 
+        public const string AppendTimeStamp = "AppendTimeStamp";
+
         private const string ResultStatusPassed = "Passed";
         private const string ResultStatusFailed = "Failed";
 
@@ -113,6 +115,10 @@
 
             if (parameters.TryGetValue(LogFilePathKey, out string outputPath))
             {
+                if (parameters.TryGetValue(AppendTimeStamp, out appendTimeStamp))
+                {
+                    outputPath = AppendTimestampToXmlFile(outputPath);
+                }
                 InitializeImpl(events, outputPath);
             }
             else if (parameters.TryGetValue(DefaultLoggerParameterNames.TestRunDirectory, out string outputDir))
@@ -123,6 +129,14 @@
             {
                 throw new ArgumentException($"Expected {LogFilePathKey} or {DefaultLoggerParameterNames.TestRunDirectory} parameter", nameof(parameters));
             }
+        }
+
+        private string AppendTimestampToXmlFile(string filePath)
+        {
+            // Append HH:mm:ss:ms to outputFilePath to ensure unique output filename
+            // This is to prevent the output file from getting overwritten in the case of tests being ran for multiple target frameworks
+            var filePathNoExtension = Path.ChangeExtension(filePath, null);
+            return $"{filePathNoExtension}{DateTime.Now.ToString("HH:mm:ss:ms")}.xml";
         }
 
         private void InitializeImpl(TestLoggerEvents events, string outputPath)
