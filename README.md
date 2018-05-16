@@ -34,10 +34,12 @@ NUnit logger can generate xml reports in the NUnit v3 format (https://github.com
 
 A path for the report file can be specified as follows:
 ```
-> dotnet test --test-adapter-path:. --logger:nunit;LogFilePath=loggerFile.xml
+> dotnet test --test-adapter-path:. --logger:"nunit;LogFilePath=loggerFile.xml"
 ```
 
 `loggerFile.xml` will be generated in the same directory as `test.csproj`.
+
+**Note:** the arguments to `--logger` should be in quotes since `;` is treated as a command delimiter in shell.
  
 ### Xunit Logger
 Xunit logger can generate xml reports in the xunit v2 format (https://xunit.github.io/docs/format-xml-v2.html).
@@ -51,10 +53,12 @@ Xunit logger can generate xml reports in the xunit v2 format (https://xunit.gith
 
 A path for the report file can be specified as follows:
 ```
-> dotnet test --test-adapter-path:. --logger:xunit;LogFilePath=loggerFile.xml
+> dotnet test --test-adapter-path:. --logger:"xunit;LogFilePath=loggerFile.xml"
 ```
 
 `loggerFile.xml` will be generated in the same directory as `test.csproj`.
+
+**Note:** the arguments to `--logger` should be in quotes since `;` is treated as a command delimiter in shell.
 
 ## LICENSE
 MIT
