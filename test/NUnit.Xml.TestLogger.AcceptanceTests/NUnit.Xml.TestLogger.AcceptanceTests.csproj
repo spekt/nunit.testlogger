@@ -15,7 +15,7 @@
 
   <!-- Build test assets for acceptance tests -->
   <PropertyGroup>
-    <TestRestoreSources>&quot;$(MSBuildThisFileDirectory)../../src/package/bin/$(Configuration);https://api.nuget.org/v3/index.json&quot;</TestRestoreSources>
+    <TestRestoreSources>&quot;https://api.nuget.org/v3/index.json;$(MSBuildThisFileDirectory)../../src/package/bin/$(Configuration)&quot;</TestRestoreSources>
     <TestFullProject>$(MSBuildThisFileDirectory)../assets/NUnit.Xml.TestLogger.NetFull.Tests/NUnit.Xml.TestLogger.NetFull.Tests.csproj</TestFullProject>
     <TestCoreProject>$(MSBuildThisFileDirectory)../assets/NUnit.Xml.TestLogger.NetCore.Tests/NUnit.Xml.TestLogger.NetCore.Tests.csproj</TestCoreProject>
   </PropertyGroup>
