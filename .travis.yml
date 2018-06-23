@@ -1,0 +1,12 @@
+language: csharp
+
+matrix:
+    include:
+        - dotnet: 2.1
+          mono: latest
+
+solution: nunit.testlogger.sln
+
+script:
+    - dotnet pack
+    #- dotnet test test/NUnit.Xml.TestLogger.AcceptanceTests/NUnit.Xml.TestLogger.AcceptanceTests.csproj

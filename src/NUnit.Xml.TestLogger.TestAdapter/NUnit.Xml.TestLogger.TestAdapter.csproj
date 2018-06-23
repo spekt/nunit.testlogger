@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="../../scripts/version.props" />
+
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
     <AssemblyName>Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestAdapter</AssemblyName>
