@@ -15,15 +15,15 @@
 
   <!-- Build test assets for acceptance tests -->
   <PropertyGroup>
-    <TestRestoreSources>&quot;https://api.nuget.org/v3/index.json;$(MSBuildThisFileDirectory)../../src/package/bin/$(Configuration)&quot;</TestRestoreSources>
+    <TestRestoreConfig>$(MSBuildThisFileDirectory)../assets/NuGet.$(Configuration).config</TestRestoreConfig>
     <TestFullProject>$(MSBuildThisFileDirectory)../assets/NUnit.Xml.TestLogger.NetFull.Tests/NUnit.Xml.TestLogger.NetFull.Tests.csproj</TestFullProject>
     <TestCoreProject>$(MSBuildThisFileDirectory)../assets/NUnit.Xml.TestLogger.NetCore.Tests/NUnit.Xml.TestLogger.NetCore.Tests.csproj</TestCoreProject>
   </PropertyGroup>
   <Target Name="TestTarget" AfterTargets="Build">
     <Message Importance="High" Text="... Building test assets" />
     <RemoveDir Directories="$(NuGetPackageRoot)/xunitxml.testlogger" />
-    <Exec ContinueOnError="False" Command="dotnet build -c $(Configuration) '-p:RestoreSources=$(TestRestoreSources)' $(TestCoreProject)"/>
-    <Exec ContinueOnError="False" Command="dotnet build -c $(Configuration) '-p:RestoreSources=$(TestRestoreSources)' $(TestFullProject)"/>
+    <Exec ContinueOnError="False" Command="dotnet build -c $(Configuration) -p:RestoreConfigFile=$(TestRestoreConfig) -p:RestoreIgnoreFailedSources=true -p:RestoreNoCache=true $(TestCoreProject)"/>
+    <Exec ContinueOnError="False" Command="dotnet build -c $(Configuration) -p:RestoreConfigFile=$(TestRestoreConfig) -p:RestoreIgnoreFailedSources=true -p:RestoreNoCache=true $(TestFullProject)"/>
     <Message Importance="High" Text="... Completed" />
   </Target>
 </Project>
