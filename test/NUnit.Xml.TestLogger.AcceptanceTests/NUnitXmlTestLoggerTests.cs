@@ -52,6 +52,15 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
         public void TestResultFileShouldContainAssemblyTestSuite()
         {
             var node = this.resultsXml.XPathSelectElement("/test-run/test-suite[@type='Assembly']");
+
+            Assert.IsNotNull(node);
+            Assert.AreEqual("21", node.Attribute(XName.Get("total")).Value);
+            Assert.AreEqual("7", node.Attribute(XName.Get("passed")).Value);
+            Assert.AreEqual("7", node.Attribute(XName.Get("failed")).Value);
+            Assert.AreEqual("7", node.Attribute(XName.Get("skipped")).Value);
+            Assert.AreEqual("Failed", node.Attribute(XName.Get("result")).Value);
+            Assert.AreEqual("NUnit.Xml.TestLogger.NetCore.Tests.dll", node.Attribute(XName.Get("name")).Value);
+            Assert.AreEqual(DotnetTestFixture.TestAssembly, node.Attribute(XName.Get("fullname")).Value);
         }
     }
 
@@ -68,6 +77,19 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
                                                      "..",
                                                      "assets",
                                                      "NUnit.Xml.TestLogger.NetCore.Tests"));
+            }
+        }
+
+        public static string TestAssembly
+        {
+            get
+            {
+#if DEBUG
+                var config = "Debug";
+#else
+                var config = "Release";
+#endif
+                return Path.Combine(RootDirectory, "bin", config, "netcoreapp2.0", "NUnit.Xml.TestLogger.NetCore.Tests.dll");
             }
         }
 
