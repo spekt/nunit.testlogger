@@ -377,6 +377,8 @@
             var element = new XElement("test-case",
                 new XAttribute("name", result.Name),
                 new XAttribute("fullname", result.Type + "." + result.Method),
+                new XAttribute("methodname", result.Method),
+                new XAttribute("classname", result.Type),
                 new XAttribute("result", OutcomeToString(result.Outcome)),
                 new XAttribute("duration", result.Time.TotalSeconds),
                 new XAttribute("asserts", 0));
