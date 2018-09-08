@@ -71,7 +71,7 @@
             {
                 if (obj is TestResultInfo)
                 {
-                    TestResultInfo objectToCompare = (TestResultInfo) obj;
+                    TestResultInfo objectToCompare = (TestResultInfo)obj;
                     if (string.Compare(ErrorMessage, objectToCompare.ErrorMessage) == 0
                         && string.Compare(ErrorStackTrace, objectToCompare.ErrorStackTrace) == 0)
                     {
@@ -200,10 +200,10 @@
         private XElement CreateAssembliesElement(List<TestResultInfo> results)
         {
             var testSuites = from result in results
-                group result by result.AssemblyPath
-                into resultsByAssembly
-                orderby resultsByAssembly.Key
-                select CreateTestSuiteElement(resultsByAssembly);
+                             group result by result.AssemblyPath
+                             into resultsByAssembly
+                             orderby resultsByAssembly.Key
+                             select CreateTestSuiteElement(resultsByAssembly);
 
             var element = new XElement("test-run", testSuites);
 
@@ -211,16 +211,17 @@
 
             element.SetAttributeValue("duration", results.Sum(x => x.Time.TotalSeconds));
 
-            var total = testSuites.Sum(x => (int) x.Attribute("total"));
+            var total = testSuites.Sum(x => (int)x.Attribute("total"));
 
             // TODO test case count is actually count before filtering
             element.SetAttributeValue("testcasecount", total);
             element.SetAttributeValue("total", total);
-            element.SetAttributeValue("passed", testSuites.Sum(x => (int) x.Attribute("passed")));
+            element.SetAttributeValue("passed", testSuites.Sum(x => (int)x.Attribute("passed")));
 
-            var failed = testSuites.Sum(x => (int) x.Attribute("failed"));
+            var failed = testSuites.Sum(x => (int)x.Attribute("failed"));
             element.SetAttributeValue("failed", failed);
-            element.SetAttributeValue("skipped", testSuites.Sum(x => (int) x.Attribute("skipped")));
+            element.SetAttributeValue("inconclusive", testSuites.Sum(x => (int)x.Attribute("inconclusive")));
+            element.SetAttributeValue("skipped", testSuites.Sum(x => (int)x.Attribute("skipped")));
 
             var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
             element.SetAttributeValue("result", resultString);
@@ -237,15 +238,16 @@
             var assemblyPath = resultsByAssembly.Key;
 
             var collections = from resultsInAssembly in resultsByAssembly
-                group resultsInAssembly by resultsInAssembly.Type
-                into resultsByType
-                orderby resultsByType.Key
-                select CreateTestSuite(resultsByType);
+                              group resultsInAssembly by resultsInAssembly.Type
+                              into resultsByType
+                              orderby resultsByType.Key
+                              select CreateTestSuite(resultsByType);
 
             int total = 0;
             int passed = 0;
             int failed = 0;
             int skipped = 0;
+            int inconclusive = 0;
             int errors = 0;
             var time = TimeSpan.Zero;
 
@@ -260,6 +262,7 @@
                 total += collection.total;
                 passed += collection.passed;
                 failed += collection.failed;
+                inconclusive += collection.inconclusive;
                 skipped += collection.skipped;
                 errors += collection.error;
                 time += collection.time;
@@ -273,6 +276,7 @@
             element.SetAttributeValue("total", total);
             element.SetAttributeValue("passed", passed);
             element.SetAttributeValue("failed", failed);
+            element.SetAttributeValue("inconclusive", inconclusive);
             element.SetAttributeValue("skipped", skipped);
             element.SetAttributeValue("duration", time.TotalSeconds);
             element.SetAttributeValue("errors", errors);
@@ -313,7 +317,7 @@
             return failureElement;
         }
 
-        private static (XElement element, int total, int passed, int failed, int skipped, int error, TimeSpan time) CreateTestSuite(IGrouping<string, TestResultInfo> resultsByType
+        private static (XElement element, int total, int passed, int failed, int inconclusive, int skipped, int error, TimeSpan time) CreateTestSuite(IGrouping<string, TestResultInfo> resultsByType
         )
         {
             var element = new XElement("test-suite");
@@ -322,6 +326,7 @@
             int passed = 0;
             int failed = 0;
             int skipped = 0;
+            int inconclusive = 0;
             int error = 0;
             var time = TimeSpan.Zero;
 
@@ -338,8 +343,10 @@
                         break;
 
                     case TestOutcome.Skipped:
-                    case TestOutcome.None:
                         skipped++;
+                        break;
+                    case TestOutcome.None:
+                        inconclusive++;
                         break;
                 }
 
@@ -362,6 +369,7 @@
             element.SetAttributeValue("total", total);
             element.SetAttributeValue("passed", passed);
             element.SetAttributeValue("failed", failed);
+            element.SetAttributeValue("inconclusive", inconclusive);
             element.SetAttributeValue("skipped", skipped);
 
             var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
@@ -369,7 +377,7 @@
             element.SetAttributeValue("result", resultString);
             element.SetAttributeValue("duration", time.TotalSeconds);
 
-            return (element, total, passed, failed, skipped, error, time);
+            return (element, total, passed, failed, inconclusive, skipped, error, time);
         }
 
         private static XElement CreateTestElement(TestResultInfo result)
@@ -488,7 +496,7 @@
         private static string ReplaceInvalidCharacterWithUniCodeEscapeSequence(Match match)
         {
             char x = match.Value[0];
-            return string.Format(@"\u{0:x4}", (ushort) x);
+            return string.Format(@"\u{0:x4}", (ushort)x);
         }
     }
 }

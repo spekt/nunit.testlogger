@@ -40,7 +40,8 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             Assert.AreEqual("21", node.Attribute(XName.Get("testcasecount")).Value);
             Assert.AreEqual("7", node.Attribute(XName.Get("passed")).Value);
             Assert.AreEqual("7", node.Attribute(XName.Get("failed")).Value);
-            Assert.AreEqual("7", node.Attribute(XName.Get("skipped")).Value);
+            Assert.AreEqual("4", node.Attribute(XName.Get("inconclusive")).Value);
+            Assert.AreEqual("3", node.Attribute(XName.Get("skipped")).Value);
             Assert.AreEqual("Failed", node.Attribute(XName.Get("result")).Value);
 
             // Start time and End time should be valid dates
@@ -57,7 +58,8 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             Assert.AreEqual("21", node.Attribute(XName.Get("total")).Value);
             Assert.AreEqual("7", node.Attribute(XName.Get("passed")).Value);
             Assert.AreEqual("7", node.Attribute(XName.Get("failed")).Value);
-            Assert.AreEqual("7", node.Attribute(XName.Get("skipped")).Value);
+            Assert.AreEqual("4", node.Attribute(XName.Get("inconclusive")).Value);
+            Assert.AreEqual("3", node.Attribute(XName.Get("skipped")).Value);
             Assert.AreEqual("Failed", node.Attribute(XName.Get("result")).Value);
             Assert.AreEqual("NUnit.Xml.TestLogger.NetCore.Tests.dll", node.Attribute(XName.Get("name")).Value);
             Assert.AreEqual(DotnetTestFixture.TestAssembly, node.Attribute(XName.Get("fullname")).Value);
