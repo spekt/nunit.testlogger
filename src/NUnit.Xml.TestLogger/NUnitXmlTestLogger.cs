@@ -31,57 +31,12 @@
         private const string ResultStatusPassed = "Passed";
         private const string ResultStatusFailed = "Failed";
 
+        private const string DateFormat = "yyyy-MM-ddT HH:mm:ssZ";
         private string outputFilePath;
 
         private readonly object resultsGuard = new object();
         private List<TestResultInfo> results;
         private DateTime localStartTime;
-
-        private class TestResultInfo
-        {
-            private readonly TestResult result;
-            public TestCase TestCase => result.TestCase;
-            public TestOutcome Outcome => result.Outcome;
-            public string AssemblyPath => result.TestCase.Source;
-            public readonly string Type;
-            public readonly string Method;
-            public string Name => result.TestCase.DisplayName;
-            public TimeSpan Time => result.Duration;
-            public string ErrorMessage => result.ErrorMessage;
-            public string ErrorStackTrace => result.ErrorStackTrace;
-            public IReadOnlyCollection<TestResultMessage> Messages => result.Messages;
-            public TraitCollection Traits => result.Traits;
-
-            public TestResultInfo(
-                TestResult result,
-                string type,
-                string method)
-            {
-                this.result = result;
-                Type = type;
-                Method = method;
-            }
-
-            public override int GetHashCode()
-            {
-                return result.GetHashCode();
-            }
-
-            public override bool Equals(object obj)
-            {
-                if (obj is TestResultInfo)
-                {
-                    TestResultInfo objectToCompare = (TestResultInfo)obj;
-                    if (string.Compare(ErrorMessage, objectToCompare.ErrorMessage) == 0
-                        && string.Compare(ErrorStackTrace, objectToCompare.ErrorStackTrace) == 0)
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-        }
 
         public void Initialize(TestLoggerEvents events, string testResultsDirPath)
         {
@@ -179,7 +134,7 @@
                 results = new List<TestResultInfo>();
             }
 
-            var doc = new XDocument(CreateAssembliesElement(resultList));
+            var doc = new XDocument(CreateTestRunElement(resultList));
 
             // Create directory if not exist
             var loggerFileDirPath = Path.GetDirectoryName(outputFilePath);
@@ -197,19 +152,19 @@
             Console.WriteLine(resultsFileMessage);
         }
 
-        private XElement CreateAssembliesElement(List<TestResultInfo> results)
+        private XElement CreateTestRunElement(List<TestResultInfo> results)
         {
             var testSuites = from result in results
                              group result by result.AssemblyPath
                              into resultsByAssembly
                              orderby resultsByAssembly.Key
-                             select CreateTestSuiteElement(resultsByAssembly);
+                             select CreateAssemblyElement(resultsByAssembly);
 
             var element = new XElement("test-run", testSuites);
 
             element.SetAttributeValue("id", 2);
 
-            element.SetAttributeValue("duration", results.Sum(x => x.Time.TotalSeconds));
+            element.SetAttributeValue("duration", results.Sum(x => x.Duration.TotalSeconds));
 
             var total = testSuites.Sum(x => (int)x.Attribute("total"));
 
@@ -226,22 +181,21 @@
             var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
             element.SetAttributeValue("result", resultString);
 
-            const string dateFormat = "yyyy-MM-ddT HH:mm:ssZ";
-            element.SetAttributeValue("start-time", localStartTime.ToString(dateFormat, CultureInfo.InvariantCulture));
-            element.SetAttributeValue("end-time", DateTime.UtcNow.ToString(dateFormat, CultureInfo.InvariantCulture));
+            element.SetAttributeValue("start-time", localStartTime.ToString(DateFormat, CultureInfo.InvariantCulture));
+            element.SetAttributeValue("end-time", DateTime.UtcNow.ToString(DateFormat, CultureInfo.InvariantCulture));
 
             return element;
         }
 
-        private XElement CreateTestSuiteElement(IGrouping<string, TestResultInfo> resultsByAssembly)
+        private XElement CreateAssemblyElement(IGrouping<string, TestResultInfo> resultsByAssembly)
         {
             var assemblyPath = resultsByAssembly.Key;
-
-            var collections = from resultsInAssembly in resultsByAssembly
-                              group resultsInAssembly by resultsInAssembly.Type
-                              into resultsByType
-                              orderby resultsByType.Key
-                              select CreateTestSuite(resultsByType);
+            var fixtures = from resultsInAssembly in resultsByAssembly
+                           group resultsInAssembly by resultsInAssembly.Type
+                           into resultsByType
+                           orderby resultsByType.Key
+                           select CreateFixture(resultsByType);
+            var fixtureGroups = GroupTestSuites(fixtures);
 
             int total = 0;
             int passed = 0;
@@ -257,17 +211,17 @@
             XElement errorsElement = new XElement("errors");
             element.Add(errorsElement);
 
-            foreach (var collection in collections)
+            foreach (var suite in fixtureGroups)
             {
-                total += collection.total;
-                passed += collection.passed;
-                failed += collection.failed;
-                inconclusive += collection.inconclusive;
-                skipped += collection.skipped;
-                errors += collection.error;
-                time += collection.time;
+                total += suite.Total;
+                passed += suite.Passed;
+                failed += suite.Failed;
+                inconclusive += suite.Inconclusive;
+                skipped += suite.Skipped;
+                errors += suite.Error;
+                time += suite.Time;
 
-                element.Add(collection.element);
+                element.Add(suite.Element);
             }
 
             element.SetAttributeValue("name", Path.GetFileName(assemblyPath));
@@ -317,8 +271,7 @@
             return failureElement;
         }
 
-        private static (XElement element, int total, int passed, int failed, int inconclusive, int skipped, int error, TimeSpan time) CreateTestSuite(IGrouping<string, TestResultInfo> resultsByType
-        )
+        private static TestSuite CreateFixture(IGrouping<string, TestResultInfo> resultsByType)
         {
             var element = new XElement("test-suite");
 
@@ -351,11 +304,13 @@
                 }
 
                 total++;
-                time += result.Time;
+                time += result.Duration;
 
-                element.Add(CreateTestElement(result));
+                // Create test-case elements
+                element.Add(CreateTestCaseElement(result));
             }
 
+            // Create test-suite element for the TestFixture
             var name = resultsByType.Key;
             var idx = name.LastIndexOf('.');
             if (idx != -1)
@@ -374,13 +329,127 @@
 
             var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
             element.SetAttributeValue("result", resultString);
+            element.SetAttributeValue("duration", time.TotalSeconds);
+
+            return new TestSuite
+            {
+                Element = element,
+                Name = name,
+                FullName = resultsByType.Key,
+                Total = total,
+                Passed = passed,
+                Failed = failed,
+                Inconclusive = inconclusive,
+                Skipped = skipped,
+                Error = error,
+                Time = time
+            };
+        }
+
+        public static IEnumerable<TestSuite> GroupTestSuites(IEnumerable<TestSuite> suites)
+        {
+            var groups = suites;
+            var roots = new List<TestSuite>();
+            while (groups.Any())
+            {
+                groups = groups.GroupBy(r =>
+                                {
+                                    var name = GetFirstPartOf(r.FullName);
+                                    if (string.IsNullOrEmpty(name))
+                                    {
+                                        roots.Add(r);
+                                    }
+                                    return name;
+                                })
+                                .OrderBy(g => g.Key)
+                                .Where(g => !string.IsNullOrEmpty(g.Key))
+                                .Select(CreateTestSuite)
+                                .ToList();
+            }
+
+            return roots;
+        }
+
+        private static string GetFirstPartOf(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return string.Empty;
+            }
+
+            var idx = name.LastIndexOf(".");
+            if (idx != -1)
+            {
+                return name.Substring(0, idx);
+            }
+
+            return string.Empty;
+        }
+
+        private static TestSuite CreateTestSuite(IGrouping<string, TestSuite> suites)
+        {
+            var element = new XElement("test-suite");
+
+            int total = 0;
+            int passed = 0;
+            int failed = 0;
+            int skipped = 0;
+            int inconclusive = 0;
+            int error = 0;
+            var time = TimeSpan.Zero;
+
+            foreach (var result in suites)
+            {
+                total += result.Total;
+                passed += result.Passed;
+                failed += result.Failed;
+                skipped += result.Skipped;
+                inconclusive += result.Inconclusive;
+                error += result.Error;
+                time += result.Time;
+
+                element.Add(result.Element);
+            }
+
+            // Create test-suite element for the TestSuite
+            var fullName = suites.Key;
+            var name = fullName;
+            var idx = fullName.LastIndexOf('.');
+            if (idx != -1)
+            {
+                name = fullName.Substring(idx + 1);
+            }
+
+            element.SetAttributeValue("type", "TestSuite");
+            element.SetAttributeValue("name", name);
+            element.SetAttributeValue("fullname", fullName);
+
+            element.SetAttributeValue("total", total);
+            element.SetAttributeValue("passed", passed);
+            element.SetAttributeValue("failed", failed);
+            element.SetAttributeValue("inconclusive", inconclusive);
+            element.SetAttributeValue("skipped", skipped);
+
+            var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
             element.SetAttributeValue("result", resultString);
             element.SetAttributeValue("duration", time.TotalSeconds);
 
-            return (element, total, passed, failed, inconclusive, skipped, error, time);
+            return new TestSuite
+            {
+                Element = element,
+                Name = name,
+                FullName = fullName,
+                Total = total,
+                Passed = passed,
+                Failed = failed,
+                Inconclusive = inconclusive,
+                Skipped = skipped,
+                Error = error,
+                Time = time
+            };
         }
 
-        private static XElement CreateTestElement(TestResultInfo result)
+        private static XElement CreateTestCaseElement(TestResultInfo result)
         {
             var element = new XElement("test-case",
                 new XAttribute("name", result.Name),
@@ -388,7 +457,7 @@
                 new XAttribute("methodname", result.Method),
                 new XAttribute("classname", result.Type),
                 new XAttribute("result", OutcomeToString(result.Outcome)),
-                new XAttribute("duration", result.Time.TotalSeconds),
+                new XAttribute("duration", result.Duration.TotalSeconds),
                 new XAttribute("asserts", 0));
 
             StringBuilder stdOut = new StringBuilder();
@@ -497,6 +566,20 @@
         {
             char x = match.Value[0];
             return string.Format(@"\u{0:x4}", (ushort)x);
+        }
+
+        public class TestSuite
+        {
+            public XElement Element { get; set; }
+            public string Name { get; set; }
+            public string FullName { get; set; }
+            public int Total { get; set; }
+            public int Passed { get; set; }
+            public int Failed { get; set; }
+            public int Inconclusive { get; set; }
+            public int Skipped { get; set; }
+            public int Error { get; set; }
+            public TimeSpan Time { get; set; }
         }
     }
 }
