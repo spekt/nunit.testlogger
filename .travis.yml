@@ -8,5 +8,4 @@ matrix:
 solution: nunit.testlogger.sln
 
 script:
-    - dotnet pack
-    - dotnet test test/NUnit.Xml.TestLogger.AcceptanceTests/NUnit.Xml.TestLogger.AcceptanceTests.csproj
+    - ./build.sh
