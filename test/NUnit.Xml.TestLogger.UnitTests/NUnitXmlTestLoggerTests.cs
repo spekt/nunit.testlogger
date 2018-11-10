@@ -1,24 +1,28 @@
+// Copyright (c) Spekt Contributors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 namespace NUnit.Xml.TestLogger.UnitTests
 {
     using System;
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Xml.Linq;
     using System.Xml.XPath;
-    using TestSuite = Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger.NUnitXmlTestLogger.TestSuite;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger;
-    using System.Linq;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using TestSuite = Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger.NUnitXmlTestLogger.TestSuite;
 
     [TestClass]
     public class NUnitXmlTestLoggerTests
     {
-        private string dummyTestResultsDirectory = "/tmp/testresults";
+        private const string DummyTestResultsDirectory = "/tmp/testresults";
 
         [TestMethod]
         public void InitializeShouldThrowIfEventsIsNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => new NUnitXmlTestLogger().Initialize(null, dummyTestResultsDirectory));
+            Assert.ThrowsException<ArgumentNullException>(() => new NUnitXmlTestLogger().Initialize(null, DummyTestResultsDirectory));
         }
 
         [TestMethod]

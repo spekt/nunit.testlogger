@@ -1,16 +1,19 @@
-﻿namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
+﻿// Copyright (c) Spekt Contributors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 {
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
     using System.Linq;
-    using System.Xml.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-    using ObjectModel;
-    using ObjectModel.Client;
-    using ObjectModel.Logging;
+    using System.Xml.Linq;
+    using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+    using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
+    using Microsoft.VisualStudio.TestPlatform.ObjectModel.Logging;
 
     [FriendlyName(FriendlyName)]
     [ExtensionUri(ExtensionUri)]
@@ -32,11 +35,36 @@
         private const string ResultStatusFailed = "Failed";
 
         private const string DateFormat = "yyyy-MM-ddT HH:mm:ssZ";
+        private readonly object resultsGuard = new object();
         private string outputFilePath;
 
-        private readonly object resultsGuard = new object();
         private List<TestResultInfo> results;
         private DateTime localStartTime;
+
+        public static IEnumerable<TestSuite> GroupTestSuites(IEnumerable<TestSuite> suites)
+        {
+            var groups = suites;
+            var roots = new List<TestSuite>();
+            while (groups.Any())
+            {
+                groups = groups.GroupBy(r =>
+                                {
+                                    var name = GetFirstPartOf(r.FullName);
+                                    if (string.IsNullOrEmpty(name))
+                                    {
+                                        roots.Add(r);
+                                    }
+
+                                    return name;
+                                })
+                                .OrderBy(g => g.Key)
+                                .Where(g => !string.IsNullOrEmpty(g.Key))
+                                .Select(CreateTestSuite)
+                                .ToList();
+            }
+
+            return roots;
+        }
 
         public void Initialize(TestLoggerEvents events, string testResultsDirPath)
         {
@@ -51,7 +79,7 @@
             }
 
             var outputPath = Path.Combine(testResultsDirPath, "TestResults.xml");
-            InitializeImpl(events, outputPath);
+            this.InitializeImpl(events, outputPath);
         }
 
         public void Initialize(TestLoggerEvents events, Dictionary<string, string> parameters)
@@ -68,32 +96,16 @@
 
             if (parameters.TryGetValue(LogFilePathKey, out string outputPath))
             {
-                InitializeImpl(events, outputPath);
+                this.InitializeImpl(events, outputPath);
             }
             else if (parameters.TryGetValue(DefaultLoggerParameterNames.TestRunDirectory, out string outputDir))
             {
-                Initialize(events, outputDir);
+                this.Initialize(events, outputDir);
             }
             else
             {
                 throw new ArgumentException($"Expected {LogFilePathKey} or {DefaultLoggerParameterNames.TestRunDirectory} parameter", nameof(parameters));
             }
-        }
-
-        private void InitializeImpl(TestLoggerEvents events, string outputPath)
-        {
-            events.TestRunMessage += TestMessageHandler;
-            events.TestResult += TestResultHandler;
-            events.TestRunComplete += TestRunCompleteHandler;
-
-            outputFilePath = Path.GetFullPath(outputPath);
-
-            lock (resultsGuard)
-            {
-                results = new List<TestResultInfo>();
-            }
-
-            localStartTime = DateTime.UtcNow;
         }
 
         /// <summary>
@@ -112,9 +124,9 @@
 
             if (TryParseName(result.TestCase.FullyQualifiedName, out var typeName, out var methodName, out _))
             {
-                lock (resultsGuard)
+                lock (this.resultsGuard)
                 {
-                    results.Add(new TestResultInfo(
+                    this.results.Add(new TestResultInfo(
                         result,
                         typeName,
                         methodName));
@@ -128,116 +140,28 @@
         internal void TestRunCompleteHandler(object sender, TestRunCompleteEventArgs e)
         {
             List<TestResultInfo> resultList;
-            lock (resultsGuard)
+            lock (this.resultsGuard)
             {
-                resultList = results;
-                results = new List<TestResultInfo>();
+                resultList = this.results;
+                this.results = new List<TestResultInfo>();
             }
 
-            var doc = new XDocument(CreateTestRunElement(resultList));
+            var doc = new XDocument(this.CreateTestRunElement(resultList));
 
             // Create directory if not exist
-            var loggerFileDirPath = Path.GetDirectoryName(outputFilePath);
+            var loggerFileDirPath = Path.GetDirectoryName(this.outputFilePath);
             if (!Directory.Exists(loggerFileDirPath))
             {
                 Directory.CreateDirectory(loggerFileDirPath);
             }
 
-            using (var f = File.Create(outputFilePath))
+            using (var f = File.Create(this.outputFilePath))
             {
                 doc.Save(f);
             }
 
-            var resultsFileMessage = string.Format(CultureInfo.CurrentCulture, "Results File: {0}", outputFilePath);
+            var resultsFileMessage = string.Format(CultureInfo.CurrentCulture, "Results File: {0}", this.outputFilePath);
             Console.WriteLine(resultsFileMessage);
-        }
-
-        private XElement CreateTestRunElement(List<TestResultInfo> results)
-        {
-            var testSuites = from result in results
-                             group result by result.AssemblyPath
-                             into resultsByAssembly
-                             orderby resultsByAssembly.Key
-                             select CreateAssemblyElement(resultsByAssembly);
-
-            var element = new XElement("test-run", testSuites);
-
-            element.SetAttributeValue("id", 2);
-
-            element.SetAttributeValue("duration", results.Sum(x => x.Duration.TotalSeconds));
-
-            var total = testSuites.Sum(x => (int)x.Attribute("total"));
-
-            // TODO test case count is actually count before filtering
-            element.SetAttributeValue("testcasecount", total);
-            element.SetAttributeValue("total", total);
-            element.SetAttributeValue("passed", testSuites.Sum(x => (int)x.Attribute("passed")));
-
-            var failed = testSuites.Sum(x => (int)x.Attribute("failed"));
-            element.SetAttributeValue("failed", failed);
-            element.SetAttributeValue("inconclusive", testSuites.Sum(x => (int)x.Attribute("inconclusive")));
-            element.SetAttributeValue("skipped", testSuites.Sum(x => (int)x.Attribute("skipped")));
-
-            var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
-            element.SetAttributeValue("result", resultString);
-
-            element.SetAttributeValue("start-time", localStartTime.ToString(DateFormat, CultureInfo.InvariantCulture));
-            element.SetAttributeValue("end-time", DateTime.UtcNow.ToString(DateFormat, CultureInfo.InvariantCulture));
-
-            return element;
-        }
-
-        private XElement CreateAssemblyElement(IGrouping<string, TestResultInfo> resultsByAssembly)
-        {
-            var assemblyPath = resultsByAssembly.Key;
-            var fixtures = from resultsInAssembly in resultsByAssembly
-                           group resultsInAssembly by resultsInAssembly.Type
-                           into resultsByType
-                           orderby resultsByType.Key
-                           select CreateFixture(resultsByType);
-            var fixtureGroups = GroupTestSuites(fixtures);
-
-            int total = 0;
-            int passed = 0;
-            int failed = 0;
-            int skipped = 0;
-            int inconclusive = 0;
-            int errors = 0;
-            var time = TimeSpan.Zero;
-
-            var element = new XElement("test-suite");
-            element.SetAttributeValue("type", "Assembly");
-
-            XElement errorsElement = new XElement("errors");
-            element.Add(errorsElement);
-
-            foreach (var suite in fixtureGroups)
-            {
-                total += suite.Total;
-                passed += suite.Passed;
-                failed += suite.Failed;
-                inconclusive += suite.Inconclusive;
-                skipped += suite.Skipped;
-                errors += suite.Error;
-                time += suite.Time;
-
-                element.Add(suite.Element);
-            }
-
-            element.SetAttributeValue("name", Path.GetFileName(assemblyPath));
-            element.SetAttributeValue("fullname", assemblyPath);
-
-            element.SetAttributeValue("total", total);
-            element.SetAttributeValue("passed", passed);
-            element.SetAttributeValue("failed", failed);
-            element.SetAttributeValue("inconclusive", inconclusive);
-            element.SetAttributeValue("skipped", skipped);
-            element.SetAttributeValue("duration", time.TotalSeconds);
-            element.SetAttributeValue("errors", errors);
-            var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
-            element.SetAttributeValue("result", resultString);
-
-            return element;
         }
 
         private static XElement CreateErrorElement(TestResultInfo result)
@@ -317,6 +241,7 @@
             {
                 name = name.Substring(idx + 1);
             }
+
             element.SetAttributeValue("type", "TestFixture");
             element.SetAttributeValue("name", name);
             element.SetAttributeValue("fullname", resultsByType.Key);
@@ -344,30 +269,6 @@
                 Error = error,
                 Time = time
             };
-        }
-
-        public static IEnumerable<TestSuite> GroupTestSuites(IEnumerable<TestSuite> suites)
-        {
-            var groups = suites;
-            var roots = new List<TestSuite>();
-            while (groups.Any())
-            {
-                groups = groups.GroupBy(r =>
-                                {
-                                    var name = GetFirstPartOf(r.FullName);
-                                    if (string.IsNullOrEmpty(name))
-                                    {
-                                        roots.Add(r);
-                                    }
-                                    return name;
-                                })
-                                .OrderBy(g => g.Key)
-                                .Where(g => !string.IsNullOrEmpty(g.Key))
-                                .Select(CreateTestSuite)
-                                .ToList();
-            }
-
-            return roots;
         }
 
         private static string GetFirstPartOf(string name)
@@ -451,7 +352,8 @@
 
         private static XElement CreateTestCaseElement(TestResultInfo result)
         {
-            var element = new XElement("test-case",
+            var element = new XElement(
+                "test-case",
                 new XAttribute("name", result.Name),
                 new XAttribute("fullname", result.Type + "." + result.Method),
                 new XAttribute("methodname", result.Method),
@@ -476,7 +378,8 @@
 
             if (result.Outcome == TestOutcome.Failed)
             {
-                element.Add(new XElement("failure",
+                element.Add(new XElement(
+                    "failure",
                     new XElement("message", RemoveInvalidXmlChar(result.ErrorMessage)),
                     new XElement("stack-trace", RemoveInvalidXmlChar(result.ErrorStackTrace))));
             }
@@ -488,7 +391,6 @@
         {
             // This is fragile. The FQN is constructed by a test adapter.
             // There is no enforcement that the FQN starts with metadata type name.
-
             string typeAndMethodName;
             var methodArgumentsStart = testCaseName.IndexOf('(');
 
@@ -514,8 +416,9 @@
             var typeNameLength = typeAndMethodName.LastIndexOf('.');
             var methodNameStart = typeNameLength + 1;
 
-            if (typeNameLength <= 0 || methodNameStart == typeAndMethodName.Length) // No typeName is available
+            if (typeNameLength <= 0 || methodNameStart == typeAndMethodName.Length)
             {
+                // No typeName is available
                 metadataTypeName = null;
                 metadataMethodName = null;
                 metadataMethodArguments = null;
@@ -568,17 +471,130 @@
             return string.Format(@"\u{0:x4}", (ushort)x);
         }
 
+        private void InitializeImpl(TestLoggerEvents events, string outputPath)
+        {
+            events.TestRunMessage += this.TestMessageHandler;
+            events.TestResult += this.TestResultHandler;
+            events.TestRunComplete += this.TestRunCompleteHandler;
+
+            this.outputFilePath = Path.GetFullPath(outputPath);
+
+            lock (this.resultsGuard)
+            {
+                this.results = new List<TestResultInfo>();
+            }
+
+            this.localStartTime = DateTime.UtcNow;
+        }
+
+        private XElement CreateTestRunElement(List<TestResultInfo> results)
+        {
+            var testSuites = from result in results
+                             group result by result.AssemblyPath
+                             into resultsByAssembly
+                             orderby resultsByAssembly.Key
+                             select this.CreateAssemblyElement(resultsByAssembly);
+
+            var element = new XElement("test-run", testSuites);
+
+            element.SetAttributeValue("id", 2);
+
+            element.SetAttributeValue("duration", results.Sum(x => x.Duration.TotalSeconds));
+
+            var total = testSuites.Sum(x => (int)x.Attribute("total"));
+
+            // TODO test case count is actually count before filtering
+            element.SetAttributeValue("testcasecount", total);
+            element.SetAttributeValue("total", total);
+            element.SetAttributeValue("passed", testSuites.Sum(x => (int)x.Attribute("passed")));
+
+            var failed = testSuites.Sum(x => (int)x.Attribute("failed"));
+            element.SetAttributeValue("failed", failed);
+            element.SetAttributeValue("inconclusive", testSuites.Sum(x => (int)x.Attribute("inconclusive")));
+            element.SetAttributeValue("skipped", testSuites.Sum(x => (int)x.Attribute("skipped")));
+
+            var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
+            element.SetAttributeValue("result", resultString);
+
+            element.SetAttributeValue("start-time", this.localStartTime.ToString(DateFormat, CultureInfo.InvariantCulture));
+            element.SetAttributeValue("end-time", DateTime.UtcNow.ToString(DateFormat, CultureInfo.InvariantCulture));
+
+            return element;
+        }
+
+        private XElement CreateAssemblyElement(IGrouping<string, TestResultInfo> resultsByAssembly)
+        {
+            var assemblyPath = resultsByAssembly.Key;
+            var fixtures = from resultsInAssembly in resultsByAssembly
+                           group resultsInAssembly by resultsInAssembly.Type
+                           into resultsByType
+                           orderby resultsByType.Key
+                           select CreateFixture(resultsByType);
+            var fixtureGroups = GroupTestSuites(fixtures);
+
+            int total = 0;
+            int passed = 0;
+            int failed = 0;
+            int skipped = 0;
+            int inconclusive = 0;
+            int errors = 0;
+            var time = TimeSpan.Zero;
+
+            var element = new XElement("test-suite");
+            element.SetAttributeValue("type", "Assembly");
+
+            XElement errorsElement = new XElement("errors");
+            element.Add(errorsElement);
+
+            foreach (var suite in fixtureGroups)
+            {
+                total += suite.Total;
+                passed += suite.Passed;
+                failed += suite.Failed;
+                inconclusive += suite.Inconclusive;
+                skipped += suite.Skipped;
+                errors += suite.Error;
+                time += suite.Time;
+
+                element.Add(suite.Element);
+            }
+
+            element.SetAttributeValue("name", Path.GetFileName(assemblyPath));
+            element.SetAttributeValue("fullname", assemblyPath);
+
+            element.SetAttributeValue("total", total);
+            element.SetAttributeValue("passed", passed);
+            element.SetAttributeValue("failed", failed);
+            element.SetAttributeValue("inconclusive", inconclusive);
+            element.SetAttributeValue("skipped", skipped);
+            element.SetAttributeValue("duration", time.TotalSeconds);
+            element.SetAttributeValue("errors", errors);
+            var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
+            element.SetAttributeValue("result", resultString);
+
+            return element;
+        }
+
         public class TestSuite
         {
             public XElement Element { get; set; }
+
             public string Name { get; set; }
+
             public string FullName { get; set; }
+
             public int Total { get; set; }
+
             public int Passed { get; set; }
+
             public int Failed { get; set; }
+
             public int Inconclusive { get; set; }
+
             public int Skipped { get; set; }
+
             public int Error { get; set; }
+
             public TimeSpan Time { get; set; }
         }
     }

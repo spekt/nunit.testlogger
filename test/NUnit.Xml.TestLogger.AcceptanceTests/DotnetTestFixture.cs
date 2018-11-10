@@ -1,3 +1,6 @@
+// Copyright (c) Spekt Contributors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 namespace NUnit.Xml.TestLogger.AcceptanceTests
 {
     using System;
@@ -10,13 +13,15 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
         {
             get
             {
-                return Path.GetFullPath(Path.Combine(Environment.CurrentDirectory,
-                                                     "..",
-                                                     "..",
-                                                     "..",
-                                                     "..",
-                                                     "assets",
-                                                     "NUnit.Xml.TestLogger.NetCore.Tests"));
+                return Path.GetFullPath(
+                    Path.Combine(
+                        Environment.CurrentDirectory,
+                        "..",
+                        "..",
+                        "..",
+                        "..",
+                        "assets",
+                        "NUnit.Xml.TestLogger.NetCore.Tests"));
             }
         }
 
@@ -52,6 +57,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             {
                 Console.WriteLine("  " + f);
             }
+
             Console.WriteLine();
 
             // Run dotnet test with logger
@@ -64,6 +70,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
                 p.Start();
 
                 Console.WriteLine("dotnet arguments: " + p.StartInfo.Arguments);
+
                 // To avoid deadlocks, always read the output stream first and then wait.
                 string output = p.StandardOutput.ReadToEnd();
                 p.WaitForExit();
