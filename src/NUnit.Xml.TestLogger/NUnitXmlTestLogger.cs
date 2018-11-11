@@ -49,7 +49,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             {
                 groups = groups.GroupBy(r =>
                                 {
-                                    var name = GetFirstPartOf(r.FullName);
+                                    var name = r.FullName.SubstringBeforeDot();
                                     if (string.IsNullOrEmpty(name))
                                     {
                                         roots.Add(r);
@@ -189,8 +189,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
         private static XElement CreateFailureElement(string exceptionType, string message, string stackTrace)
         {
             XElement failureElement = new XElement("failure", new XAttribute("exception-type", exceptionType));
-            failureElement.Add(new XElement("message", RemoveInvalidXmlChar(message)));
-            failureElement.Add(new XElement("stack-trace", RemoveInvalidXmlChar(stackTrace)));
+            failureElement.Add(new XElement("message", message.ReplaceInvalidXmlChar()));
+            failureElement.Add(new XElement("stack-trace", stackTrace.ReplaceInvalidXmlChar()));
 
             return failureElement;
         }
@@ -235,12 +235,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             }
 
             // Create test-suite element for the TestFixture
-            var name = resultsByType.Key;
-            var idx = name.LastIndexOf('.');
-            if (idx != -1)
-            {
-                name = name.Substring(idx + 1);
-            }
+            var name = resultsByType.Key.SubstringAfterDot();
 
             element.SetAttributeValue("type", "TestFixture");
             element.SetAttributeValue("name", name);
@@ -271,22 +266,6 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             };
         }
 
-        private static string GetFirstPartOf(string name)
-        {
-            if (string.IsNullOrEmpty(name))
-            {
-                return string.Empty;
-            }
-
-            var idx = name.LastIndexOf(".");
-            if (idx != -1)
-            {
-                return name.Substring(0, idx);
-            }
-
-            return string.Empty;
-        }
-
         private static TestSuite CreateTestSuite(IGrouping<string, TestSuite> suites)
         {
             var element = new XElement("test-suite");
@@ -314,12 +293,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 
             // Create test-suite element for the TestSuite
             var fullName = suites.Key;
-            var name = fullName;
-            var idx = fullName.LastIndexOf('.');
-            if (idx != -1)
-            {
-                name = fullName.Substring(idx + 1);
-            }
+            var name = fullName.SubstringAfterDot();
 
             element.SetAttributeValue("type", "TestSuite");
             element.SetAttributeValue("name", name);
@@ -380,14 +354,18 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             {
                 element.Add(new XElement(
                     "failure",
-                    new XElement("message", RemoveInvalidXmlChar(result.ErrorMessage)),
-                    new XElement("stack-trace", RemoveInvalidXmlChar(result.ErrorStackTrace))));
+                    new XElement("message", result.ErrorMessage.ReplaceInvalidXmlChar()),
+                    new XElement("stack-trace", result.ErrorStackTrace.ReplaceInvalidXmlChar())));
             }
 
             return element;
         }
 
-        private static bool TryParseName(string testCaseName, out string metadataTypeName, out string metadataMethodName, out string metadataMethodArguments)
+        private static bool TryParseName(
+            string testCaseName,
+            out string metadataTypeName,
+            out string metadataMethodName,
+            out string metadataMethodArguments)
         {
             // This is fragile. The FQN is constructed by a test adapter.
             // There is no enforcement that the FQN starts with metadata type name.
@@ -446,29 +424,6 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                 default:
                     return "Inconclusive";
             }
-        }
-
-        private static string RemoveInvalidXmlChar(string str)
-        {
-            if (str != null)
-            {
-                // From xml spec (http://www.w3.org/TR/xml/#charsets) valid chars:
-                // #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
-
-                // we are handling only #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD]
-                // because C# support unicode character in range \u0000 to \uFFFF
-                MatchEvaluator evaluator = new MatchEvaluator(ReplaceInvalidCharacterWithUniCodeEscapeSequence);
-                string invalidChar = @"[^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD]";
-                return Regex.Replace(str, invalidChar, evaluator);
-            }
-
-            return str;
-        }
-
-        private static string ReplaceInvalidCharacterWithUniCodeEscapeSequence(Match match)
-        {
-            char x = match.Value[0];
-            return string.Format(@"\u{0:x4}", (ushort)x);
         }
 
         private void InitializeImpl(TestLoggerEvents events, string outputPath)
