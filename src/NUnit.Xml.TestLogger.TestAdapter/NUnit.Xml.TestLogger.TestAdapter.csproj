@@ -1,10 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="../../scripts/version.props" />
+  <PropertyGroup>
+    <SourceRoot Condition="$(SourceRoot) == ''">..\..\</SourceRoot>
+  </PropertyGroup>
+  <Import Project="$(SourceRoot)scripts/settings.targets" />
 
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
     <AssemblyName>Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestAdapter</AssemblyName>
+
+    <!-- This project just links source code from another project. Disable static analysis. -->
+    <StylecopEnabled>false</StylecopEnabled>
   </PropertyGroup>
 
   <ItemGroup>

@@ -6,7 +6,7 @@
             "command": "dotnet",
             "type": "process",
             "args": [
-                "pack",
+                "build",
                 "${workspaceFolder}/nunit.testlogger.sln"
             ],
             "problemMatcher": "$msCompile",
@@ -16,9 +16,20 @@
             }
         },
         {
+            "label": "pack",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "pack",
+                "${workspaceFolder}/nunit.testlogger.sln"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build"
+        },
+        {
             "label": "test",
             "dependsOn": [
-                "build"
+                "pack"
             ],
             "command": "dotnet",
             "type": "process",
@@ -26,6 +37,7 @@
                 "test",
                 "${workspaceFolder}/test/NUnit.Xml.TestLogger.AcceptanceTests/NUnit.Xml.TestLogger.AcceptanceTests.csproj"
             ],
+            "problemMatcher": "$msCompile",
             "group": {
                 "kind": "test",
                 "isDefault": true
