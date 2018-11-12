@@ -17,6 +17,9 @@
     <Compile Include="..\NUnit.Xml.TestLogger\NUnitXmlTestLogger.cs">
       <Link>NUnitXmlTestLogger.cs</Link>
     </Compile>
+    <Compile Include="..\NUnit.Xml.TestLogger\StringExtensions.cs">
+      <Link>StringExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\NUnit.Xml.TestLogger\TestResultInfo.cs">
       <Link>TestResultInfo.cs</Link>
     </Compile>
