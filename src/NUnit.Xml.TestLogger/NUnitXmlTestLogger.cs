@@ -59,7 +59,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                                 })
                                 .OrderBy(g => g.Key)
                                 .Where(g => !string.IsNullOrEmpty(g.Key))
-                                .Select(CreateTestSuite)
+                                .Select(g => AggregateTestSuites(g, "TestSuite", g.Key.SubstringAfterDot(), g.Key))
                                 .ToList();
             }
 
@@ -164,35 +164,61 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             Console.WriteLine(resultsFileMessage);
         }
 
-        private static XElement CreateErrorElement(TestResultInfo result)
+        private static TestSuite AggregateTestSuites(
+            IEnumerable<TestSuite> suites,
+            string testSuiteType,
+            string name,
+            string fullName)
         {
-            string errorMessage = result.ErrorMessage;
+            var element = new XElement("test-suite");
 
-            int indexOfErrorType = errorMessage.IndexOf('(');
-            errorMessage = errorMessage.Substring(indexOfErrorType + 1);
+            int total = 0;
+            int passed = 0;
+            int failed = 0;
+            int skipped = 0;
+            int inconclusive = 0;
+            int error = 0;
+            var time = TimeSpan.Zero;
 
-            int indexOfName = errorMessage.IndexOf(')');
-            string name = errorMessage.Substring(0, indexOfName);
-            errorMessage = errorMessage.Substring(indexOfName + 4);
+            foreach (var result in suites)
+            {
+                total += result.Total;
+                passed += result.Passed;
+                failed += result.Failed;
+                skipped += result.Skipped;
+                inconclusive += result.Inconclusive;
+                error += result.Error;
+                time += result.Time;
 
-            int indexOfExceptionType = errorMessage.IndexOf(':');
-            string exceptionType = errorMessage.Substring(0, indexOfExceptionType - 1);
+                element.Add(result.Element);
+            }
 
-            XElement errorElement = new XElement("error");
-            errorElement.SetAttributeValue("name", name);
+            element.SetAttributeValue("type", testSuiteType);
+            element.SetAttributeValue("name", name);
+            element.SetAttributeValue("fullname", fullName);
+            element.SetAttributeValue("total", total);
+            element.SetAttributeValue("passed", passed);
+            element.SetAttributeValue("failed", failed);
+            element.SetAttributeValue("inconclusive", inconclusive);
+            element.SetAttributeValue("skipped", skipped);
 
-            errorElement.Add(CreateFailureElement(exceptionType, errorMessage, result.ErrorStackTrace));
+            var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
+            element.SetAttributeValue("result", resultString);
+            element.SetAttributeValue("duration", time.TotalSeconds);
 
-            return errorElement;
-        }
-
-        private static XElement CreateFailureElement(string exceptionType, string message, string stackTrace)
-        {
-            XElement failureElement = new XElement("failure", new XAttribute("exception-type", exceptionType));
-            failureElement.Add(new XElement("message", message.ReplaceInvalidXmlChar()));
-            failureElement.Add(new XElement("stack-trace", stackTrace.ReplaceInvalidXmlChar()));
-
-            return failureElement;
+            return new TestSuite
+            {
+                Element = element,
+                Name = name,
+                FullName = fullName,
+                Total = total,
+                Passed = passed,
+                Failed = failed,
+                Inconclusive = inconclusive,
+                Skipped = skipped,
+                Error = error,
+                Time = time
+            };
         }
 
         private static TestSuite CreateFixture(IGrouping<string, TestResultInfo> resultsByType)
@@ -256,64 +282,6 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                 Element = element,
                 Name = name,
                 FullName = resultsByType.Key,
-                Total = total,
-                Passed = passed,
-                Failed = failed,
-                Inconclusive = inconclusive,
-                Skipped = skipped,
-                Error = error,
-                Time = time
-            };
-        }
-
-        private static TestSuite CreateTestSuite(IGrouping<string, TestSuite> suites)
-        {
-            var element = new XElement("test-suite");
-
-            int total = 0;
-            int passed = 0;
-            int failed = 0;
-            int skipped = 0;
-            int inconclusive = 0;
-            int error = 0;
-            var time = TimeSpan.Zero;
-
-            foreach (var result in suites)
-            {
-                total += result.Total;
-                passed += result.Passed;
-                failed += result.Failed;
-                skipped += result.Skipped;
-                inconclusive += result.Inconclusive;
-                error += result.Error;
-                time += result.Time;
-
-                element.Add(result.Element);
-            }
-
-            // Create test-suite element for the TestSuite
-            var fullName = suites.Key;
-            var name = fullName.SubstringAfterDot();
-
-            element.SetAttributeValue("type", "TestSuite");
-            element.SetAttributeValue("name", name);
-            element.SetAttributeValue("fullname", fullName);
-
-            element.SetAttributeValue("total", total);
-            element.SetAttributeValue("passed", passed);
-            element.SetAttributeValue("failed", failed);
-            element.SetAttributeValue("inconclusive", inconclusive);
-            element.SetAttributeValue("skipped", skipped);
-
-            var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
-            element.SetAttributeValue("result", resultString);
-            element.SetAttributeValue("duration", time.TotalSeconds);
-
-            return new TestSuite
-            {
-                Element = element,
-                Name = name,
-                FullName = fullName,
                 Total = total,
                 Passed = passed,
                 Failed = failed,
@@ -486,48 +454,16 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                            orderby resultsByType.Key
                            select CreateFixture(resultsByType);
             var fixtureGroups = GroupTestSuites(fixtures);
-
-            int total = 0;
-            int passed = 0;
-            int failed = 0;
-            int skipped = 0;
-            int inconclusive = 0;
-            int errors = 0;
-            var time = TimeSpan.Zero;
-
-            var element = new XElement("test-suite");
-            element.SetAttributeValue("type", "Assembly");
+            var suite = AggregateTestSuites(
+                fixtureGroups,
+                "Assembly",
+                Path.GetFileName(assemblyPath),
+                assemblyPath);
 
             XElement errorsElement = new XElement("errors");
-            element.Add(errorsElement);
+            suite.Element.Add(errorsElement);
 
-            foreach (var suite in fixtureGroups)
-            {
-                total += suite.Total;
-                passed += suite.Passed;
-                failed += suite.Failed;
-                inconclusive += suite.Inconclusive;
-                skipped += suite.Skipped;
-                errors += suite.Error;
-                time += suite.Time;
-
-                element.Add(suite.Element);
-            }
-
-            element.SetAttributeValue("name", Path.GetFileName(assemblyPath));
-            element.SetAttributeValue("fullname", assemblyPath);
-
-            element.SetAttributeValue("total", total);
-            element.SetAttributeValue("passed", passed);
-            element.SetAttributeValue("failed", failed);
-            element.SetAttributeValue("inconclusive", inconclusive);
-            element.SetAttributeValue("skipped", skipped);
-            element.SetAttributeValue("duration", time.TotalSeconds);
-            element.SetAttributeValue("errors", errors);
-            var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
-            element.SetAttributeValue("result", resultString);
-
-            return element;
+            return suite.Element;
         }
 
         public class TestSuite
