@@ -31,6 +31,17 @@ namespace NUnit.Xml.TestLogger.NetFull.Tests
         public void Ignored()
         {
         }
+
+        [Test]
+        [Property("Property name", "Property value")]
+        public void WithProperty()
+        {
+        }
+
+        [Test]
+        public void NoProperty()
+        {
+        }
     }
 
     public class UnitTest2

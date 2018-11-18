@@ -302,7 +302,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                 new XAttribute("classname", result.Type),
                 new XAttribute("result", OutcomeToString(result.Outcome)),
                 new XAttribute("duration", result.Duration.TotalSeconds),
-                new XAttribute("asserts", 0));
+                new XAttribute("asserts", 0),
+                CreatePropertiesElement(result.TestCase.Traits));
 
             StringBuilder stdOut = new StringBuilder();
             foreach (var m in result.Messages)
@@ -327,6 +328,22 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             }
 
             return element;
+        }
+
+        private static XElement CreatePropertiesElement(TraitCollection result)
+        {
+            var propertyElements = result.Select(CreatePropertyElement).ToList();
+            return result.Any()
+                ? new XElement("properties", propertyElements)
+                : null;
+        }
+
+        private static XElement CreatePropertyElement(Trait trait)
+        {
+            return new XElement(
+                "property",
+                new XAttribute("name", trait.Name),
+                new XAttribute("value", trait.Value));
         }
 
         private static bool TryParseName(

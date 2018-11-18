@@ -39,8 +39,8 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             var node = this.resultsXml.XPathSelectElement("/test-run");
 
             Assert.IsNotNull(node);
-            Assert.AreEqual("42", node.Attribute(XName.Get("testcasecount")).Value);
-            Assert.AreEqual("14", node.Attribute(XName.Get("passed")).Value);
+            Assert.AreEqual("46", node.Attribute(XName.Get("testcasecount")).Value);
+            Assert.AreEqual("18", node.Attribute(XName.Get("passed")).Value);
             Assert.AreEqual("14", node.Attribute(XName.Get("failed")).Value);
             Assert.AreEqual("8", node.Attribute(XName.Get("inconclusive")).Value);
             Assert.AreEqual("6", node.Attribute(XName.Get("skipped")).Value);
@@ -57,8 +57,8 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             var node = this.resultsXml.XPathSelectElement("/test-run/test-suite[@type='Assembly']");
 
             Assert.IsNotNull(node);
-            Assert.AreEqual("42", node.Attribute(XName.Get("total")).Value);
-            Assert.AreEqual("14", node.Attribute(XName.Get("passed")).Value);
+            Assert.AreEqual("46", node.Attribute(XName.Get("total")).Value);
+            Assert.AreEqual("18", node.Attribute(XName.Get("passed")).Value);
             Assert.AreEqual("14", node.Attribute(XName.Get("failed")).Value);
             Assert.AreEqual("8", node.Attribute(XName.Get("inconclusive")).Value);
             Assert.AreEqual("6", node.Attribute(XName.Get("skipped")).Value);
@@ -78,8 +78,8 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             var node = this.resultsXml.XPathSelectElement(query);
 
             Assert.IsNotNull(node);
-            Assert.AreEqual("21", node.Attribute(XName.Get("total")).Value);
-            Assert.AreEqual("7", node.Attribute(XName.Get("passed")).Value);
+            Assert.AreEqual("23", node.Attribute(XName.Get("total")).Value);
+            Assert.AreEqual("9", node.Attribute(XName.Get("passed")).Value);
             Assert.AreEqual("7", node.Attribute(XName.Get("failed")).Value);
             Assert.AreEqual("4", node.Attribute(XName.Get("inconclusive")).Value);
             Assert.AreEqual("3", node.Attribute(XName.Get("skipped")).Value);
@@ -105,6 +105,37 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
                 Assert.AreEqual("Failed", node.Attribute(XName.Get("result")).Value);
                 Assert.AreEqual(fullName, node.Attribute(XName.Get("fullname")).Value);
             }
+        }
+
+        [TestMethod]
+        [DataRow("NUnit.Xml.TestLogger.NetFull.Tests")]
+        [DataRow("NUnit.Xml.TestLogger.Tests2")]
+        public void TestResultFileShouldContainTestCasePropertiesForTestWithPropertyAttributes(string testNamespace)
+        {
+            var query = string.Format("/test-run//test-case[@fullname='{0}.UnitTest1.WithProperty']", testNamespace);
+            var testCaseElement = this.resultsXml.XPathSelectElement(query);
+            Assert.IsNotNull(testCaseElement, "test-case element");
+
+            var propertiesElement = testCaseElement.Element("properties");
+            Assert.IsNotNull(propertiesElement, "properties element");
+
+            var propertyElement = propertiesElement.Element("property");
+            Assert.IsNotNull(propertyElement, "property element");
+            Assert.AreEqual("Property name", propertyElement.Attribute("name")?.Value);
+            Assert.AreEqual("Property value", propertyElement.Attribute("value")?.Value);
+        }
+
+        [TestMethod]
+        [DataRow("NUnit.Xml.TestLogger.NetFull.Tests")]
+        [DataRow("NUnit.Xml.TestLogger.Tests2")]
+        public void TestResultFileShouldNotContainTestCasePropertiesForTestWithNoPropertyAttributes(string testNamespace)
+        {
+            var query = string.Format("/test-run//test-case[@fullname='{0}.UnitTest1.NoProperty']", testNamespace);
+            var testCaseElement = this.resultsXml.XPathSelectElement(query);
+            Assert.IsNotNull(testCaseElement, "test-case element");
+
+            var propertiesElement = testCaseElement.Element("properties");
+            Assert.IsNull(propertiesElement, "properties element");
         }
     }
 }
