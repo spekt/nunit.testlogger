@@ -303,7 +303,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                 new XAttribute("result", OutcomeToString(result.Outcome)),
                 new XAttribute("duration", result.Duration.TotalSeconds),
                 new XAttribute("asserts", 0),
-                CreatePropertiesElement(result.TestCase.Traits));
+                CreatePropertiesElement(result.TestCase));
 
             StringBuilder stdOut = new StringBuilder();
             foreach (var m in result.Messages)
@@ -330,20 +330,58 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             return element;
         }
 
-        private static XElement CreatePropertiesElement(TraitCollection result)
+        private static XElement CreatePropertiesElement(TestCase result)
         {
-            var propertyElements = result.Select(CreatePropertyElement).ToList();
-            return result.Any()
-                ? new XElement("properties", propertyElements)
+            var traits = result.Traits.Select(CreatePropertyElement).ToList();
+#pragma warning disable CS0618 // Type or member is obsolete
+
+            var newTraits = result.Properties.Where(t => t.Attributes.HasFlag(TestPropertyAttributes.Trait));
+
+            foreach (var p in newTraits)
+            {
+                var propValue = result.GetPropertyValue(p);
+
+                if (propValue is KeyValuePair<string, string>[])
+                {
+                    var keyValuePairs = (KeyValuePair<string, string>[])propValue;
+
+                    foreach (var kvp in keyValuePairs)
+                    {
+                        traits.AddRange(CreatePropertyElement(kvp.Key, kvp.Value));
+                    }
+                }
+                else if (p.Id == "NUnit.TestCategory")
+                {
+                    traits.AddRange(CreatePropertyElement("Category", (string[])propValue));
+                }
+            }
+
+#pragma warning restore CS0618 // Type or member is obsolete
+            var propertyElements = traits;
+            return traits.Any()
+                ? new XElement("properties", propertyElements.Distinct())
                 : null;
         }
 
         private static XElement CreatePropertyElement(Trait trait)
         {
-            return new XElement(
+            return CreatePropertyElement(trait.Name, trait.Value).Single();
+        }
+
+        private static IEnumerable<XElement> CreatePropertyElement(string name, params string[] values)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("message", nameof(name));
+            }
+
+            foreach (var value in values)
+            {
+                yield return new XElement(
                 "property",
-                new XAttribute("name", trait.Name),
-                new XAttribute("value", trait.Value));
+                new XAttribute("name", name),
+                new XAttribute("value", value));
+            }
         }
 
         private static bool TryParseName(
