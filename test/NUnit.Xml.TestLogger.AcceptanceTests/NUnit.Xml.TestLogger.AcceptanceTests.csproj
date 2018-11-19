@@ -22,16 +22,8 @@
   <Target Name="TestTarget" AfterTargets="Build">
     <Message Importance="High" Text="... Building test assets" />
     <RemoveDir Directories="$(NuGetPackageRoot)/nunitxml.testlogger" />
-    <Exec ContinueOnError="False" Command="dotnet build -c $(Configuration) -p:PackageVersion=$(PackageVersion) -p:RestoreConfigFile=$(TestRestoreConfig) -p:RestoreIgnoreFailedSources=true -p:RestoreNoCache=true $(TestCoreProject)" />
-    <Exec ContinueOnError="False" Command="dotnet build -c $(Configuration) -p:PackageVersion=$(PackageVersion) -p:RestoreConfigFile=$(TestRestoreConfig) -p:RestoreIgnoreFailedSources=true -p:RestoreNoCache=true $(TestFullProject)" />
+    <Exec ContinueOnError="False" Command="dotnet build -c $(Configuration) -p:PackageVersion=$(PackageVersion) -p:RestoreConfigFile=$(TestRestoreConfig) -p:RestoreIgnoreFailedSources=true -p:RestoreNoCache=true $(TestCoreProject)"/>
+    <Exec ContinueOnError="False" Command="dotnet build -c $(Configuration) -p:PackageVersion=$(PackageVersion) -p:RestoreConfigFile=$(TestRestoreConfig) -p:RestoreIgnoreFailedSources=true -p:RestoreNoCache=true $(TestFullProject)"/>
     <Message Importance="High" Text="... Completed" />
   </Target>
-  <ItemGroup>
-    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="15.9.0" />
-    <PackageReference Update="Moq" Version="4.10.0" />
-    <PackageReference Update="Stylecop.Analyzers" Version="1.1.1-beta.61">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
 </Project>

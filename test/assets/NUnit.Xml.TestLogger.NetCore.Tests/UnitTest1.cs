@@ -42,31 +42,6 @@ namespace NUnit.Xml.TestLogger.NetFull.Tests
         public void NoProperty()
         {
         }
-
-        [Test]
-        [Category("Nunit Test Category")]
-        public void WithCategory()
-        {
-        }
-
-        [Test]
-        [Category("Category2")]
-        [Category("Category1")]
-        public void MultipleCategories()
-        {
-        }
-
-        [Test]
-        [Category("NUnit Test Category")]
-        [Property("Property name", "Property value")]
-        public void WithCategoryAndProperty()
-        {
-        }
-
-        [Test]
-        public void NoCategory()
-        {
-        }
     }
 
     public class UnitTest2
