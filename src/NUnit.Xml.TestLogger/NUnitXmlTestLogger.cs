@@ -332,33 +332,48 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 
         private static XElement CreatePropertiesElement(TestCase result)
         {
-            var traits = result.Traits.Select(CreatePropertyElement).ToList();
+            var propertyElements = new HashSet<XElement>(result.Traits.Select(CreatePropertyElement));
+
 #pragma warning disable CS0618 // Type or member is obsolete
 
-            var newTraits = result.Properties.Where(t => t.Attributes.HasFlag(TestPropertyAttributes.Trait));
+            // Required since TestCase.Properties is a superset of TestCase.Traits
+            // Unfortunately not all NUnit properties are available as traits
+            var traitProperties = result.Properties.Where(t => t.Attributes.HasFlag(TestPropertyAttributes.Trait));
 
-            foreach (var p in newTraits)
+#pragma warning restore CS0618 // Type or member is obsolete
+
+            foreach (var p in traitProperties)
             {
                 var propValue = result.GetPropertyValue(p);
+                var keyValuePairs = propValue as KeyValuePair<string, string>[];
+                var elements = Enumerable.Empty<XElement>();
 
-                if (propValue is KeyValuePair<string, string>[])
+                // if (keyValuePairs != null)
+                // {
+                //     foreach (var kvp in keyValuePairs)
+                //     {
+                //         elements = CreatePropertyElement(kvp.Key, kvp.Value);
+                //     }
+                // }
+                // else if (p.Id == "NUnit.TestCategory")
+                // {
+                //     elements = CreatePropertyElement("Category", (string[])propValue);
+                // }
+                if (p.Id == "NUnit.TestCategory")
                 {
-                    var keyValuePairs = (KeyValuePair<string, string>[])propValue;
-
-                    foreach (var kvp in keyValuePairs)
-                    {
-                        traits.AddRange(CreatePropertyElement(kvp.Key, kvp.Value));
-                    }
+                    elements = CreatePropertyElement("Category", (string[])propValue);
                 }
-                else if (p.Id == "NUnit.TestCategory")
+
+                foreach (var element in elements)
                 {
-                    traits.AddRange(CreatePropertyElement("Category", (string[])propValue));
+                    if (!propertyElements.Contains(element))
+                    {
+                        propertyElements.Add(element);
+                    }
                 }
             }
 
-#pragma warning restore CS0618 // Type or member is obsolete
-            var propertyElements = traits;
-            return traits.Any()
+            return propertyElements.Any()
                 ? new XElement("properties", propertyElements.Distinct())
                 : null;
         }

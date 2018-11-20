@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<test-run id="2" testcasecount="46" result="Failed" total="44" passed="18" failed="14" inconclusive="6" skipped="6" asserts="18" engine-version="3.9.0.0" clr-version="4.0.30319.42000" start-time="2018-11-13 01:15:35Z" end-time="2018-11-13 01:15:38Z" duration="2.280934">
+<test-run id="2" testcasecount="58" result="Failed" total="56" passed="30" failed="14" inconclusive="6" skipped="6" asserts="18" engine-version="3.9.0.0" clr-version="4.0.30319.42000" start-time="2018-11-20 01:21:10Z" end-time="2018-11-20 01:21:12Z" duration="1.977571">
   <command-line><![CDATA["C:\Users\codit\Downloads\nunit.console\nunit3-console.exe" .\test\assets\NUnit.Xml.TestLogger.NetFull.Tests\bin\Debug\net46\NUnit.Xml.TestLogger.NetFull.Tests.dll]]></command-line>
-  <test-suite type="Assembly" id="0-1072" name="NUnit.Xml.TestLogger.NetFull.Tests.dll" fullname="C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetFull.Tests\bin\Debug\net46\NUnit.Xml.TestLogger.NetFull.Tests.dll" runstate="Runnable" testcasecount="46" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:38Z" duration="1.022660" total="44" passed="18" failed="14" warnings="2" inconclusive="6" skipped="6" asserts="18">
+  <test-suite type="Assembly" id="0-1084" name="NUnit.Xml.TestLogger.NetFull.Tests.dll" fullname="C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetFull.Tests\bin\Debug\net46\NUnit.Xml.TestLogger.NetFull.Tests.dll" runstate="Runnable" testcasecount="58" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:12Z" duration="1.033355" total="56" passed="30" failed="14" warnings="2" inconclusive="6" skipped="6" asserts="18">
     <environment framework-version="3.10.1.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.17134.0" platform="Win32NT" cwd="C:\Users\codit\src\nunit.testlogger" machine-name="DESKTOP-0QEQ4G1" user="codit" user-domain="DESKTOP-0QEQ4G1" culture="en-US" uiculture="en-US" os-architecture="x86" />
     <settings>
       <setting name="DisposeRunners" value="True" />
@@ -13,99 +13,99 @@
       <setting name="NumberOfTestWorkers" value="4" />
     </settings>
     <properties>
-      <property name="_PID" value="7184" />
+      <property name="_PID" value="7492" />
       <property name="_APPDOMAIN" value="domain-" />
     </properties>
     <failure>
       <message><![CDATA[One or more child tests had errors]]></message>
     </failure>
-    <test-suite type="TestSuite" id="0-1073" name="NUnit" fullname="NUnit" runstate="Runnable" testcasecount="46" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:38Z" duration="1.002254" total="44" passed="18" failed="14" warnings="2" inconclusive="6" skipped="6" asserts="18">
+    <test-suite type="TestSuite" id="0-1085" name="NUnit" fullname="NUnit" runstate="Runnable" testcasecount="58" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:12Z" duration="1.015762" total="56" passed="30" failed="14" warnings="2" inconclusive="6" skipped="6" asserts="18">
       <failure>
         <message><![CDATA[One or more child tests had errors]]></message>
       </failure>
-      <test-suite type="TestSuite" id="0-1074" name="Xml" fullname="NUnit.Xml" runstate="Runnable" testcasecount="46" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:38Z" duration="1.001727" total="44" passed="18" failed="14" warnings="2" inconclusive="6" skipped="6" asserts="18">
+      <test-suite type="TestSuite" id="0-1086" name="Xml" fullname="NUnit.Xml" runstate="Runnable" testcasecount="58" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:12Z" duration="1.012979" total="56" passed="30" failed="14" warnings="2" inconclusive="6" skipped="6" asserts="18">
         <failure>
           <message><![CDATA[One or more child tests had errors]]></message>
         </failure>
-        <test-suite type="TestSuite" id="0-1075" name="TestLogger" fullname="NUnit.Xml.TestLogger" runstate="Runnable" testcasecount="46" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:38Z" duration="1.001711" total="44" passed="18" failed="14" warnings="2" inconclusive="6" skipped="6" asserts="18">
+        <test-suite type="TestSuite" id="0-1087" name="TestLogger" fullname="NUnit.Xml.TestLogger" runstate="Runnable" testcasecount="58" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:12Z" duration="1.012949" total="56" passed="30" failed="14" warnings="2" inconclusive="6" skipped="6" asserts="18">
           <failure>
             <message><![CDATA[One or more child tests had errors]]></message>
           </failure>
-          <test-suite type="TestSuite" id="0-1077" name="NetFull" fullname="NUnit.Xml.TestLogger.NetFull" runstate="Runnable" testcasecount="23" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.564711" total="22" passed="9" failed="7" warnings="1" inconclusive="3" skipped="3" asserts="9">
+          <test-suite type="TestSuite" id="0-1089" name="NetFull" fullname="NUnit.Xml.TestLogger.NetFull" runstate="Runnable" testcasecount="29" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.582646" total="28" passed="15" failed="7" warnings="1" inconclusive="3" skipped="3" asserts="9">
             <failure>
               <message><![CDATA[One or more child tests had errors]]></message>
             </failure>
-            <test-suite type="TestSuite" id="0-1078" name="Tests" fullname="NUnit.Xml.TestLogger.NetFull.Tests" runstate="Runnable" testcasecount="23" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.564698" total="22" passed="9" failed="7" warnings="1" inconclusive="3" skipped="3" asserts="9">
+            <test-suite type="TestSuite" id="0-1090" name="Tests" fullname="NUnit.Xml.TestLogger.NetFull.Tests" runstate="Runnable" testcasecount="29" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.582633" total="28" passed="15" failed="7" warnings="1" inconclusive="3" skipped="3" asserts="9">
               <failure>
                 <message><![CDATA[One or more child tests had errors]]></message>
               </failure>
-              <test-suite type="TestFixture" id="0-1053" name="FailingOneTimeSetUp" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeSetUp" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeSetUp" runstate="Runnable" testcasecount="1" result="Failed" label="Error" site="SetUp" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.035518" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
+              <test-suite type="TestFixture" id="0-1065" name="FailingOneTimeSetUp" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeSetUp" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeSetUp" runstate="Runnable" testcasecount="1" result="Failed" label="Error" site="SetUp" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.052627" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
                 <failure>
                   <message><![CDATA[System.InvalidOperationException : Operation is not valid due to the current state of the object.]]></message>
-                  <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeSetUp.OneTimeSetUp() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 107]]></stack-trace>
+                  <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeSetUp.OneTimeSetUp() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 143]]></stack-trace>
                 </failure>
-                <test-case id="0-1054" name="Test" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeSetUp.Test" methodname="Test" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeSetUp" runstate="Runnable" seed="1675806223" result="Failed" label="Error" site="Parent" start-time="0001-01-01 00:00:00Z" end-time="0001-01-01 00:00:00Z" duration="0.000000" asserts="0">
+                <test-case id="0-1066" name="Test" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeSetUp.Test" methodname="Test" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeSetUp" runstate="Runnable" seed="1840320095" result="Failed" label="Error" site="Parent" start-time="0001-01-01 00:00:00Z" end-time="0001-01-01 00:00:00Z" duration="0.000000" asserts="0">
                   <failure>
                     <message><![CDATA[OneTimeSetUp: System.InvalidOperationException : Operation is not valid due to the current state of the object.]]></message>
                   </failure>
                 </test-case>
               </test-suite>
-              <test-suite type="TestFixture" id="0-1059" name="FailingOneTimeTearDown" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeTearDown" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeTearDown" runstate="Runnable" testcasecount="1" result="Failed" label="Error" site="TearDown" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.007979" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+              <test-suite type="TestFixture" id="0-1071" name="FailingOneTimeTearDown" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeTearDown" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeTearDown" runstate="Runnable" testcasecount="1" result="Failed" label="Error" site="TearDown" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.008039" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
                 <failure>
                   <message><![CDATA[TearDown : System.InvalidOperationException : Operation is not valid due to the current state of the object.]]></message>
                   <stack-trace><![CDATA[--TearDown
-   at NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeTearDown.OneTimeTearDown() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 152]]></stack-trace>
+   at NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeTearDown.OneTimeTearDown() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 188]]></stack-trace>
                 </failure>
-                <test-case id="0-1060" name="Test" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeTearDown.Test" methodname="Test" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeTearDown" runstate="Runnable" seed="528006650" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.004856" asserts="0" />
+                <test-case id="0-1072" name="Test" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeTearDown.Test" methodname="Test" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingOneTimeTearDown" runstate="Runnable" seed="1731905133" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.005233" asserts="0" />
               </test-suite>
-              <test-suite type="TestFixture" id="0-1057" name="FailingTearDown" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTearDown" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTearDown" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.002101" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
+              <test-suite type="TestFixture" id="0-1069" name="FailingTearDown" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTearDown" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTearDown" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.002737" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
                 <failure>
                   <message><![CDATA[One or more child tests had errors]]></message>
                 </failure>
-                <test-case id="0-1058" name="Test" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTearDown.Test" methodname="Test" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTearDown" runstate="Runnable" seed="1749412846" result="Failed" label="Error" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.001925" asserts="0">
+                <test-case id="0-1070" name="Test" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTearDown.Test" methodname="Test" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTearDown" runstate="Runnable" seed="948606489" result="Failed" label="Error" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.001658" asserts="0">
                   <failure>
                     <message><![CDATA[TearDown : System.InvalidOperationException : Operation is not valid due to the current state of the object.]]></message>
                     <stack-trace><![CDATA[--TearDown
-   at NUnit.Xml.TestLogger.NetFull.Tests.FailingTearDown.TearDown() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 137]]></stack-trace>
+   at NUnit.Xml.TestLogger.NetFull.Tests.FailingTearDown.TearDown() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 173]]></stack-trace>
                   </failure>
                 </test-case>
               </test-suite>
-              <test-suite type="TestFixture" id="0-1055" name="FailingTestSetup" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTestSetup" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTestSetup" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.001554" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
+              <test-suite type="TestFixture" id="0-1067" name="FailingTestSetup" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTestSetup" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTestSetup" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.001525" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
                 <failure>
                   <message><![CDATA[One or more child tests had errors]]></message>
                 </failure>
-                <test-case id="0-1056" name="Test" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTestSetup.Test" methodname="Test" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTestSetup" runstate="Runnable" seed="566265528" result="Failed" label="Error" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.001395" asserts="0">
+                <test-case id="0-1068" name="Test" fullname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTestSetup.Test" methodname="Test" classname="NUnit.Xml.TestLogger.NetFull.Tests.FailingTestSetup" runstate="Runnable" seed="2120358811" result="Failed" label="Error" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.001364" asserts="0">
                   <failure>
                     <message><![CDATA[System.InvalidOperationException : Operation is not valid due to the current state of the object.]]></message>
-                    <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.FailingTestSetup.SetUp() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 122]]></stack-trace>
+                    <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.FailingTestSetup.SetUp() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 158]]></stack-trace>
                   </failure>
                 </test-case>
               </test-suite>
-              <test-suite type="ParameterizedFixture" id="0-1065" name="ParametrizedFixture" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture" runstate="Runnable" testcasecount="2" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.052611" total="2" passed="2" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
-                <test-suite type="TestFixture" id="0-1063" name="ParametrizedFixture(&quot;Answer&quot;,42)" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture(&quot;Answer&quot;,42)" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture" runstate="Runnable" testcasecount="1" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000208" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
-                  <test-case id="0-1064" name="Test" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture(&quot;Answer&quot;,42).Test" methodname="Test" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture" runstate="Runnable" seed="1170343255" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000090" asserts="0" />
+              <test-suite type="ParameterizedFixture" id="0-1077" name="ParametrizedFixture" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture" runstate="Runnable" testcasecount="2" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.087277" total="2" passed="2" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+                <test-suite type="TestFixture" id="0-1075" name="ParametrizedFixture(&quot;Answer&quot;,42)" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture(&quot;Answer&quot;,42)" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture" runstate="Runnable" testcasecount="1" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000647" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+                  <test-case id="0-1076" name="Test" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture(&quot;Answer&quot;,42).Test" methodname="Test" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture" runstate="Runnable" seed="789994840" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000310" asserts="0" />
                 </test-suite>
-                <test-suite type="TestFixture" id="0-1061" name="ParametrizedFixture(&quot;Question&quot;,1)" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture(&quot;Question&quot;,1)" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture" runstate="Runnable" testcasecount="1" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000096" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
-                  <test-case id="0-1062" name="Test" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture(&quot;Question&quot;,1).Test" methodname="Test" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture" runstate="Runnable" seed="1857245633" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000041" asserts="0" />
+                <test-suite type="TestFixture" id="0-1073" name="ParametrizedFixture(&quot;Question&quot;,1)" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture(&quot;Question&quot;,1)" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture" runstate="Runnable" testcasecount="1" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000434" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+                  <test-case id="0-1074" name="Test" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture(&quot;Question&quot;,1).Test" methodname="Test" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedFixture" runstate="Runnable" seed="1872718813" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000174" asserts="0" />
                 </test-suite>
               </test-suite>
-              <test-suite type="TestFixture" id="0-1066" name="ParametrizedTestCases" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.085367" total="4" passed="2" failed="2" warnings="0" inconclusive="0" skipped="0" asserts="6">
+              <test-suite type="TestFixture" id="0-1078" name="ParametrizedTestCases" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.069863" total="4" passed="2" failed="2" warnings="0" inconclusive="0" skipped="0" asserts="6">
                 <failure>
                   <message><![CDATA[One or more child tests had errors]]></message>
                 </failure>
-                <test-suite type="ParameterizedMethod" id="0-1071" name="TestData" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.085282" total="4" passed="2" failed="2" warnings="0" inconclusive="0" skipped="0" asserts="6">
+                <test-suite type="ParameterizedMethod" id="0-1083" name="TestData" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.069623" total="4" passed="2" failed="2" warnings="0" inconclusive="0" skipped="0" asserts="6">
                   <failure>
                     <message><![CDATA[One or more child tests had errors]]></message>
                   </failure>
-                  <test-case id="0-1067" name="TestData(1,&quot;A&quot;)" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(1,&quot;A&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases" runstate="Runnable" seed="1183427555" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.032300" asserts="2" />
-                  <test-case id="0-1068" name="TestData(1,&quot;B&quot;)" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(1,&quot;B&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases" runstate="Runnable" seed="656463404" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000437" asserts="2" />
-                  <test-case id="0-1069" name="TestData(2,&quot;A&quot;)" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(2,&quot;A&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases" runstate="Runnable" seed="806934859" result="Failed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.051520" asserts="1">
+                  <test-case id="0-1079" name="TestData(1,&quot;A&quot;)" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(1,&quot;A&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases" runstate="Runnable" seed="15412222" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.027534" asserts="2" />
+                  <test-case id="0-1080" name="TestData(1,&quot;B&quot;)" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(1,&quot;B&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases" runstate="Runnable" seed="1849511579" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000109" asserts="2" />
+                  <test-case id="0-1081" name="TestData(2,&quot;A&quot;)" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(2,&quot;A&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases" runstate="Runnable" seed="660395414" result="Failed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.040700" asserts="1">
                     <failure>
                       <message><![CDATA[  failing for second case
   Expected: not equal to 2
   But was:  2
 ]]></message>
-                      <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 187
+                      <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 223
 ]]></stack-trace>
                     </failure>
                     <assertions>
@@ -114,18 +114,18 @@
   Expected: not equal to 2
   But was:  2
 ]]></message>
-                        <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 187
+                        <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 223
 ]]></stack-trace>
                       </assertion>
                     </assertions>
                   </test-case>
-                  <test-case id="0-1070" name="TestData(2,&quot;B&quot;)" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(2,&quot;B&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases" runstate="Runnable" seed="1736987180" result="Failed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000778" asserts="1">
+                  <test-case id="0-1082" name="TestData(2,&quot;B&quot;)" fullname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(2,&quot;B&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases" runstate="Runnable" seed="1007644148" result="Failed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000755" asserts="1">
                     <failure>
                       <message><![CDATA[  failing for second case
   Expected: not equal to 2
   But was:  2
 ]]></message>
-                      <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 187
+                      <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 223
 ]]></stack-trace>
                     </failure>
                     <assertions>
@@ -134,25 +134,25 @@
   Expected: not equal to 2
   But was:  2
 ]]></message>
-                        <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 187
+                        <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 223
 ]]></stack-trace>
                       </assertion>
                     </assertions>
                   </test-case>
                 </test-suite>
               </test-suite>
-              <test-suite type="TestFixture" id="0-1050" name="SuccessAndInconclusiveFixture" fullname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessAndInconclusiveFixture" classname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessAndInconclusiveFixture" runstate="Runnable" testcasecount="2" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.004996" total="2" passed="1" failed="0" warnings="0" inconclusive="1" skipped="0" asserts="0">
-                <test-case id="0-1052" name="InconclusiveTest" fullname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessAndInconclusiveFixture.InconclusiveTest" methodname="InconclusiveTest" classname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessAndInconclusiveFixture" runstate="Runnable" seed="1249188242" result="Inconclusive" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.001284" asserts="0" />
-                <test-case id="0-1051" name="SuccessTest" fullname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessAndInconclusiveFixture.SuccessTest" methodname="SuccessTest" classname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessAndInconclusiveFixture" runstate="Runnable" seed="202290249" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.003519" asserts="0" />
+              <test-suite type="TestFixture" id="0-1062" name="SuccessAndInconclusiveFixture" fullname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessAndInconclusiveFixture" classname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessAndInconclusiveFixture" runstate="Runnable" testcasecount="2" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.007190" total="2" passed="1" failed="0" warnings="0" inconclusive="1" skipped="0" asserts="0">
+                <test-case id="0-1064" name="InconclusiveTest" fullname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessAndInconclusiveFixture.InconclusiveTest" methodname="InconclusiveTest" classname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessAndInconclusiveFixture" runstate="Runnable" seed="248309899" result="Inconclusive" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.006921" asserts="0" />
+                <test-case id="0-1063" name="SuccessTest" fullname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessAndInconclusiveFixture.SuccessTest" methodname="SuccessTest" classname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessAndInconclusiveFixture" runstate="Runnable" seed="1418102549" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000100" asserts="0" />
               </test-suite>
-              <test-suite type="TestFixture" id="0-1048" name="SuccessFixture" fullname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessFixture" classname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessFixture" runstate="Runnable" testcasecount="1" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000181" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
-                <test-case id="0-1049" name="SuccessTest" fullname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessFixture.SuccessTest" methodname="SuccessTest" classname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessFixture" runstate="Runnable" seed="90668467" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000082" asserts="0" />
+              <test-suite type="TestFixture" id="0-1060" name="SuccessFixture" fullname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessFixture" classname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessFixture" runstate="Runnable" testcasecount="1" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000175" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+                <test-case id="0-1061" name="SuccessTest" fullname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessFixture.SuccessTest" methodname="SuccessTest" classname="NUnit.Xml.TestLogger.NetFull.Tests.SuccessFixture" runstate="Runnable" seed="202191485" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000082" asserts="0" />
               </test-suite>
-              <test-suite type="TestFixture" id="0-1036" name="UnitTest1" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.414643" total="4" passed="1" failed="1" warnings="0" inconclusive="1" skipped="1" asserts="1">
+              <test-suite type="TestFixture" id="0-1042" name="UnitTest1" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Runnable" testcasecount="10" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.414954" total="10" passed="7" failed="1" warnings="0" inconclusive="1" skipped="1" asserts="1">
                 <failure>
                   <message><![CDATA[One or more child tests had errors]]></message>
                 </failure>
-                <test-case id="0-1038" name="FailTest11" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1.FailTest11" methodname="FailTest11" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Runnable" seed="2006827097" result="Failed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.002001" asserts="1">
+                <test-case id="0-1044" name="FailTest11" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1.FailTest11" methodname="FailTest11" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Runnable" seed="1780378184" result="Failed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.001716" asserts="1">
                   <failure>
                     <message><![CDATA[  Expected: False
   But was:  True
@@ -170,7 +170,7 @@
                     </assertion>
                   </assertions>
                 </test-case>
-                <test-case id="0-1040" name="Ignored" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1.Ignored" methodname="Ignored" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Ignored" seed="2033743878" result="Skipped" label="Ignored" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000524" asserts="0">
+                <test-case id="0-1046" name="Ignored" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1.Ignored" methodname="Ignored" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Ignored" seed="171709630" result="Skipped" label="Ignored" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000441" asserts="0">
                   <properties>
                     <property name="_SKIPREASON" value="ignore reason" />
                   </properties>
@@ -178,23 +178,47 @@
                     <message><![CDATA[ignore reason]]></message>
                   </reason>
                 </test-case>
-                <test-case id="0-1039" name="Inconclusive" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1.Inconclusive" methodname="Inconclusive" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Runnable" seed="1214466012" result="Inconclusive" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000671" asserts="0">
+                <test-case id="0-1045" name="Inconclusive" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1.Inconclusive" methodname="Inconclusive" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Runnable" seed="2131887168" result="Inconclusive" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000637" asserts="0">
                   <reason>
                     <message><![CDATA[test inconclusive]]></message>
                   </reason>
                 </test-case>
-                <test-case id="0-1037" name="PassTest11" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1.PassTest11" methodname="PassTest11" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Runnable" seed="2141736660" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.411208" asserts="0">
+                <test-case id="0-1050" name="MultipleCategories" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1.MultipleCategories" methodname="MultipleCategories" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Runnable" seed="108636289" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000126" asserts="0">
+                  <properties>
+                    <property name="Category" value="Category2" />
+                    <property name="Category" value="Category1" />
+                  </properties>
+                </test-case>
+                <test-case id="0-1052" name="NoCategory" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1.NoCategory" methodname="NoCategory" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Runnable" seed="1556279543" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000082" asserts="0" />
+                <test-case id="0-1048" name="NoProperty" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1.NoProperty" methodname="NoProperty" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Runnable" seed="2113084882" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000077" asserts="0" />
+                <test-case id="0-1043" name="PassTest11" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1.PassTest11" methodname="PassTest11" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Runnable" seed="92100859" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.411184" asserts="0">
                   <properties>
                     <property name="Description" value="Passing test description" />
                   </properties>
                 </test-case>
+                <test-case id="0-1049" name="WithCategory" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1.WithCategory" methodname="WithCategory" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Runnable" seed="318213853" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000189" asserts="0">
+                  <properties>
+                    <property name="Category" value="Nunit Test Category" />
+                  </properties>
+                </test-case>
+                <test-case id="0-1051" name="WithCategoryAndProperty" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1.WithCategoryAndProperty" methodname="WithCategoryAndProperty" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Runnable" seed="1810514700" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000147" asserts="0">
+                  <properties>
+                    <property name="Category" value="NUnit Test Category" />
+                    <property name="Property name" value="Property value" />
+                  </properties>
+                </test-case>
+                <test-case id="0-1047" name="WithProperty" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1.WithProperty" methodname="WithProperty" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest1" runstate="Runnable" seed="1459194650" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000120" asserts="0">
+                  <properties>
+                    <property name="Property name" value="Property value" />
+                  </properties>
+                </test-case>
               </test-suite>
-              <test-suite type="TestFixture" id="0-1041" name="UnitTest2" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.006803" total="5" passed="1" failed="1" warnings="1" inconclusive="1" skipped="2" asserts="2">
+              <test-suite type="TestFixture" id="0-1053" name="UnitTest2" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.003063" total="5" passed="1" failed="1" warnings="1" inconclusive="1" skipped="2" asserts="2">
                 <failure>
                   <message><![CDATA[One or more child tests had errors]]></message>
                 </failure>
-                <test-case id="0-1047" name="ExplicitTest" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.ExplicitTest" methodname="ExplicitTest" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" runstate="Explicit" seed="774912509" result="Skipped" label="Explicit" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000081" asserts="0" />
-                <test-case id="0-1043" name="FailTest22" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.FailTest22" methodname="FailTest22" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" runstate="Runnable" seed="1772062874" result="Failed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.002340" asserts="1">
+                <test-case id="0-1059" name="ExplicitTest" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.ExplicitTest" methodname="ExplicitTest" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" runstate="Explicit" seed="19085673" result="Skipped" label="Explicit" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000041" asserts="0" />
+                <test-case id="0-1055" name="FailTest22" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.FailTest22" methodname="FailTest22" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" runstate="Runnable" seed="836951026" result="Failed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.001316" asserts="1">
                   <properties>
                     <property name="Category" value="failing category" />
                   </properties>
@@ -202,7 +226,7 @@
                     <message><![CDATA[  Expected: False
   But was:  True
 ]]></message>
-                    <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.FailTest22() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 49
+                    <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.FailTest22() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 85
 ]]></stack-trace>
                   </failure>
                   <assertions>
@@ -210,12 +234,12 @@
                       <message><![CDATA[  Expected: False
   But was:  True
 ]]></message>
-                      <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.FailTest22() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 49
+                      <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.FailTest22() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 85
 ]]></stack-trace>
                     </assertion>
                   </assertions>
                 </test-case>
-                <test-case id="0-1045" name="IgnoredTest" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.IgnoredTest" methodname="IgnoredTest" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" runstate="Ignored" seed="2091075346" result="Skipped" label="Ignored" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000012" asserts="0">
+                <test-case id="0-1057" name="IgnoredTest" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.IgnoredTest" methodname="IgnoredTest" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" runstate="Ignored" seed="953041305" result="Skipped" label="Ignored" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000006" asserts="0">
                   <properties>
                     <property name="_SKIPREASON" value="ignore reason" />
                   </properties>
@@ -223,20 +247,20 @@
                     <message><![CDATA[ignore reason]]></message>
                   </reason>
                 </test-case>
-                <test-case id="0-1044" name="Inconclusive" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.Inconclusive" methodname="Inconclusive" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" runstate="Runnable" seed="507440630" result="Inconclusive" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.001247" asserts="0" />
-                <test-case id="0-1042" name="PassTest21" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.PassTest21" methodname="PassTest21" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" runstate="Runnable" seed="1944530510" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.001439" asserts="1">
+                <test-case id="0-1056" name="Inconclusive" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.Inconclusive" methodname="Inconclusive" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" runstate="Runnable" seed="1912755620" result="Inconclusive" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000689" asserts="0" />
+                <test-case id="0-1054" name="PassTest21" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.PassTest21" methodname="PassTest21" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" runstate="Runnable" seed="1293025981" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000339" asserts="1">
                   <properties>
                     <property name="Category" value="passing category" />
                   </properties>
                 </test-case>
-                <test-case id="0-1046" name="WarningTest" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.WarningTest" methodname="WarningTest" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" runstate="Runnable" seed="388162322" result="Warning" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.001283" asserts="0">
+                <test-case id="0-1058" name="WarningTest" fullname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.WarningTest" methodname="WarningTest" classname="NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2" runstate="Runnable" seed="1859579064" result="Warning" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000517" asserts="0">
                   <reason>
                     <message><![CDATA[Warning]]></message>
                   </reason>
                   <assertions>
                     <assertion result="Warning">
                       <message><![CDATA[Warning]]></message>
-                      <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.WarningTest() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 67
+                      <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.NetFull.Tests.UnitTest2.WarningTest() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest1.cs:line 103
 ]]></stack-trace>
                     </assertion>
                   </assertions>
@@ -244,77 +268,77 @@
               </test-suite>
             </test-suite>
           </test-suite>
-          <test-suite type="TestSuite" id="0-1076" name="Tests2" fullname="NUnit.Xml.TestLogger.Tests2" runstate="Runnable" testcasecount="23" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:38Z" duration="1.001622" total="22" passed="9" failed="7" warnings="1" inconclusive="3" skipped="3" asserts="9">
+          <test-suite type="TestSuite" id="0-1088" name="Tests2" fullname="NUnit.Xml.TestLogger.Tests2" runstate="Runnable" testcasecount="29" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:12Z" duration="1.012706" total="28" passed="15" failed="7" warnings="1" inconclusive="3" skipped="3" asserts="9">
             <failure>
               <message><![CDATA[One or more child tests had errors]]></message>
             </failure>
-            <test-suite type="TestFixture" id="0-1017" name="FailingOneTimeSetUp" fullname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeSetUp" classname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeSetUp" runstate="Runnable" testcasecount="1" result="Failed" label="Error" site="SetUp" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.001706" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-suite type="TestFixture" id="0-1023" name="FailingOneTimeSetUp" fullname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeSetUp" classname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeSetUp" runstate="Runnable" testcasecount="1" result="Failed" label="Error" site="SetUp" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000987" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
               <failure>
                 <message><![CDATA[System.InvalidOperationException : Operation is not valid due to the current state of the object.]]></message>
-                <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.FailingOneTimeSetUp.OneTimeSetUp() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 107]]></stack-trace>
+                <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.FailingOneTimeSetUp.OneTimeSetUp() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 142]]></stack-trace>
               </failure>
-              <test-case id="0-1018" name="Test" fullname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeSetUp.Test" methodname="Test" classname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeSetUp" runstate="Runnable" seed="230704296" result="Failed" label="Error" site="Parent" start-time="0001-01-01 00:00:00Z" end-time="0001-01-01 00:00:00Z" duration="0.000000" asserts="0">
+              <test-case id="0-1024" name="Test" fullname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeSetUp.Test" methodname="Test" classname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeSetUp" runstate="Runnable" seed="420255033" result="Failed" label="Error" site="Parent" start-time="0001-01-01 00:00:00Z" end-time="0001-01-01 00:00:00Z" duration="0.000000" asserts="0">
                 <failure>
                   <message><![CDATA[OneTimeSetUp: System.InvalidOperationException : Operation is not valid due to the current state of the object.]]></message>
                 </failure>
               </test-case>
             </test-suite>
-            <test-suite type="TestFixture" id="0-1023" name="FailingOneTimeTearDown" fullname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeTearDown" classname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeTearDown" runstate="Runnable" testcasecount="1" result="Failed" label="Error" site="TearDown" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.001587" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-suite type="TestFixture" id="0-1029" name="FailingOneTimeTearDown" fullname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeTearDown" classname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeTearDown" runstate="Runnable" testcasecount="1" result="Failed" label="Error" site="TearDown" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000831" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
               <failure>
                 <message><![CDATA[TearDown : System.InvalidOperationException : Operation is not valid due to the current state of the object.]]></message>
                 <stack-trace><![CDATA[--TearDown
-   at NUnit.Xml.TestLogger.Tests2.FailingOneTimeTearDown.OneTimeTearDown() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 152]]></stack-trace>
+   at NUnit.Xml.TestLogger.Tests2.FailingOneTimeTearDown.OneTimeTearDown() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 187]]></stack-trace>
               </failure>
-              <test-case id="0-1024" name="Test" fullname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeTearDown.Test" methodname="Test" classname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeTearDown" runstate="Runnable" seed="1488200567" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000213" asserts="0" />
+              <test-case id="0-1030" name="Test" fullname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeTearDown.Test" methodname="Test" classname="NUnit.Xml.TestLogger.Tests2.FailingOneTimeTearDown" runstate="Runnable" seed="2113217066" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000102" asserts="0" />
             </test-suite>
-            <test-suite type="TestFixture" id="0-1021" name="FailingTearDown" fullname="NUnit.Xml.TestLogger.Tests2.FailingTearDown" classname="NUnit.Xml.TestLogger.Tests2.FailingTearDown" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.001154" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-suite type="TestFixture" id="0-1027" name="FailingTearDown" fullname="NUnit.Xml.TestLogger.Tests2.FailingTearDown" classname="NUnit.Xml.TestLogger.Tests2.FailingTearDown" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000898" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
               <failure>
                 <message><![CDATA[One or more child tests had errors]]></message>
               </failure>
-              <test-case id="0-1022" name="Test" fullname="NUnit.Xml.TestLogger.Tests2.FailingTearDown.Test" methodname="Test" classname="NUnit.Xml.TestLogger.Tests2.FailingTearDown" runstate="Runnable" seed="1336829802" result="Failed" label="Error" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000953" asserts="0">
+              <test-case id="0-1028" name="Test" fullname="NUnit.Xml.TestLogger.Tests2.FailingTearDown.Test" methodname="Test" classname="NUnit.Xml.TestLogger.Tests2.FailingTearDown" runstate="Runnable" seed="1579100982" result="Failed" label="Error" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000776" asserts="0">
                 <failure>
                   <message><![CDATA[TearDown : System.InvalidOperationException : Operation is not valid due to the current state of the object.]]></message>
                   <stack-trace><![CDATA[--TearDown
-   at NUnit.Xml.TestLogger.Tests2.FailingTearDown.TearDown() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 137]]></stack-trace>
+   at NUnit.Xml.TestLogger.Tests2.FailingTearDown.TearDown() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 172]]></stack-trace>
                 </failure>
               </test-case>
             </test-suite>
-            <test-suite type="TestFixture" id="0-1019" name="FailingTestSetup" fullname="NUnit.Xml.TestLogger.Tests2.FailingTestSetup" classname="NUnit.Xml.TestLogger.Tests2.FailingTestSetup" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000862" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
+            <test-suite type="TestFixture" id="0-1025" name="FailingTestSetup" fullname="NUnit.Xml.TestLogger.Tests2.FailingTestSetup" classname="NUnit.Xml.TestLogger.Tests2.FailingTestSetup" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000797" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
               <failure>
                 <message><![CDATA[One or more child tests had errors]]></message>
               </failure>
-              <test-case id="0-1020" name="Test" fullname="NUnit.Xml.TestLogger.Tests2.FailingTestSetup.Test" methodname="Test" classname="NUnit.Xml.TestLogger.Tests2.FailingTestSetup" runstate="Runnable" seed="319456895" result="Failed" label="Error" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000728" asserts="0">
+              <test-case id="0-1026" name="Test" fullname="NUnit.Xml.TestLogger.Tests2.FailingTestSetup.Test" methodname="Test" classname="NUnit.Xml.TestLogger.Tests2.FailingTestSetup" runstate="Runnable" seed="39109071" result="Failed" label="Error" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000679" asserts="0">
                 <failure>
                   <message><![CDATA[System.InvalidOperationException : Operation is not valid due to the current state of the object.]]></message>
-                  <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.FailingTestSetup.SetUp() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 122]]></stack-trace>
+                  <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.FailingTestSetup.SetUp() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 157]]></stack-trace>
                 </failure>
               </test-case>
             </test-suite>
-            <test-suite type="ParameterizedFixture" id="0-1029" name="ParametrizedFixture" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture" runstate="Runnable" testcasecount="2" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.570530" total="2" passed="2" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
-              <test-suite type="TestFixture" id="0-1027" name="ParametrizedFixture(&quot;Answer&quot;,42)" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture(&quot;Answer&quot;,42)" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture" runstate="Runnable" testcasecount="1" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000243" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
-                <test-case id="0-1028" name="Test" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture(&quot;Answer&quot;,42).Test" methodname="Test" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture" runstate="Runnable" seed="336546532" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000102" asserts="0" />
+            <test-suite type="ParameterizedFixture" id="0-1035" name="ParametrizedFixture" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture" runstate="Runnable" testcasecount="2" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.586356" total="2" passed="2" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+              <test-suite type="TestFixture" id="0-1033" name="ParametrizedFixture(&quot;Answer&quot;,42)" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture(&quot;Answer&quot;,42)" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture" runstate="Runnable" testcasecount="1" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000243" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+                <test-case id="0-1034" name="Test" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture(&quot;Answer&quot;,42).Test" methodname="Test" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture" runstate="Runnable" seed="1897261336" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000101" asserts="0" />
               </test-suite>
-              <test-suite type="TestFixture" id="0-1025" name="ParametrizedFixture(&quot;Question&quot;,1)" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture(&quot;Question&quot;,1)" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture" runstate="Runnable" testcasecount="1" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000115" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
-                <test-case id="0-1026" name="Test" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture(&quot;Question&quot;,1).Test" methodname="Test" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture" runstate="Runnable" seed="1908720534" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000050" asserts="0" />
+              <test-suite type="TestFixture" id="0-1031" name="ParametrizedFixture(&quot;Question&quot;,1)" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture(&quot;Question&quot;,1)" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture" runstate="Runnable" testcasecount="1" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000120" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+                <test-case id="0-1032" name="Test" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture(&quot;Question&quot;,1).Test" methodname="Test" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedFixture" runstate="Runnable" seed="1975380372" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000052" asserts="0" />
               </test-suite>
             </test-suite>
-            <test-suite type="TestFixture" id="0-1030" name="ParametrizedTestCases" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.005399" total="4" passed="2" failed="2" warnings="0" inconclusive="0" skipped="0" asserts="6">
+            <test-suite type="TestFixture" id="0-1036" name="ParametrizedTestCases" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.002129" total="4" passed="2" failed="2" warnings="0" inconclusive="0" skipped="0" asserts="6">
               <failure>
                 <message><![CDATA[One or more child tests had errors]]></message>
               </failure>
-              <test-suite type="ParameterizedMethod" id="0-1035" name="TestData" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.005300" total="4" passed="2" failed="2" warnings="0" inconclusive="0" skipped="0" asserts="6">
+              <test-suite type="ParameterizedMethod" id="0-1041" name="TestData" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.002034" total="4" passed="2" failed="2" warnings="0" inconclusive="0" skipped="0" asserts="6">
                 <failure>
                   <message><![CDATA[One or more child tests had errors]]></message>
                 </failure>
-                <test-case id="0-1031" name="TestData(1,&quot;A&quot;)" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(1,&quot;A&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases" runstate="Runnable" seed="1698997199" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000274" asserts="2" />
-                <test-case id="0-1032" name="TestData(1,&quot;B&quot;)" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(1,&quot;B&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases" runstate="Runnable" seed="1035054408" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000085" asserts="2" />
-                <test-case id="0-1033" name="TestData(2,&quot;A&quot;)" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(2,&quot;A&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases" runstate="Runnable" seed="1636872541" result="Failed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.002570" asserts="1">
+                <test-case id="0-1037" name="TestData(1,&quot;A&quot;)" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(1,&quot;A&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases" runstate="Runnable" seed="1583882231" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000283" asserts="2" />
+                <test-case id="0-1038" name="TestData(1,&quot;B&quot;)" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(1,&quot;B&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases" runstate="Runnable" seed="442089727" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000067" asserts="2" />
+                <test-case id="0-1039" name="TestData(2,&quot;A&quot;)" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(2,&quot;A&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases" runstate="Runnable" seed="317452826" result="Failed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000850" asserts="1">
                   <failure>
                     <message><![CDATA[  failing for second case
   Expected: not equal to 2
   But was:  2
 ]]></message>
-                    <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 187
+                    <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 222
 ]]></stack-trace>
                   </failure>
                   <assertions>
@@ -323,18 +347,18 @@
   Expected: not equal to 2
   But was:  2
 ]]></message>
-                      <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 187
+                      <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 222
 ]]></stack-trace>
                     </assertion>
                   </assertions>
                 </test-case>
-                <test-case id="0-1034" name="TestData(2,&quot;B&quot;)" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(2,&quot;B&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases" runstate="Runnable" seed="581069272" result="Failed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.001991" asserts="1">
+                <test-case id="0-1040" name="TestData(2,&quot;B&quot;)" fullname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(2,&quot;B&quot;)" methodname="TestData" classname="NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases" runstate="Runnable" seed="585533797" result="Failed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000755" asserts="1">
                   <failure>
                     <message><![CDATA[  failing for second case
   Expected: not equal to 2
   But was:  2
 ]]></message>
-                    <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 187
+                    <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 222
 ]]></stack-trace>
                   </failure>
                   <assertions>
@@ -343,25 +367,25 @@
   Expected: not equal to 2
   But was:  2
 ]]></message>
-                      <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 187
+                      <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.ParametrizedTestCases.TestData(Int32 x, String s) in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 222
 ]]></stack-trace>
                     </assertion>
                   </assertions>
                 </test-case>
               </test-suite>
             </test-suite>
-            <test-suite type="TestFixture" id="0-1014" name="SuccessAndInconclusiveFixture" fullname="NUnit.Xml.TestLogger.Tests2.SuccessAndInconclusiveFixture" classname="NUnit.Xml.TestLogger.Tests2.SuccessAndInconclusiveFixture" runstate="Runnable" testcasecount="2" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.001012" total="2" passed="1" failed="0" warnings="0" inconclusive="1" skipped="0" asserts="0">
-              <test-case id="0-1016" name="InconclusiveTest" fullname="NUnit.Xml.TestLogger.Tests2.SuccessAndInconclusiveFixture.InconclusiveTest" methodname="InconclusiveTest" classname="NUnit.Xml.TestLogger.Tests2.SuccessAndInconclusiveFixture" runstate="Runnable" seed="1056160871" result="Inconclusive" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000736" asserts="0" />
-              <test-case id="0-1015" name="SuccessTest" fullname="NUnit.Xml.TestLogger.Tests2.SuccessAndInconclusiveFixture.SuccessTest" methodname="SuccessTest" classname="NUnit.Xml.TestLogger.Tests2.SuccessAndInconclusiveFixture" runstate="Runnable" seed="993919206" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000113" asserts="0" />
+            <test-suite type="TestFixture" id="0-1020" name="SuccessAndInconclusiveFixture" fullname="NUnit.Xml.TestLogger.Tests2.SuccessAndInconclusiveFixture" classname="NUnit.Xml.TestLogger.Tests2.SuccessAndInconclusiveFixture" runstate="Runnable" testcasecount="2" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.001779" total="2" passed="1" failed="0" warnings="0" inconclusive="1" skipped="0" asserts="0">
+              <test-case id="0-1022" name="InconclusiveTest" fullname="NUnit.Xml.TestLogger.Tests2.SuccessAndInconclusiveFixture.InconclusiveTest" methodname="InconclusiveTest" classname="NUnit.Xml.TestLogger.Tests2.SuccessAndInconclusiveFixture" runstate="Runnable" seed="1759334349" result="Inconclusive" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.001525" asserts="0" />
+              <test-case id="0-1021" name="SuccessTest" fullname="NUnit.Xml.TestLogger.Tests2.SuccessAndInconclusiveFixture.SuccessTest" methodname="SuccessTest" classname="NUnit.Xml.TestLogger.Tests2.SuccessAndInconclusiveFixture" runstate="Runnable" seed="196592648" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000117" asserts="0" />
             </test-suite>
-            <test-suite type="TestFixture" id="0-1012" name="SuccessFixture" fullname="NUnit.Xml.TestLogger.Tests2.SuccessFixture" classname="NUnit.Xml.TestLogger.Tests2.SuccessFixture" runstate="Runnable" testcasecount="1" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000211" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
-              <test-case id="0-1013" name="SuccessTest" fullname="NUnit.Xml.TestLogger.Tests2.SuccessFixture.SuccessTest" methodname="SuccessTest" classname="NUnit.Xml.TestLogger.Tests2.SuccessFixture" runstate="Runnable" seed="1096266626" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000101" asserts="0" />
+            <test-suite type="TestFixture" id="0-1018" name="SuccessFixture" fullname="NUnit.Xml.TestLogger.Tests2.SuccessFixture" classname="NUnit.Xml.TestLogger.Tests2.SuccessFixture" runstate="Runnable" testcasecount="1" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000204" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+              <test-case id="0-1019" name="SuccessTest" fullname="NUnit.Xml.TestLogger.Tests2.SuccessFixture.SuccessTest" methodname="SuccessTest" classname="NUnit.Xml.TestLogger.Tests2.SuccessFixture" runstate="Runnable" seed="1029657382" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000097" asserts="0" />
             </test-suite>
-            <test-suite type="TestFixture" id="0-1000" name="UnitTest1" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:38Z" duration="0.416757" total="4" passed="1" failed="1" warnings="0" inconclusive="1" skipped="1" asserts="1">
+            <test-suite type="TestFixture" id="0-1000" name="UnitTest1" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Runnable" testcasecount="10" result="Failed" site="Child" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:12Z" duration="0.415355" total="10" passed="7" failed="1" warnings="0" inconclusive="1" skipped="1" asserts="1">
               <failure>
                 <message><![CDATA[One or more child tests had errors]]></message>
               </failure>
-              <test-case id="0-1002" name="FailTest11" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1.FailTest11" methodname="FailTest11" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Runnable" seed="2100010353" result="Failed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000984" asserts="1">
+              <test-case id="0-1002" name="FailTest11" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1.FailTest11" methodname="FailTest11" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Runnable" seed="800117937" result="Failed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.001019" asserts="1">
                 <failure>
                   <message><![CDATA[  Expected: False
   But was:  True
@@ -379,7 +403,7 @@
                   </assertion>
                 </assertions>
               </test-case>
-              <test-case id="0-1004" name="Ignored" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1.Ignored" methodname="Ignored" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Ignored" seed="842617557" result="Skipped" label="Ignored" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000006" asserts="0">
+              <test-case id="0-1004" name="Ignored" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1.Ignored" methodname="Ignored" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Ignored" seed="729295627" result="Skipped" label="Ignored" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000006" asserts="0">
                 <properties>
                   <property name="_SKIPREASON" value="ignore reason" />
                 </properties>
@@ -387,23 +411,47 @@
                   <message><![CDATA[ignore reason]]></message>
                 </reason>
               </test-case>
-              <test-case id="0-1003" name="Inconclusive" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1.Inconclusive" methodname="Inconclusive" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Runnable" seed="858082411" result="Inconclusive" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:37Z" duration="0.000650" asserts="0">
+              <test-case id="0-1003" name="Inconclusive" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1.Inconclusive" methodname="Inconclusive" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Runnable" seed="1821199903" result="Inconclusive" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000630" asserts="0">
                 <reason>
                   <message><![CDATA[test inconclusive]]></message>
                 </reason>
               </test-case>
-              <test-case id="0-1001" name="PassTest11" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1.PassTest11" methodname="PassTest11" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Runnable" seed="1555139354" result="Passed" start-time="2018-11-13 01:15:37Z" end-time="2018-11-13 01:15:38Z" duration="0.414896" asserts="0">
+              <test-case id="0-1008" name="MultipleCategories" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1.MultipleCategories" methodname="MultipleCategories" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Runnable" seed="1153952434" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000149" asserts="0">
+                <properties>
+                  <property name="Category" value="Category2" />
+                  <property name="Category" value="Category1" />
+                </properties>
+              </test-case>
+              <test-case id="0-1010" name="NoCategory" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1.NoCategory" methodname="NoCategory" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Runnable" seed="2031323367" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000098" asserts="0" />
+              <test-case id="0-1006" name="NoProperty" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1.NoProperty" methodname="NoProperty" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Runnable" seed="1535545648" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:11Z" duration="0.000096" asserts="0" />
+              <test-case id="0-1001" name="PassTest11" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1.PassTest11" methodname="PassTest11" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Runnable" seed="155027445" result="Passed" start-time="2018-11-20 01:21:11Z" end-time="2018-11-20 01:21:12Z" duration="0.411871" asserts="0">
                 <properties>
                   <property name="Description" value="Passing test description" />
                 </properties>
               </test-case>
+              <test-case id="0-1007" name="WithCategory" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1.WithCategory" methodname="WithCategory" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Runnable" seed="90622953" result="Passed" start-time="2018-11-20 01:21:12Z" end-time="2018-11-20 01:21:12Z" duration="0.000449" asserts="0">
+                <properties>
+                  <property name="Category" value="Nunit Test Category" />
+                </properties>
+              </test-case>
+              <test-case id="0-1009" name="WithCategoryAndProperty" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1.WithCategoryAndProperty" methodname="WithCategoryAndProperty" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Runnable" seed="1127837532" result="Passed" start-time="2018-11-20 01:21:12Z" end-time="2018-11-20 01:21:12Z" duration="0.000388" asserts="0">
+                <properties>
+                  <property name="Category" value="NUnit Test Category" />
+                  <property name="Property name" value="Property value" />
+                </properties>
+              </test-case>
+              <test-case id="0-1005" name="WithProperty" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest1.WithProperty" methodname="WithProperty" classname="NUnit.Xml.TestLogger.Tests2.UnitTest1" runstate="Runnable" seed="1396816550" result="Passed" start-time="2018-11-20 01:21:12Z" end-time="2018-11-20 01:21:12Z" duration="0.000312" asserts="0">
+                <properties>
+                  <property name="Property name" value="Property value" />
+                </properties>
+              </test-case>
             </test-suite>
-            <test-suite type="TestFixture" id="0-1005" name="UnitTest2" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest2" classname="NUnit.Xml.TestLogger.Tests2.UnitTest2" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2018-11-13 01:15:38Z" end-time="2018-11-13 01:15:38Z" duration="0.007544" total="5" passed="1" failed="1" warnings="1" inconclusive="1" skipped="2" asserts="2">
+            <test-suite type="TestFixture" id="0-1011" name="UnitTest2" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest2" classname="NUnit.Xml.TestLogger.Tests2.UnitTest2" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2018-11-20 01:21:12Z" end-time="2018-11-20 01:21:12Z" duration="0.005490" total="5" passed="1" failed="1" warnings="1" inconclusive="1" skipped="2" asserts="2">
               <failure>
                 <message><![CDATA[One or more child tests had errors]]></message>
               </failure>
-              <test-case id="0-1011" name="ExplicitTest" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest2.ExplicitTest" methodname="ExplicitTest" classname="NUnit.Xml.TestLogger.Tests2.UnitTest2" runstate="Explicit" seed="173354213" result="Skipped" label="Explicit" start-time="2018-11-13 01:15:38Z" end-time="2018-11-13 01:15:38Z" duration="0.000033" asserts="0" />
-              <test-case id="0-1007" name="FailTest22" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest2.FailTest22" methodname="FailTest22" classname="NUnit.Xml.TestLogger.Tests2.UnitTest2" runstate="Runnable" seed="1945471262" result="Failed" start-time="2018-11-13 01:15:38Z" end-time="2018-11-13 01:15:38Z" duration="0.002547" asserts="1">
+              <test-case id="0-1017" name="ExplicitTest" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest2.ExplicitTest" methodname="ExplicitTest" classname="NUnit.Xml.TestLogger.Tests2.UnitTest2" runstate="Explicit" seed="1370972719" result="Skipped" label="Explicit" start-time="2018-11-20 01:21:12Z" end-time="2018-11-20 01:21:12Z" duration="0.000024" asserts="0" />
+              <test-case id="0-1013" name="FailTest22" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest2.FailTest22" methodname="FailTest22" classname="NUnit.Xml.TestLogger.Tests2.UnitTest2" runstate="Runnable" seed="4599132" result="Failed" start-time="2018-11-20 01:21:12Z" end-time="2018-11-20 01:21:12Z" duration="0.002840" asserts="1">
                 <properties>
                   <property name="Category" value="failing category" />
                 </properties>
@@ -411,7 +459,7 @@
                   <message><![CDATA[  Expected: False
   But was:  True
 ]]></message>
-                  <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.UnitTest2.FailTest22() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 49
+                  <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.UnitTest2.FailTest22() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 84
 ]]></stack-trace>
                 </failure>
                 <assertions>
@@ -419,12 +467,12 @@
                     <message><![CDATA[  Expected: False
   But was:  True
 ]]></message>
-                    <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.UnitTest2.FailTest22() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 49
+                    <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.UnitTest2.FailTest22() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 84
 ]]></stack-trace>
                   </assertion>
                 </assertions>
               </test-case>
-              <test-case id="0-1009" name="IgnoredTest" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest2.IgnoredTest" methodname="IgnoredTest" classname="NUnit.Xml.TestLogger.Tests2.UnitTest2" runstate="Ignored" seed="1368353064" result="Skipped" label="Ignored" start-time="2018-11-13 01:15:38Z" end-time="2018-11-13 01:15:38Z" duration="0.000011" asserts="0">
+              <test-case id="0-1015" name="IgnoredTest" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest2.IgnoredTest" methodname="IgnoredTest" classname="NUnit.Xml.TestLogger.Tests2.UnitTest2" runstate="Ignored" seed="1944209855" result="Skipped" label="Ignored" start-time="2018-11-20 01:21:12Z" end-time="2018-11-20 01:21:12Z" duration="0.000011" asserts="0">
                 <properties>
                   <property name="_SKIPREASON" value="ignore reason" />
                 </properties>
@@ -432,20 +480,20 @@
                   <message><![CDATA[ignore reason]]></message>
                 </reason>
               </test-case>
-              <test-case id="0-1008" name="Inconclusive" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest2.Inconclusive" methodname="Inconclusive" classname="NUnit.Xml.TestLogger.Tests2.UnitTest2" runstate="Runnable" seed="1507275432" result="Inconclusive" start-time="2018-11-13 01:15:38Z" end-time="2018-11-13 01:15:38Z" duration="0.001531" asserts="0" />
-              <test-case id="0-1006" name="PassTest21" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest2.PassTest21" methodname="PassTest21" classname="NUnit.Xml.TestLogger.Tests2.UnitTest2" runstate="Runnable" seed="984314878" result="Passed" start-time="2018-11-13 01:15:38Z" end-time="2018-11-13 01:15:38Z" duration="0.000494" asserts="1">
+              <test-case id="0-1014" name="Inconclusive" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest2.Inconclusive" methodname="Inconclusive" classname="NUnit.Xml.TestLogger.Tests2.UnitTest2" runstate="Runnable" seed="1779566116" result="Inconclusive" start-time="2018-11-20 01:21:12Z" end-time="2018-11-20 01:21:12Z" duration="0.001347" asserts="0" />
+              <test-case id="0-1012" name="PassTest21" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest2.PassTest21" methodname="PassTest21" classname="NUnit.Xml.TestLogger.Tests2.UnitTest2" runstate="Runnable" seed="634815316" result="Passed" start-time="2018-11-20 01:21:12Z" end-time="2018-11-20 01:21:12Z" duration="0.000376" asserts="1">
                 <properties>
                   <property name="Category" value="passing category" />
                 </properties>
               </test-case>
-              <test-case id="0-1010" name="WarningTest" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest2.WarningTest" methodname="WarningTest" classname="NUnit.Xml.TestLogger.Tests2.UnitTest2" runstate="Runnable" seed="369088183" result="Warning" start-time="2018-11-13 01:15:38Z" end-time="2018-11-13 01:15:38Z" duration="0.000906" asserts="0">
+              <test-case id="0-1016" name="WarningTest" fullname="NUnit.Xml.TestLogger.Tests2.UnitTest2.WarningTest" methodname="WarningTest" classname="NUnit.Xml.TestLogger.Tests2.UnitTest2" runstate="Runnable" seed="853531434" result="Warning" start-time="2018-11-20 01:21:12Z" end-time="2018-11-20 01:21:12Z" duration="0.000534" asserts="0">
                 <reason>
                   <message><![CDATA[Warning]]></message>
                 </reason>
                 <assertions>
                   <assertion result="Warning">
                     <message><![CDATA[Warning]]></message>
-                    <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.UnitTest2.WarningTest() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 67
+                    <stack-trace><![CDATA[   at NUnit.Xml.TestLogger.Tests2.UnitTest2.WarningTest() in C:\Users\codit\src\nunit.testlogger\test\assets\NUnit.Xml.TestLogger.NetCore.Tests\UnitTest2.cs:line 102
 ]]></stack-trace>
                   </assertion>
                 </assertions>

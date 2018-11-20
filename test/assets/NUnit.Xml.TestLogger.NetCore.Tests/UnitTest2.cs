@@ -42,6 +42,7 @@ namespace NUnit.Xml.TestLogger.Tests2
         public void NoProperty()
         {
         }
+
         [Test]
         [Category("Nunit Test Category")]
         public void WithCategory()

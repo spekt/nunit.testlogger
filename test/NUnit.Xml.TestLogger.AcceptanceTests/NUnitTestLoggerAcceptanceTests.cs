@@ -5,6 +5,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Xml.Linq;
     using System.Xml.XPath;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -118,6 +119,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
 
             var propertiesElement = testCaseElement.Element("properties");
             Assert.IsNotNull(propertiesElement, "properties element");
+            Assert.AreEqual(1, propertiesElement.Descendants().Count());
 
             var propertyElement = propertiesElement.Element("property");
             Assert.IsNotNull(propertyElement, "property element");

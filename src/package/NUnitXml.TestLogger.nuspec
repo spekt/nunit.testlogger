@@ -8,7 +8,7 @@
     <owners>codito,faizan2304,smadala</owners>
     <projectUrl>https://github.com/spekt/nunit.testlogger</projectUrl>
     <description>Xml logger for NUnit v3 compliant xml report when test is running with "dotnet test" or "dotnet vstest".</description>
-    <licenseUrl>https://github.com/spekt/nunit.testlogger/blob/master/LICENSE</licenseUrl>
+    <license type="expression">MIT</license>
   </metadata>
   <files>
     <file src="Microsoft.VisualStudio.TestPlatform.Extension.Nunit.Xml.TestLogger.dll" target="build\_common\" />
