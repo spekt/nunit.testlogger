@@ -217,5 +217,28 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             Assert.IsNotNull(propertyElement, "property element");
             Assert.AreEqual("Property value", propertyElement.Attribute("value")?.Value);
         }
+
+        [TestMethod]
+        public void TestResultFileShouldContainTestCasePropertyForTestWithMultipleProperties()
+        {
+            var testNamespace = "NUnit.Xml.TestLogger.NetFull.Tests";
+            var query = string.Format("/test-run//test-case[@fullname='{0}.UnitTest1.WithProperties']", testNamespace);
+            var testCaseElement = this.resultsXml.XPathSelectElement(query);
+            Assert.IsNotNull(testCaseElement, "test-case element");
+
+            var propertiesElement = testCaseElement.Element("properties");
+            Assert.IsNotNull(propertiesElement, "properties element");
+            Assert.AreEqual(2, propertiesElement.Descendants().Count());
+
+            // Verify first category
+            var propertyElement = propertiesElement.XPathSelectElement("descendant::property[@value='Property value 1']");
+            Assert.IsNotNull(propertyElement, "property element");
+            Assert.AreEqual("Property name", propertyElement.Attribute("name")?.Value);
+
+            // Verify second property
+            propertyElement = propertiesElement.XPathSelectElement("descendant::property[@value='Property value 2']");
+            Assert.IsNotNull(propertyElement, "property element");
+            Assert.AreEqual("Property name", propertyElement.Attribute("name")?.Value);
+        }
     }
 }

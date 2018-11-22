@@ -64,7 +64,9 @@ namespace NUnit.Xml.TestLogger.NetFull.Tests
         }
 
         [Test]
-        public void NoCategory()
+        [Property("Property name", "Property value 1")]
+        [Property("Property name", "Property value 2")]
+        public void WithProperties()
         {
         }
     }
@@ -96,7 +98,7 @@ namespace NUnit.Xml.TestLogger.NetFull.Tests
         public void IgnoredTest()
         {
         }
-        
+
         [Test]
         public void WarningTest()
         {
@@ -118,7 +120,7 @@ namespace NUnit.Xml.TestLogger.NetFull.Tests
         {
         }
     }
-    
+
     [TestFixture]
     public class SuccessAndInconclusiveFixture
     {
@@ -133,7 +135,7 @@ namespace NUnit.Xml.TestLogger.NetFull.Tests
             Assert.Inconclusive();
         }
     }
-    
+
     [TestFixture]
     public class FailingOneTimeSetUp
     {
@@ -157,7 +159,7 @@ namespace NUnit.Xml.TestLogger.NetFull.Tests
         {
             throw new InvalidOperationException();
         }
-        
+
         [Test]
         public void Test()
         {
@@ -193,7 +195,7 @@ namespace NUnit.Xml.TestLogger.NetFull.Tests
         {
         }
     }
-    
+
     [TestFixture]
     [TestFixtureSource("FixtureArgs")]
     public class ParametrizedFixture
@@ -213,7 +215,7 @@ namespace NUnit.Xml.TestLogger.NetFull.Tests
             new object[] {"Answer", 42}
         };
     }
-    
+
     [TestFixture]
     public class ParametrizedTestCases
     {

@@ -345,28 +345,12 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             foreach (var p in traitProperties)
             {
                 var propValue = result.GetPropertyValue(p);
-                var keyValuePairs = propValue as KeyValuePair<string, string>[];
-                var elements = Enumerable.Empty<XElement>();
 
-                // if (keyValuePairs != null)
-                // {
-                //     foreach (var kvp in keyValuePairs)
-                //     {
-                //         elements = CreatePropertyElement(kvp.Key, kvp.Value);
-                //     }
-                // }
-                // else if (p.Id == "NUnit.TestCategory")
-                // {
-                //     elements = CreatePropertyElement("Category", (string[])propValue);
-                // }
                 if (p.Id == "NUnit.TestCategory")
                 {
-                    elements = CreatePropertyElement("Category", (string[])propValue);
-                }
+                    var elements = CreatePropertyElement("Category", (string[])propValue);
 
-                foreach (var element in elements)
-                {
-                    if (!propertyElements.Contains(element))
+                    foreach (var element in elements)
                     {
                         propertyElements.Add(element);
                     }
