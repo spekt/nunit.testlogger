@@ -479,6 +479,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
         private void InitializeImpl(TestLoggerEvents events, string outputPath)
         {
             events.TestRunMessage += this.TestMessageHandler;
+            events.TestRunStart += this.TestRunStartHandler;
             events.TestResult += this.TestResultHandler;
             events.TestRunComplete += this.TestRunCompleteHandler;
 
