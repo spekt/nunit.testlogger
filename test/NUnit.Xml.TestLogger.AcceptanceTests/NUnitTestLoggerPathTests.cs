@@ -38,8 +38,8 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
         {
             string[] expectedResultsFiles = new string[]
             {
-                Path.Combine(DotnetTestFixture.RootDirectory, "NUnit.Xml.TestLogger.NetMulti.Tests.NetFramework46.test-results.xml"),
-                Path.Combine(DotnetTestFixture.RootDirectory, "NUnit.Xml.TestLogger.NetMulti.Tests.NetCoreApp20.test-results.xml")
+                Path.Combine(DotnetTestFixture.RootDirectory, "NUnit.Xml.TestLogger.NetMulti.Tests.NETFramework46.test-results.xml"),
+                Path.Combine(DotnetTestFixture.RootDirectory, "NUnit.Xml.TestLogger.NetMulti.Tests.NETCoreApp20.test-results.xml")
             };
             foreach (string resultsFile in expectedResultsFiles)
             {
