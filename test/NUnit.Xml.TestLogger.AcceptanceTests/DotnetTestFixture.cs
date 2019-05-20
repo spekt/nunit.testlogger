@@ -9,11 +9,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
 
     public class DotnetTestFixture
     {
-        public static string RootDirectory
-        {
-            get
-            {
-                return Path.GetFullPath(
+        public static string RootDirectory { get; set; } = Path.GetFullPath(
                     Path.Combine(
                         Environment.CurrentDirectory,
                         "..",
@@ -22,8 +18,8 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
                         "..",
                         "assets",
                         "NUnit.Xml.TestLogger.NetCore.Tests"));
-            }
-        }
+
+        public static string TestAssemblyName { get; set; } = "NUnit.Xml.TestLogger.NetCore.Tests.dll";
 
         public static string TestAssembly
         {
@@ -34,20 +30,26 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
 #else
                 var config = "Release";
 #endif
-                return Path.Combine(RootDirectory, "bin", config, "netcoreapp2.0", "NUnit.Xml.TestLogger.NetCore.Tests.dll");
+                return Path.Combine(RootDirectory, "bin", config, "netcoreapp2.0", TestAssemblyName);
             }
         }
 
-        public static void Execute()
+        public static void Execute(string resultsFile)
         {
             var testProject = RootDirectory;
-            var testLogger = $"--logger:\"nunit;LogFilePath=test-results.xml\"";
+            var testLogger = $"--logger:\"nunit;LogFilePath={resultsFile}\"";
 
             // Delete stale results file
-            var testLogFile = Path.Combine(testProject, "test-results.xml");
-            if (File.Exists(testLogFile))
+            var testLogFile = Path.Combine(testProject, resultsFile);
+
+            // Strip out tokens
+            var sanitizedResultFile = System.Text.RegularExpressions.Regex.Replace(resultsFile, @"{.*}\.*", string.Empty);
+            foreach (string fileName in Directory.GetFiles(testProject))
             {
-                File.Delete(testLogFile);
+                if (fileName.Contains("test-results.xml"))
+                {
+                    File.Delete(fileName);
+                }
             }
 
             // Log the contents of test output directory. Useful to verify if the logger is copied
