@@ -30,6 +30,9 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
         public const string FriendlyName = "nunit";
 
         public const string LogFilePathKey = "LogFilePath";
+        public const string LogFileName = "LogFileName";
+
+        public const string ResultDirectoryKey = "TestRunDirectory";
 
         private const string ResultStatusPassed = "Passed";
         private const string ResultStatusFailed = "Failed";
@@ -84,6 +87,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 
         public void Initialize(TestLoggerEvents events, Dictionary<string, string> parameters)
         {
+            System.Diagnostics.Debugger.Break();
+            System.Diagnostics.Debugger.Launch();
             if (events == null)
             {
                 throw new ArgumentNullException(nameof(events));
@@ -94,7 +99,12 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                 throw new ArgumentNullException(nameof(parameters));
             }
 
-            if (parameters.TryGetValue(LogFilePathKey, out string outputPath))
+            if (parameters.TryGetValue(LogFileName, out string outputPathName) && parameters.TryGetValue(ResultDirectoryKey, out string outputFileDirectory))
+            {
+                outputPathName = Path.Combine(outputFileDirectory, outputPathName);
+                this.InitializeImpl(events, outputPathName);
+            }
+            else if (parameters.TryGetValue(LogFilePathKey, out string outputPath))
             {
                 this.InitializeImpl(events, outputPath);
             }
