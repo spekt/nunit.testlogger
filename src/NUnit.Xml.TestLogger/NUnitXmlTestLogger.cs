@@ -87,8 +87,6 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 
         public void Initialize(TestLoggerEvents events, Dictionary<string, string> parameters)
         {
-            System.Diagnostics.Debugger.Break();
-            System.Diagnostics.Debugger.Launch();
             if (events == null)
             {
                 throw new ArgumentNullException(nameof(events));
