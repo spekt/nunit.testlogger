@@ -10,6 +10,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
+    using System.Xml;
     using System.Xml.Linq;
     using Microsoft.VisualStudio.TestPlatform.ObjectModel;
     using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
@@ -38,6 +39,10 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
         private const string ResultStatusFailed = "Failed";
 
         private const string DateFormat = "yyyy-MM-ddT HH:mm:ssZ";
+
+        private const string AssemblyToken = "{assembly}";
+        private const string FrameworkToken = "{framework}";
+
         private readonly object resultsGuard = new object();
         private string outputFilePath;
 
@@ -121,6 +126,29 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
         /// </summary>
         internal void TestMessageHandler(object sender, TestRunMessageEventArgs e)
         {
+        }
+
+        /// <summary>
+        /// Called when a test starts.
+        /// </summary>
+        internal void TestRunStartHandler(object sender, TestRunStartEventArgs e)
+        {
+            if (this.outputFilePath.Contains(AssemblyToken))
+            {
+                string assemblyPath = e.TestRunCriteria.AdapterSourceMap["_none_"].First();
+                string assemblyName = Path.GetFileNameWithoutExtension(assemblyPath);
+                this.outputFilePath = this.outputFilePath.Replace(AssemblyToken, assemblyName);
+            }
+
+            if (this.outputFilePath.Contains(FrameworkToken))
+            {
+                XmlDocument runSettings = new XmlDocument();
+                runSettings.LoadXml(e.TestRunCriteria.TestRunSettings);
+                XmlNode x = runSettings.GetElementsByTagName("TargetFrameworkVersion")[0];
+                string framework = x.InnerText;
+                framework = framework.Replace(",Version=v", string.Empty).Replace(".", string.Empty);
+                this.outputFilePath = this.outputFilePath.Replace(FrameworkToken, framework);
+            }
         }
 
         /// <summary>
@@ -459,6 +487,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
         private void InitializeImpl(TestLoggerEvents events, string outputPath)
         {
             events.TestRunMessage += this.TestMessageHandler;
+            events.TestRunStart += this.TestRunStartHandler;
             events.TestResult += this.TestResultHandler;
             events.TestRunComplete += this.TestRunCompleteHandler;
 

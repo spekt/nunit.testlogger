@@ -25,7 +25,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
         [ClassInitialize]
         public static void SuiteInitialize(TestContext context)
         {
-            DotnetTestFixture.Execute();
+            DotnetTestFixture.Execute("test-results.xml");
         }
 
         [TestMethod]

@@ -29,7 +29,7 @@ msbuild*.err
 build*.log
 build*.wrn
 build*.err
-loggerFile.xml
+*loggerFile.xml
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -103,4 +103,4 @@ nugetPackage
 .idea
 
 # Test results
-test/**/test-results.xml
+test/**/*test-results.xml
