@@ -19,17 +19,6 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
                         "assets",
                         "NUnit.Xml.TestLogger.NetCore.Tests"));
 
-        public static string ResultDirectory { get; set; } = Path.GetFullPath(
-                 Path.Combine(
-                     Environment.CurrentDirectory,
-                     "..",
-                     "..",
-                     "..",
-                     "..",
-                     "assets",
-                     "NUnit.Xml.TestLogger.NetCore.Tests",
-                     "artifacts"));
-
         public static string TestAssemblyName { get; set; } = "NUnit.Xml.TestLogger.NetCore.Tests.dll";
 
         public static string TestAssembly

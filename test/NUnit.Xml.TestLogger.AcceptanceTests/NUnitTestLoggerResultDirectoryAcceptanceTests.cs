@@ -13,25 +13,26 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
     [TestClass]
     public class NUnitTestLoggerResultDirectoryAcceptanceTests
     {
-        private readonly string resultsFile;
-        private readonly XDocument resultsXml;
-
-        public NUnitTestLoggerResultDirectoryAcceptanceTests()
-        {
-            this.resultsFile = Path.Combine(DotnetTestFixture.ResultDirectory, "test-results.xml");
-            this.resultsXml = XDocument.Load(this.resultsFile);
-        }
-
         [ClassInitialize]
         public static void SuiteInitialize(TestContext context)
         {
+            DotnetTestFixture.RootDirectory = Path.GetFullPath(
+                    Path.Combine(
+                        Environment.CurrentDirectory,
+                        "..",
+                        "..",
+                        "..",
+                        "..",
+                        "assets",
+                        "NUnit.Xml.TestLogger.NetCore.Tests"));
+            DotnetTestFixture.TestAssemblyName = "NUnit.Xml.TestLogger.NetCore.Tests.dll";
             DotnetTestFixture.Execute("test-results.xml", "./artifacts");
         }
 
         [TestMethod]
         public void TestRunWithResultDirectoryAndFileNameShouldCreateResultsFile()
         {
-            Assert.IsTrue(File.Exists(this.resultsFile));
+            Assert.IsTrue(File.Exists(Path.Combine(DotnetTestFixture.RootDirectory, "artifacts", "test-results.xml")));
         }
     }
 }
