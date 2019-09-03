@@ -9,8 +9,9 @@ NUnit xml report extension for [Visual Studio Test Platform](https://gtihub.com/
 | ------ | -------------- | ------------------- |
 | NUnit | [![NuGet](https://img.shields.io/nuget/v/NUnitXml.TestLogger.svg)](https://www.nuget.org/packages/NUnitXml.TestLogger/) | [![MyGet Pre Release](https://img.shields.io/myget/spekt/vpre/nunitxml.testlogger.svg)](https://www.myget.org/feed/spekt/package/nuget/NunitXml.TestLogger) |
 
-If you're looking for `xunit` or `appveyor` loggers, visit following repositories:
+If you're looking for `xunit`, `junit` or `appveyor` loggers, visit following repositories:
 * <https://github.com/spekt/xunit.testlogger>
+* <https://github.com/spekt/junit.testlogger>
 * <https://github.com/spekt/appveyor.testlogger>
 
 ## Usage
