@@ -13,10 +13,12 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 
         public TestResultInfo(
             TestResult result,
+            string @namespace,
             string type,
             string method)
         {
             this.result = result;
+            this.Namespace = @namespace;
             this.Type = type;
             this.Method = method;
         }
@@ -27,7 +29,11 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 
         public string AssemblyPath => result.TestCase.Source;
 
+        public string Namespace { get; private set; }
+
         public string Type { get; private set; }
+
+        public string FullTypeName => Namespace + "." + Type;
 
         public string Method { get; private set; }
 
