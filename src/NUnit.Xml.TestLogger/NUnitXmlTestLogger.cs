@@ -158,15 +158,15 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
         {
             TestResult result = e.Result;
 
-            if (TryParseName(result.TestCase.FullyQualifiedName, out var typeName, out var methodName, out _))
+            var parsedName = TestCaseNameParser.Parse(result.TestCase.FullyQualifiedName);
+
+            lock (this.resultsGuard)
             {
-                lock (this.resultsGuard)
-                {
-                    this.results.Add(new TestResultInfo(
-                        result,
-                        typeName,
-                        methodName));
-                }
+                this.results.Add(new TestResultInfo(
+                    result,
+                    parsedName.NamespaceName,
+                    parsedName.TypeName,
+                    parsedName.MethodName));
             }
         }
 
@@ -333,7 +333,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             var element = new XElement(
                 "test-case",
                 new XAttribute("name", result.Name),
-                new XAttribute("fullname", result.Type + "." + result.Method),
+                new XAttribute("fullname", result.FullTypeName + "." + result.Method),
                 new XAttribute("methodname", result.Method),
                 new XAttribute("classname", result.Type),
                 new XAttribute("result", OutcomeToString(result.Outcome)),
@@ -419,53 +419,6 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             }
         }
 
-        private static bool TryParseName(
-            string testCaseName,
-            out string metadataTypeName,
-            out string metadataMethodName,
-            out string metadataMethodArguments)
-        {
-            // This is fragile. The FQN is constructed by a test adapter.
-            // There is no enforcement that the FQN starts with metadata type name.
-            string typeAndMethodName;
-            var methodArgumentsStart = testCaseName.IndexOf('(');
-
-            if (methodArgumentsStart == -1)
-            {
-                typeAndMethodName = testCaseName.Trim();
-                metadataMethodArguments = string.Empty;
-            }
-            else
-            {
-                typeAndMethodName = testCaseName.Substring(0, methodArgumentsStart).Trim();
-                metadataMethodArguments = testCaseName.Substring(methodArgumentsStart).Trim();
-
-                if (metadataMethodArguments[metadataMethodArguments.Length - 1] != ')')
-                {
-                    metadataTypeName = null;
-                    metadataMethodName = null;
-                    metadataMethodArguments = null;
-                    return false;
-                }
-            }
-
-            var typeNameLength = typeAndMethodName.LastIndexOf('.');
-            var methodNameStart = typeNameLength + 1;
-
-            if (typeNameLength <= 0 || methodNameStart == typeAndMethodName.Length)
-            {
-                // No typeName is available
-                metadataTypeName = null;
-                metadataMethodName = null;
-                metadataMethodArguments = null;
-                return false;
-            }
-
-            metadataTypeName = typeAndMethodName.Substring(0, typeNameLength).Trim();
-            metadataMethodName = typeAndMethodName.Substring(methodNameStart).Trim();
-            return true;
-        }
-
         private static string OutcomeToString(TestOutcome outcome)
         {
             switch (outcome)
@@ -540,7 +493,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
         {
             var assemblyPath = resultsByAssembly.Key;
             var fixtures = from resultsInAssembly in resultsByAssembly
-                           group resultsInAssembly by resultsInAssembly.Type
+                           group resultsInAssembly by resultsInAssembly.FullTypeName
                            into resultsByType
                            orderby resultsByType.Key
                            select CreateFixture(resultsByType);
