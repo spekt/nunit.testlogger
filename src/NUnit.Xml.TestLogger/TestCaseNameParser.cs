@@ -1,7 +1,7 @@
 // Copyright (c) Spekt Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace Microsoft.VisualStudio.TestPlatform.Extension.JUnit.Xml.TestLogger
+namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 {
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.JUnit.Xml.TestLogger
     {
         public const string TestCaseParserUnknownNamsepace = "UnknownNamespace";
         public const string TestCaseParserUnknownType = "UnknownType";
-        public const string TestCaseParserErrorTemplate = JUnitXmlTestLogger.FriendlyName + "Xml Logger: Unable to parse the test name '{0}' into a namespace type and method. " +
+        public const string TestCaseParserErrorTemplate = NUnitXmlTestLogger.FriendlyName + "Xml Logger: Unable to parse the test name '{0}' into a namespace type and method. " +
             "Using Namespace='{1}', Type='{2}' and Method='{3}'";
 
         private enum NameParseStep
