@@ -215,6 +215,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             int inconclusive = 0;
             int error = 0;
             var time = TimeSpan.Zero;
+            DateTime? startTime = null;
+            DateTime? endTime = null;
 
             foreach (var result in suites)
             {
@@ -225,6 +227,16 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                 inconclusive += result.Inconclusive;
                 error += result.Error;
                 time += result.Time;
+
+                if (result.StartTime.HasValue && (!startTime.HasValue || result.StartTime.Value < startTime.Value))
+                {
+                    startTime = result.StartTime;
+                }
+
+                if (result.EndTime.HasValue && (!endTime.HasValue || result.EndTime.Value > endTime.Value))
+                {
+                    endTime = result.EndTime;
+                }
 
                 element.Add(result.Element);
             }
@@ -240,6 +252,17 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 
             var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
             element.SetAttributeValue("result", resultString);
+
+            if (startTime.HasValue)
+            {
+                element.SetAttributeValue("start-time", startTime.Value);
+            }
+
+            if (endTime.HasValue)
+            {
+                element.SetAttributeValue("end-time", endTime.Value);
+            }
+
             element.SetAttributeValue("duration", time.TotalSeconds);
 
             return new TestSuite
@@ -253,6 +276,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                 Inconclusive = inconclusive,
                 Skipped = skipped,
                 Error = error,
+                StartTime = startTime,
+                EndTime = endTime,
                 Time = time
             };
         }
@@ -268,6 +293,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             int inconclusive = 0;
             int error = 0;
             var time = TimeSpan.Zero;
+            DateTime? startTime = null;
+            DateTime? endTime = null;
 
             foreach (var result in resultsByType)
             {
@@ -292,6 +319,16 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                 total++;
                 time += result.Duration;
 
+                if (!startTime.HasValue || result.StartTime < startTime)
+                {
+                    startTime = result.StartTime;
+                }
+
+                if (!endTime.HasValue || result.EndTime > endTime)
+                {
+                    endTime = result.EndTime;
+                }
+
                 // Create test-case elements
                 element.Add(CreateTestCaseElement(result));
             }
@@ -311,6 +348,17 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 
             var resultString = failed > 0 ? ResultStatusFailed : ResultStatusPassed;
             element.SetAttributeValue("result", resultString);
+
+            if (startTime.HasValue)
+            {
+                element.SetAttributeValue("start-time", startTime.Value);
+            }
+
+            if (endTime.HasValue)
+            {
+                element.SetAttributeValue("end-time", endTime);
+            }
+
             element.SetAttributeValue("duration", time.TotalSeconds);
 
             return new TestSuite
@@ -324,6 +372,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                 Inconclusive = inconclusive,
                 Skipped = skipped,
                 Error = error,
+                StartTime = startTime,
+                EndTime = endTime,
                 Time = time
             };
         }
@@ -337,6 +387,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                 new XAttribute("methodname", result.Method),
                 new XAttribute("classname", result.Type),
                 new XAttribute("result", OutcomeToString(result.Outcome)),
+                new XAttribute("start-time", result.StartTime),
+                new XAttribute("end-time", result.EndTime),
                 new XAttribute("duration", result.Duration.TotalSeconds),
                 new XAttribute("asserts", 0),
                 CreatePropertiesElement(result.TestCase));
@@ -531,6 +583,10 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             public int Error { get; set; }
 
             public TimeSpan Time { get; set; }
+
+            public DateTime? StartTime { get; set; }
+
+            public DateTime? EndTime { get; set; }
         }
     }
 }
