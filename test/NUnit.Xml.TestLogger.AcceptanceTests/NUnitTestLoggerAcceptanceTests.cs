@@ -67,6 +67,15 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             Assert.AreEqual("Failed", node.Attribute(XName.Get("result")).Value);
             Assert.AreEqual("NUnit.Xml.TestLogger.NetCore.Tests.dll", node.Attribute(XName.Get("name")).Value);
             Assert.AreEqual(DotnetTestFixture.TestAssembly, node.Attribute(XName.Get("fullname")).Value);
+
+            var startTimeStr = node.Attribute(XName.Get("start-time"))?.Value;
+            var endTimeStr = node.Attribute(XName.Get("end-time"))?.Value;
+            Assert.IsNotNull(startTimeStr);
+            Assert.IsNotNull(endTimeStr);
+
+            var startTime = Convert.ToDateTime(startTimeStr);
+            var endTime = Convert.ToDateTime(endTimeStr);
+            Assert.IsTrue(startTime < endTime, "test suite start time should be before end time");
         }
 
         [TestMethod]
