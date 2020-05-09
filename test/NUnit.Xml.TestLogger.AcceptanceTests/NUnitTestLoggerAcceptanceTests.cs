@@ -40,8 +40,8 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             var node = this.resultsXml.XPathSelectElement("/test-run");
 
             Assert.IsNotNull(node);
-            Assert.AreEqual("53", node.Attribute(XName.Get("testcasecount")).Value);
-            Assert.AreEqual("25", node.Attribute(XName.Get("passed")).Value);
+            Assert.AreEqual("52", node.Attribute(XName.Get("testcasecount")).Value);
+            Assert.AreEqual("24", node.Attribute(XName.Get("passed")).Value);
             Assert.AreEqual("14", node.Attribute(XName.Get("failed")).Value);
             Assert.AreEqual("8", node.Attribute(XName.Get("inconclusive")).Value);
             Assert.AreEqual("6", node.Attribute(XName.Get("skipped")).Value);
@@ -58,8 +58,8 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             var node = this.resultsXml.XPathSelectElement("/test-run/test-suite[@type='Assembly']");
 
             Assert.IsNotNull(node);
-            Assert.AreEqual("53", node.Attribute(XName.Get("total")).Value);
-            Assert.AreEqual("25", node.Attribute(XName.Get("passed")).Value);
+            Assert.AreEqual("52", node.Attribute(XName.Get("total")).Value);
+            Assert.AreEqual("24", node.Attribute(XName.Get("passed")).Value);
             Assert.AreEqual("14", node.Attribute(XName.Get("failed")).Value);
             Assert.AreEqual("8", node.Attribute(XName.Get("inconclusive")).Value);
             Assert.AreEqual("6", node.Attribute(XName.Get("skipped")).Value);
