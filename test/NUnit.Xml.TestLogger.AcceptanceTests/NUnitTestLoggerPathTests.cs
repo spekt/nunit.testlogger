@@ -5,9 +5,6 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
 {
     using System;
     using System.IO;
-    using System.Linq;
-    using System.Xml.Linq;
-    using System.Xml.XPath;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
@@ -39,7 +36,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             string[] expectedResultsFiles = new string[]
             {
                 Path.Combine(DotnetTestFixture.RootDirectory, "NUnit.Xml.TestLogger.NetMulti.Tests.NETFramework46.test-results.xml"),
-                Path.Combine(DotnetTestFixture.RootDirectory, "NUnit.Xml.TestLogger.NetMulti.Tests.NETCoreApp20.test-results.xml")
+                Path.Combine(DotnetTestFixture.RootDirectory, "NUnit.Xml.TestLogger.NetMulti.Tests.NETCoreApp30.test-results.xml")
             };
             foreach (string resultsFile in expectedResultsFiles)
             {

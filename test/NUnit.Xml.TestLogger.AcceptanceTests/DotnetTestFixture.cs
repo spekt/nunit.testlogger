@@ -30,7 +30,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
 #else
                 var config = "Release";
 #endif
-                return Path.Combine(RootDirectory, "bin", config, "netcoreapp2.0", TestAssemblyName);
+                return Path.Combine(RootDirectory, "bin", config, "netcoreapp3.0", TestAssemblyName);
             }
         }
 
@@ -55,7 +55,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             // Log the contents of test output directory. Useful to verify if the logger is copied
             Console.WriteLine("------------");
             Console.WriteLine("Contents of test output directory:");
-            foreach (var f in Directory.GetFiles(Path.Combine(testProject, "bin/Debug/netcoreapp2.0")))
+            foreach (var f in Directory.GetFiles(Path.Combine(testProject, "bin/Debug/netcoreapp3.0")))
             {
                 Console.WriteLine("  " + f);
             }
@@ -88,8 +88,9 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
 
             // Log the contents of test output directory. Useful to verify if the logger is copied
             Console.WriteLine("------------");
+            Console.WriteLine($"Current directory: {Environment.CurrentDirectory}");
             Console.WriteLine("Contents of test output directory:");
-            foreach (var f in Directory.GetFiles(Path.Combine(testProject, "bin/Debug/netcoreapp2.0")))
+            foreach (var f in Directory.GetFiles(Path.Combine(testProject, "bin/Debug/netcoreapp3.0")))
             {
                 Console.WriteLine("  " + f);
             }
