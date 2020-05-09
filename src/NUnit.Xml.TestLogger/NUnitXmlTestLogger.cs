@@ -255,12 +255,12 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 
             if (startTime.HasValue)
             {
-                element.SetAttributeValue("start-time", startTime.Value);
+                element.SetAttributeValue("start-time", startTime.Value.ToString(DateFormat, CultureInfo.InvariantCulture));
             }
 
             if (endTime.HasValue)
             {
-                element.SetAttributeValue("end-time", endTime.Value);
+                element.SetAttributeValue("end-time", endTime.Value.ToString(DateFormat, CultureInfo.InvariantCulture));
             }
 
             element.SetAttributeValue("duration", time.TotalSeconds);
@@ -351,12 +351,12 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 
             if (startTime.HasValue)
             {
-                element.SetAttributeValue("start-time", startTime.Value);
+                element.SetAttributeValue("start-time", startTime.Value.ToString(DateFormat, CultureInfo.InvariantCulture));
             }
 
             if (endTime.HasValue)
             {
-                element.SetAttributeValue("end-time", endTime);
+                element.SetAttributeValue("end-time", endTime.Value.ToString(DateFormat, CultureInfo.InvariantCulture));
             }
 
             element.SetAttributeValue("duration", time.TotalSeconds);
@@ -387,8 +387,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                 new XAttribute("methodname", result.Method),
                 new XAttribute("classname", result.Type),
                 new XAttribute("result", OutcomeToString(result.Outcome)),
-                new XAttribute("start-time", result.StartTime),
-                new XAttribute("end-time", result.EndTime),
+                new XAttribute("start-time", result.StartTime.ToString(DateFormat, CultureInfo.InvariantCulture)),
+                new XAttribute("end-time", result.EndTime.ToString(DateFormat, CultureInfo.InvariantCulture)),
                 new XAttribute("duration", result.Duration.TotalSeconds),
                 new XAttribute("asserts", 0),
                 CreatePropertiesElement(result.TestCase));
