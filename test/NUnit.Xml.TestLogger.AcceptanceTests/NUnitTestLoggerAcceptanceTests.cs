@@ -4,6 +4,7 @@
 namespace NUnit.Xml.TestLogger.AcceptanceTests
 {
     using System;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Xml.Linq;
@@ -140,6 +141,29 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             Assert.IsNotNull(propertyElement, "property element");
             Assert.AreEqual("Property name", propertyElement.Attribute("name")?.Value);
             Assert.AreEqual("Property value", propertyElement.Attribute("value")?.Value);
+        }
+
+        [TestMethod]
+        [DataRow("NUnit.Xml.TestLogger.Tests2")]
+        public void TestResultFileTestCasesShouldContainValidStartAndEndTimes(string testNamespace)
+        {
+            var query = string.Format("/test-run//test-case[@fullname='{0}.UnitTest1.PassTest11']", testNamespace);
+            var testCaseElement = this.resultsXml.XPathSelectElement(query);
+            Assert.IsNotNull(testCaseElement, "test-case element");
+
+            var startTimeStr = testCaseElement.Attribute(XName.Get("start-time"))?.Value;
+            var endTimeStr = testCaseElement.Attribute(XName.Get("end-time"))?.Value;
+            Assert.IsNotNull(startTimeStr);
+            Assert.IsNotNull(endTimeStr);
+
+            string dateFormat = "yyyy-MM-ddT HH:mm:ssZ";
+            var startTime = DateTime.ParseExact(startTimeStr, dateFormat, CultureInfo.InvariantCulture);
+            var endTime = DateTime.ParseExact(endTimeStr, dateFormat, CultureInfo.InvariantCulture);
+
+            // Assert that start and end times are in the right order and they are recent (i.e. not default DateTime values)
+            Assert.IsTrue(startTime < endTime, "test case start time should be before end time");
+            var timeDiff = (DateTime.UtcNow - startTime.ToUniversalTime()).Duration();
+            Assert.IsTrue(timeDiff < TimeSpan.FromMinutes(1), "test case start time should not be too far in the past, difference was {0}", timeDiff);
         }
 
         [TestMethod]

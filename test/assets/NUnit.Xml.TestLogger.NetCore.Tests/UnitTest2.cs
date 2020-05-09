@@ -11,7 +11,7 @@ namespace NUnit.Xml.TestLogger.Tests2
         [Description("Passing test description")]
         public async Task PassTest11()
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(400));
+            await Task.Delay(TimeSpan.FromMilliseconds(1200));
         }
 
         [Test]
