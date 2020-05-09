@@ -39,6 +39,10 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 
         public string Name => result.TestCase.DisplayName;
 
+        public DateTime StartTime => result.StartTime.UtcDateTime;
+
+        public DateTime EndTime => result.EndTime.UtcDateTime;
+
         public TimeSpan Duration => result.Duration;
 
         public string ErrorMessage => result.ErrorMessage;
