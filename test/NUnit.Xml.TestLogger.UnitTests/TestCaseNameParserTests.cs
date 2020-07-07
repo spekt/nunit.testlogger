@@ -30,6 +30,10 @@ namespace NUnit.Xml.TestLogger.UnitTests
 
         // See nunit.testlogger #66.
         [DataRow("z.y.x.ape.bar(a\\b)", "z.y.x", "ape", "bar(a\\b)")]
+
+        // Test with tuple arguments
+        [DataRow("z.a.b((0,1))", "z", "a", "b((0,1))")]
+        [DataRow("z.a.b((\"arg\",1))", "z", "a", "b((\"arg\",1))")]
         public void Parse_ParsesAllParsableInputs_WithoutConsoleOutput(string testCaseName, string expectedNamespace, string expectedType, string expectedMethod)
         {
             var expected = new Tuple<string, string>(expectedType, expectedMethod);
