@@ -56,6 +56,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 
             var step = NameParseStep.FindMethod;
             var state = NameParseState.Default;
+            var parenthesisCount = 0;
 
             var output = new List<char>();
 
@@ -71,7 +72,12 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                     }
                     else if (state == NameParseState.Default)
                     {
-                        if (thisChar == '(' || thisChar == '"' || thisChar == '\\')
+                        if (thisChar == '(')
+                        {
+                            parenthesisCount--;
+                        }
+
+                        if (thisChar == '"')
                         {
                             throw new Exception("Found invalid characters");
                         }
@@ -125,7 +131,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                     {
                         if (thisChar == ')')
                         {
-                            throw new Exception("Found invalid characters");
+                            parenthesisCount++;
                         }
 
                         if (thisChar == '(')
@@ -155,6 +161,11 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 
                         output.Insert(0, thisChar);
                     }
+                }
+
+                if (parenthesisCount != 0)
+                {
+                    throw new Exception($"Unbalanced count of parentheses found ({parenthesisCount})");
                 }
 
                 // We are done. If we are finding type, set that variable.
