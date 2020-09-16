@@ -58,6 +58,13 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="Stylecop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
 
   <!--<Target Name="AfterBuild">-->
     <!--<Copy SourceFiles="NUnitXml.TestLogger.props" DestinationFolder="build\netstandard1.0" SkipUnchangedFiles="true" />-->

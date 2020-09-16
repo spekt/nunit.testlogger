@@ -16,4 +16,11 @@
     <ProjectReference Include="../../src/NUnit.Xml.TestLogger/NUnit.Xml.TestLogger.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="Stylecop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
 </Project>
