@@ -35,6 +35,7 @@
     <NuspecProperties>version=$(Version)</NuspecProperties>
     <IncludeContentInPack>false</IncludeContentInPack>
     <IncludeBuildOutput>false</IncludeBuildOutput>
+    <PackageIcon>packageIcon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -50,6 +51,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="packageIcon.png" Pack="true" PackagePath="">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 
   <!--<Target Name="AfterBuild">-->
     <!--<Copy SourceFiles="NUnitXml.TestLogger.props" DestinationFolder="build\netstandard1.0" SkipUnchangedFiles="true" />-->
