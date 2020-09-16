@@ -23,35 +23,35 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             this.Method = method;
         }
 
-        public TestCase TestCase => result.TestCase;
+        public TestCase TestCase => this.result.TestCase;
 
-        public TestOutcome Outcome => result.Outcome;
+        public TestOutcome Outcome => this.result.Outcome;
 
-        public string AssemblyPath => result.TestCase.Source;
+        public string AssemblyPath => this.result.TestCase.Source;
 
         public string Namespace { get; private set; }
 
         public string Type { get; private set; }
 
-        public string FullTypeName => Namespace + "." + Type;
+        public string FullTypeName => this.Namespace + "." + this.Type;
 
         public string Method { get; private set; }
 
-        public string Name => result.TestCase.DisplayName;
+        public string Name => this.result.TestCase.DisplayName;
 
-        public DateTime StartTime => result.StartTime.UtcDateTime;
+        public DateTime StartTime => this.result.StartTime.UtcDateTime;
 
-        public DateTime EndTime => result.EndTime.UtcDateTime;
+        public DateTime EndTime => this.result.EndTime.UtcDateTime;
 
-        public TimeSpan Duration => result.Duration;
+        public TimeSpan Duration => this.result.Duration;
 
-        public string ErrorMessage => result.ErrorMessage;
+        public string ErrorMessage => this.result.ErrorMessage;
 
-        public string ErrorStackTrace => result.ErrorStackTrace;
+        public string ErrorStackTrace => this.result.ErrorStackTrace;
 
-        public IReadOnlyCollection<TestResultMessage> Messages => result.Messages;
+        public IReadOnlyCollection<TestResultMessage> Messages => this.result.Messages;
 
-        public TraitCollection Traits => result.Traits;
+        public TraitCollection Traits => this.result.Traits;
 
         public override int GetHashCode()
         {
