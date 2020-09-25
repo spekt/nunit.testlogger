@@ -83,7 +83,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                         }
                         else if (thisChar == ')')
                         {
-                            if (output.Count > 0)
+                            if ((output.Count > 0) && (parenthesisCount == 0))
                             {
                                 throw new Exception("The closing parenthesis we detected wouldn't be the last character in the output string. This isn't acceptable because we aren't in a string");
                             }
