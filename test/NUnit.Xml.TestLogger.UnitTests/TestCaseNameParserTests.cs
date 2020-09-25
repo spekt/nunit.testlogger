@@ -100,6 +100,10 @@ namespace NUnit.Xml.TestLogger.UnitTests
         [DataRow("z.y.x.")]
         [DataRow("z.y.x.)")]
         [DataRow("z.y.x.\"\")")]
+        [DataRow("z.a.b((0,1)")]
+        [DataRow("z.a.b((0,1)))")]
+        [DataRow("z.a.b((0,(0,1))")]
+        [DataRow("z.a.b((0,(0,1))))")]
         public void Parse_FailsGracefullyOnNonParsableInputs_WithConsoleOutput(string testCaseName)
         {
             var expectedConsole = string.Format(
