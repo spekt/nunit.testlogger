@@ -77,7 +77,12 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                             parenthesisCount--;
                         }
 
-                        if (thisChar == '"')
+                        // Backslashes allowed only inside parenthesis block
+                        if ((thisChar == '\\') && (parenthesisCount == 0))
+                        {
+                            throw new Exception("Found invalid characters");
+                        }
+                        else if (thisChar == '"')
                         {
                             throw new Exception("Found invalid characters");
                         }
