@@ -4,6 +4,20 @@
 
 * No changes
 
+## v2.1.80 - 2020/10/28
+
+* New logo for nuget package. See
+  https://github.com/spekt/nunit.testlogger/pull/68
+* Fix extraction of testcase name if it contains backslash. See
+  https://github.com/spekt/nunit.testlogger/issues/66
+* Fix extraction of tuples in testcase name. See
+  https://github.com/spekt/nunit.testlogger/pull/65
+
+Thanks @Siphonophora and @KonH for their contributions to this release.
+
+See https://github.com/spekt/nunit.testlogger/compare/v2.1.62..v2.1.80 for all
+changes included in this release.
+
 ## v2.1.62 - 2020/05/09
 
 * Update toolset to dotnet 3.0
