@@ -17,17 +17,17 @@
     <Compile Include="..\NUnit.Xml.TestLogger\NUnitXmlTestLogger.cs">
       <Link>NUnitXmlTestLogger.cs</Link>
     </Compile>
+    <Compile Include="..\NUnit.Xml.TestLogger\NUnitXmlSerializer.cs">
+      <Link>NUnitXmlSerializer.cs</Link>
+    </Compile>
     <Compile Include="..\NUnit.Xml.TestLogger\StringExtensions.cs">
       <Link>StringExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\NUnit.Xml.TestLogger\TestCaseNameParser.cs" Link="TestCaseNameParser.cs" />
-    <Compile Include="..\NUnit.Xml.TestLogger\TestResultInfo.cs">
-      <Link>TestResultInfo.cs</Link>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="15.5.0" />
+    <PackageReference Include="Spekt.TestLogger" Version="$(TestLoggerVersion)" />
     <PackageReference Include="System.ValueTuple" Version="4.3.0" />
   </ItemGroup>
 

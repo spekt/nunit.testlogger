@@ -1,8 +1,10 @@
 # Changelog
 
-## Unreleased
+## Unreleased (v3.0.x)
 
-* No changes
+* Refactored code to use [core testlogger][] for the testplatform logger events
+
+[core testlogger]: https://github.com/spekt/testlogger
 
 ## v2.1.80 - 2020/10/28
 
