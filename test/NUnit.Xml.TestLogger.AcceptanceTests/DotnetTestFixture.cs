@@ -9,6 +9,8 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
 
     public class DotnetTestFixture
     {
+        private const string DotnetVersion = "netcoreapp3.1";
+
         public static string RootDirectory { get; set; } = Path.GetFullPath(
                     Path.Combine(
                         Environment.CurrentDirectory,
@@ -30,7 +32,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
 #else
                 var config = "Release";
 #endif
-                return Path.Combine(RootDirectory, "bin", config, "netcoreapp3.0", TestAssemblyName);
+                return Path.Combine(RootDirectory, "bin", config, DotnetVersion, TestAssemblyName);
             }
         }
 
@@ -55,7 +57,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             // Log the contents of test output directory. Useful to verify if the logger is copied
             Console.WriteLine("------------");
             Console.WriteLine("Contents of test output directory:");
-            foreach (var f in Directory.GetFiles(Path.Combine(testProject, "bin/Debug/netcoreapp3.0")))
+            foreach (var f in Directory.GetFiles(Path.Combine(testProject, $"bin/Debug/{DotnetVersion}")))
             {
                 Console.WriteLine("  " + f);
             }
@@ -90,7 +92,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             Console.WriteLine("------------");
             Console.WriteLine($"Current directory: {Environment.CurrentDirectory}");
             Console.WriteLine("Contents of test output directory:");
-            foreach (var f in Directory.GetFiles(Path.Combine(testProject, "bin/Debug/netcoreapp3.0")))
+            foreach (var f in Directory.GetFiles(Path.Combine(testProject, $"bin/Debug/{DotnetVersion}")))
             {
                 Console.WriteLine("  " + f);
             }
