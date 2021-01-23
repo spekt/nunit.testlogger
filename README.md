@@ -33,5 +33,10 @@ A path for the report file can be specified as follows:
 
 **Note:** the arguments to `--logger` should be in quotes since `;` is treated as a command delimiter in shell.
 
+### Output path customization
+There are several supported wildcards that you can use in LogFilePath parameter.
+* `{assembly}` - test assembly name.
+* `{framework}` - target framework name.
+
 ## License
 MIT
