@@ -14,6 +14,7 @@
   <files>
     <file src="Microsoft.VisualStudio.TestPlatform.Extension.Nunit.Xml.TestLogger.dll" target="build\_common\" />
     <file src="Microsoft.VisualStudio.TestPlatform.Extension.Nunit.Xml.TestAdapter.dll" target="build\_common\" />
+    <file src="Spekt.TestLogger.dll" target="build\_common\" />
     <file src="packageIcon.png" target="\" />
 
     <!-- Net Core -->
