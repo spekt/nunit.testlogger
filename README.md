@@ -2,7 +2,8 @@
 NUnit xml report extension for [Visual Studio Test Platform](https://gtihub.com/microsoft/vstest).
 
 [![Build Status](https://travis-ci.com/spekt/nunit.testlogger.svg?branch=master)](https://travis-ci.com/spekt/nunit.testlogger)
-[![Build status](https://ci.appveyor.com/api/projects/status/2masybxty5kve2dc?svg=true)](https://ci.appveyor.com/project/spekt/nunit-testlogger)
+[![Build Status](https://ci.appveyor.com/api/projects/status/2masybxty5kve2dc?svg=true)](https://ci.appveyor.com/project/spekt/nunit-testlogger)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/NunitXml.TestLogger)](https://www.nuget.org/packages/NunitXml.TestLogger/)
 
 ## Packages
 | Logger | Stable Package | Pre-release Package |
