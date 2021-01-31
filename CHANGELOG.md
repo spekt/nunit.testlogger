@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased (v3.0.x)
+## Unreleased (v3.1.x)
+
+## v3.0.92 - 2021/01/31
 
 * Refactored code to use [core testlogger][] for the testplatform logger events
 * Document common logger options in
