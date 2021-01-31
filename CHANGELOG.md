@@ -3,6 +3,8 @@
 ## Unreleased (v3.0.x)
 
 * Refactored code to use [core testlogger][] for the testplatform logger events
+* Document common logger options in
+  https://github.com/spekt/testlogger/wiki/Logger-Configuration
 
 [core testlogger]: https://github.com/spekt/testlogger
 
