@@ -4,8 +4,8 @@
     <id>NunitXml.TestLogger</id>
     <version>$version$</version>
     <title>NunitXml.TestLogger</title>
-    <authors>codito,siphonophora,faizan2304,smadala,lahma</authors>
-    <owners>codito,siphonophora,faizan2304,smadala</owners>
+    <authors>spekt</authors>
+    <owners>spekt</owners>
     <projectUrl>https://github.com/spekt/nunit.testlogger</projectUrl>
     <description>Xml logger for NUnit v3 compliant xml report when test is running with "dotnet test" or "dotnet vstest".</description>
     <license type="expression">MIT</license>

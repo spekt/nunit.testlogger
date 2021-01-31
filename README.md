@@ -21,23 +21,23 @@ NUnit logger can generate xml reports in the NUnit v3 format (https://github.com
 1. Add a reference to the [NUnit Logger](https://www.nuget.org/packages/NUnitXml.TestLogger) nuget package in test project
 2. Use the following command line in tests
 ```
-> dotnet test --test-adapter-path:. --logger:nunit
+> dotnet test --logger:nunit
 ```
 3. Test results are generated in the `TestResults` directory relative to the `test.csproj`
 
 A path for the report file can be specified as follows:
 ```
-> dotnet test --test-adapter-path:. --logger:"nunit;LogFilePath=test-result.xml"
+> dotnet test --logger:"nunit;LogFilePath=test-result.xml"
 ```
 
 `test-result.xml` will be generated in the same directory as `test.csproj`.
 
 **Note:** the arguments to `--logger` should be in quotes since `;` is treated as a command delimiter in shell.
 
-### Output path customization
-There are several supported wildcards that you can use in LogFilePath parameter.
-* `{assembly}` - test assembly name.
-* `{framework}` - target framework name.
+All common options to the logger is documented [in the wiki][config-wiki]. E.g.
+token expansion for `{assembly}` or `{framework}` in result file.
+
+[config-wiki]: https://github.com/spekt/testlogger/wiki/Logger-Configuration
 
 ## License
 MIT

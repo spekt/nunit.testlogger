@@ -20,9 +20,6 @@
     <Compile Include="..\NUnit.Xml.TestLogger\NUnitXmlSerializer.cs">
       <Link>NUnitXmlSerializer.cs</Link>
     </Compile>
-    <Compile Include="..\NUnit.Xml.TestLogger\StringExtensions.cs">
-      <Link>StringExtensions.cs</Link>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
