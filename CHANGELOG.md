@@ -2,6 +2,12 @@
 
 ## Unreleased (v3.1.x)
 
+## v3.0.xx - 2021/03/10
+
+* Upgrade core testlogger to 3.0.31
+* Fix: test results file must overwrite existing file. See
+  https://github.com/spekt/nunit.testlogger/issues/76
+
 ## v3.0.91 - 2021/01/31
 
 * Refactored code to use [core testlogger][] for the testplatform logger events
