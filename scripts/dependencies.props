@@ -4,12 +4,12 @@
     <MSTestVersion>1.3.2</MSTestVersion>
     <NETTestSdkVersion>15.7.2</NETTestSdkVersion>
     <MoqVersion>4.9.0</MoqVersion>
-    <TestLoggerVersion>3.0.31</TestLoggerVersion>
+    <TestLoggerVersion>3.0.37</TestLoggerVersion>
 
     <!-- Test Assets use the minimum supported versions -->
     <NETTestSdkMinimumVersion>15.0.0</NETTestSdkMinimumVersion>
-    <NUnitVersion>3.10.1</NUnitVersion>
-    <NUnitTestAdapterVersion>3.10.0</NUnitTestAdapterVersion>
+    <NUnitVersion>3.13.2</NUnitVersion>
+    <NUnitTestAdapterVersion>4.0.0-beta.2</NUnitTestAdapterVersion>
 
     <StylecopVersion>1.1.118</StylecopVersion>
   </PropertyGroup>
