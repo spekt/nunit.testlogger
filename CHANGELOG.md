@@ -2,6 +2,12 @@
 
 ## Unreleased (v3.1.x)
 
+## v3.0.100 - 2021/05/21
+
+* Upgrade core testlogger to 3.0.37
+* Fix: 'nunit' friendly name not found when using multiple loggers. See
+  https://github.com/spekt/nunit.testlogger/issues/80
+
 ## v3.0.97 - 2021/03/10
 
 * Upgrade core testlogger to 3.0.31
