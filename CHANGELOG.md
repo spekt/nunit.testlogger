@@ -2,7 +2,7 @@
 
 ## Unreleased (v3.1.x)
 
-## v3.0.104 - 2021/05/21
+## v3.0.107 - 2021/05/21
 
 * Upgrade core testlogger to 3.0.37
 * Fix: 'nunit' friendly name not found when using multiple loggers. See
