@@ -39,5 +39,20 @@ token expansion for `{assembly}` or `{framework}` in result file.
 
 [config-wiki]: https://github.com/spekt/testlogger/wiki/Logger-Configuration
 
+## Release Checklist
+
+A note to self on how to make releases:
+
+- [ ] Create changelog entry with tentative version.
+- [ ] Verify the version on Spekt myget (remember to update version in command below).
+```sh
+> dotnet new nunit
+> dotnet add package NunitXml.TestLogger --version 3.0.109 --source https://www.myget.org/F/spekt/api/v3/index.json 
+> dotnet test --logger:nunit
+```
+- [ ] Push the version on Spekt myget to Nuget.
+- [ ] Create a github release with above version tag. Link to the changelog section.
+- [ ] Thank the issue authors and notify them about the released version.
+
 ## License
 MIT
