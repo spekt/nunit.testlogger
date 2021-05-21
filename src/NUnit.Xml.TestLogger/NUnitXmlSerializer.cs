@@ -48,7 +48,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
         public string Serialize(
             LoggerConfiguration loggerConfiguration,
             TestRunConfiguration runConfiguration,
-            List<TestResultInfo> results)
+            List<TestResultInfo> results,
+            List<TestMessageInfo> messages)
         {
             var doc = new XDocument(this.CreateTestRunElement(results, runConfiguration));
             return doc.ToString();
