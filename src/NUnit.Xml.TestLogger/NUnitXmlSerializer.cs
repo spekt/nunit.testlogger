@@ -246,6 +246,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                 new XAttribute("end-time", result.EndTime.ToString(DateFormat, CultureInfo.InvariantCulture)),
                 new XAttribute("duration", result.Duration.TotalSeconds),
                 new XAttribute("asserts", 0),
+                CreateSeedAttribute(result.TestCase),
                 CreatePropertiesElement(result.TestCase));
 
             StringBuilder stdOut = new StringBuilder();
@@ -271,6 +272,14 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             }
 
             return element;
+        }
+
+        private static XAttribute CreateSeedAttribute(TestCase result)
+        {
+            var seed = result.Properties.SingleOrDefault(p => p.Id == "NUnit.Seed");
+            return seed != null
+                ? new XAttribute("seed", result.GetPropertyValue(seed))
+                : null;
         }
 
         private static XElement CreatePropertiesElement(TestCase result)
