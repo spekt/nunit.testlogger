@@ -39,6 +39,16 @@ token expansion for `{assembly}` or `{framework}` in result file.
 
 [config-wiki]: https://github.com/spekt/testlogger/wiki/Logger-Configuration
 
+**NUnit test framework settings**
+
+- If your scenario requires test case properties like `Description` in the xml, please enable internal properties for the nunit adapter:
+
+`dotnet test --logger:nunit -- NUnit.ShowInternalProperties=true`
+
+- NUnit test adapter also provides a mechanism to emit test result xml from the NUnit engine. You may use following commandline for the same:
+
+`dotnet test --logger:nunit -- NUnit.TestOutputXml=<foldername relative to test binary directory>`
+
 ## Release Checklist
 
 A note to self on how to make releases:
@@ -47,7 +57,7 @@ A note to self on how to make releases:
 - [ ] Verify the version on Spekt myget (remember to update version in command below).
 ```sh
 > dotnet new nunit
-> dotnet add package NunitXml.TestLogger --version 3.0.109 --source https://www.myget.org/F/spekt/api/v3/index.json 
+> dotnet add package NunitXml.TestLogger --version 3.0.109 --source https://www.myget.org/F/spekt/api/v3/index.json
 > dotnet test --logger:nunit
 ```
 - [ ] Push the version on Spekt myget to Nuget.
