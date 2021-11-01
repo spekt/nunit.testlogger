@@ -2,6 +2,8 @@
 
 ## Unreleased (v3.1.x)
 
+* Upgrade core testlogger to 3.0.47
+
 ## v3.0.107 - 2021/05/21
 
 * Upgrade core testlogger to 3.0.37

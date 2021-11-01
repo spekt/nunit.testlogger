@@ -237,7 +237,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
         {
             var element = new XElement(
                 "test-case",
-                new XAttribute("name", result.Name),
+                new XAttribute("name", result.TestCase.DisplayName),
                 new XAttribute("fullname", result.FullTypeName + "." + result.Method),
                 new XAttribute("methodname", result.Method),
                 new XAttribute("classname", result.Type),
