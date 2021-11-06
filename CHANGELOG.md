@@ -2,11 +2,15 @@
 
 ## Unreleased (v3.1.x)
 
+## v3.0.117 - 2021/11/06
+
 * Upgrade core testlogger to 3.0.47
 * Set `classname` for TestFixture element. See
   https://github.com/spekt/nunit.testlogger/issues/87 and
   https://github.com/spekt/nunit.testlogger/issues/88
-
+* Report seed values for tests using `TestContext.CurrentContext.Random`. See
+  https://github.com/spekt/nunit.testlogger/issues/78
+  
 ## v3.0.107 - 2021/05/21
 
 * Upgrade core testlogger to 3.0.37
