@@ -3,6 +3,9 @@
 ## Unreleased (v3.1.x)
 
 * Upgrade core testlogger to 3.0.47
+* Set `classname` for TestFixture element. See
+  https://github.com/spekt/nunit.testlogger/issues/87 and
+  https://github.com/spekt/nunit.testlogger/issues/88
 
 ## v3.0.107 - 2021/05/21
 
