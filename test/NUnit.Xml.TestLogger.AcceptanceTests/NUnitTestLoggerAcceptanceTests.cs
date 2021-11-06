@@ -14,6 +14,9 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
     [TestClass]
     public class NUnitTestLoggerAcceptanceTests
     {
+        private const string ExpectedTestCaseCount = "53";
+        private const string ExpectedTestCasePassedCount = "25";
+
         private readonly string resultsFile;
         private readonly XDocument resultsXml;
 
@@ -41,8 +44,8 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             var node = this.resultsXml.XPathSelectElement("/test-run");
 
             Assert.IsNotNull(node);
-            Assert.AreEqual("52", node.Attribute(XName.Get("testcasecount")).Value);
-            Assert.AreEqual("24", node.Attribute(XName.Get("passed")).Value);
+            Assert.AreEqual(ExpectedTestCaseCount, node.Attribute(XName.Get("testcasecount")).Value);
+            Assert.AreEqual(ExpectedTestCasePassedCount, node.Attribute(XName.Get("passed")).Value);
             Assert.AreEqual("14", node.Attribute(XName.Get("failed")).Value);
             Assert.AreEqual("8", node.Attribute(XName.Get("inconclusive")).Value);
             Assert.AreEqual("6", node.Attribute(XName.Get("skipped")).Value);
@@ -59,8 +62,8 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             var node = this.resultsXml.XPathSelectElement("/test-run/test-suite[@type='Assembly']");
 
             Assert.IsNotNull(node);
-            Assert.AreEqual("52", node.Attribute(XName.Get("total")).Value);
-            Assert.AreEqual("24", node.Attribute(XName.Get("passed")).Value);
+            Assert.AreEqual(ExpectedTestCaseCount, node.Attribute(XName.Get("total")).Value);
+            Assert.AreEqual(ExpectedTestCasePassedCount, node.Attribute(XName.Get("passed")).Value);
             Assert.AreEqual("14", node.Attribute(XName.Get("failed")).Value);
             Assert.AreEqual("8", node.Attribute(XName.Get("inconclusive")).Value);
             Assert.AreEqual("6", node.Attribute(XName.Get("skipped")).Value);
@@ -101,12 +104,12 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
         {
             // Two namespaces in test asset are:
             // NUnit.Xml.TestLogger.NetFull.Tests and NUnit.Xml.TestLogger.Tests2
-            var query = string.Format("/test-run//test-suite[@type='TestSuite' and @name='Tests2']");
+            var query = "/test-run//test-suite[@type='TestSuite' and @name='Tests2']";
             var node = this.resultsXml.XPathSelectElement(query);
 
             Assert.IsNotNull(node);
-            Assert.AreEqual("23", node.Attribute(XName.Get("total")).Value);
-            Assert.AreEqual("9", node.Attribute(XName.Get("passed")).Value);
+            Assert.AreEqual("24", node.Attribute(XName.Get("total")).Value);
+            Assert.AreEqual("10", node.Attribute(XName.Get("passed")).Value);
             Assert.AreEqual("7", node.Attribute(XName.Get("failed")).Value);
             Assert.AreEqual("4", node.Attribute(XName.Get("inconclusive")).Value);
             Assert.AreEqual("3", node.Attribute(XName.Get("skipped")).Value);
@@ -124,7 +127,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             var fullName = string.Empty;
             foreach (var part in testNamespace.Split("."))
             {
-                var query = string.Format("/test-run//test-suite[@type='TestSuite' and @name='{0}']", part);
+                var query = $"/test-run//test-suite[@type='TestSuite' and @name='{part}']";
                 var node = this.resultsXml.XPathSelectElement(query);
                 fullName = fullName == string.Empty ? part : fullName + "." + part;
 
@@ -138,7 +141,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
         public void TestResultFileShouldContainTestCasePropertiesForTestWithPropertyAttributes()
         {
             var testNamespace = "NUnit.Xml.TestLogger.NetFull.Tests";
-            var query = string.Format("/test-run//test-case[@fullname='{0}.UnitTest1.WithProperty']", testNamespace);
+            var query = $"/test-run//test-case[@fullname='{testNamespace}.UnitTest1.WithProperty']";
             var testCaseElement = this.resultsXml.XPathSelectElement(query);
             Assert.IsNotNull(testCaseElement, "test-case element");
 
@@ -156,7 +159,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
         [DataRow("NUnit.Xml.TestLogger.Tests2")]
         public void TestResultFileTestCasesShouldContainValidStartAndEndTimes(string testNamespace)
         {
-            var query = string.Format("/test-run//test-case[@fullname='{0}.UnitTest1.PassTest11']", testNamespace);
+            var query = $"/test-run//test-case[@fullname='{testNamespace}.UnitTest1.PassTest11']";
             var testCaseElement = this.resultsXml.XPathSelectElement(query);
             Assert.IsNotNull(testCaseElement, "test-case element");
 
@@ -176,10 +179,21 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
         }
 
         [TestMethod]
+        public void TestResultFileTestCasesShouldContainSeed()
+        {
+            var query = "/test-run//test-case[@fullname='NUnit.Xml.TestLogger.Tests2.RandomizerTests.Sort_RandomData_IsSorted']";
+            var testCaseElement = this.resultsXml.XPathSelectElement(query);
+            Assert.IsNotNull(testCaseElement, "test-case element");
+
+            var seedValue = testCaseElement.Attribute(XName.Get("seed"))?.Value;
+            Assert.IsNotNull(seedValue);
+        }
+
+        [TestMethod]
         public void TestResultFileShouldNotContainTestCasePropertiesForTestWithNoPropertyAttributes()
         {
             var testNamespace = "NUnit.Xml.TestLogger.NetFull.Tests";
-            var query = string.Format("/test-run//test-case[@fullname='{0}.UnitTest1.NoProperty']", testNamespace);
+            var query = $"/test-run//test-case[@fullname='{testNamespace}.UnitTest1.NoProperty']";
             var testCaseElement = this.resultsXml.XPathSelectElement(query);
             Assert.IsNotNull(testCaseElement, "test-case element");
 
@@ -207,7 +221,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
         public void TestResultFileShouldContainTestCaseCategoryForTestWithDescription()
         {
             var testNamespace = "NUnit.Xml.TestLogger.NetFull.Tests";
-            var query = string.Format("/test-run//test-case[@fullname='{0}.UnitTest1.WithCategory']", testNamespace);
+            var query = $"/test-run//test-case[@fullname='{testNamespace}.UnitTest1.WithCategory']";
             var testCaseElement = this.resultsXml.XPathSelectElement(query);
             Assert.IsNotNull(testCaseElement, "test-case element");
 
@@ -225,7 +239,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
         public void TestResultFileShouldNotContainTestCaseCategoryForTestWithMultipleCategory()
         {
             var testNamespace = "NUnit.Xml.TestLogger.NetFull.Tests";
-            var query = string.Format("/test-run//test-case[@fullname='{0}.UnitTest1.MultipleCategories']", testNamespace);
+            var query = $"/test-run//test-case[@fullname='{testNamespace}.UnitTest1.MultipleCategories']";
             var testCaseElement = this.resultsXml.XPathSelectElement(query);
             Assert.IsNotNull(testCaseElement, "test-case element");
 
@@ -248,7 +262,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
         public void TestResultFileShouldContainTestCaseCategoryAndPropertyForTestWithMultipleProperties()
         {
             var testNamespace = "NUnit.Xml.TestLogger.NetFull.Tests";
-            var query = string.Format("/test-run//test-case[@fullname='{0}.UnitTest1.WithCategoryAndProperty']", testNamespace);
+            var query = $"/test-run//test-case[@fullname='{testNamespace}.UnitTest1.WithCategoryAndProperty']";
             var testCaseElement = this.resultsXml.XPathSelectElement(query);
             Assert.IsNotNull(testCaseElement, "test-case element");
 
@@ -271,7 +285,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
         public void TestResultFileShouldContainTestCasePropertyForTestWithMultipleProperties()
         {
             var testNamespace = "NUnit.Xml.TestLogger.NetFull.Tests";
-            var query = string.Format("/test-run//test-case[@fullname='{0}.UnitTest1.WithProperties']", testNamespace);
+            var query = $"/test-run//test-case[@fullname='{testNamespace}.UnitTest1.WithProperties']";
             var testCaseElement = this.resultsXml.XPathSelectElement(query);
             Assert.IsNotNull(testCaseElement, "test-case element");
 
