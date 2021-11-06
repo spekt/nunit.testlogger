@@ -191,9 +191,14 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             // Create test-suite element for the TestFixture
             var name = resultsByType.Key.SubstringAfterDot();
 
+            // Return the type name after removing the parameters for parametrized tests.
+            var parameterStart = resultsByType.Key.IndexOf('(');
+            var className = parameterStart > 0 ? resultsByType.Key.Substring(0, parameterStart) : resultsByType.Key;
+
             element.SetAttributeValue("type", "TestFixture");
             element.SetAttributeValue("name", name);
             element.SetAttributeValue("fullname", resultsByType.Key);
+            element.SetAttributeValue("classname", className);
 
             element.SetAttributeValue("total", total);
             element.SetAttributeValue("passed", passed);
@@ -237,7 +242,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
         {
             var element = new XElement(
                 "test-case",
-                new XAttribute("name", result.Name),
+                new XAttribute("name", result.TestCase.DisplayName),
                 new XAttribute("fullname", result.FullTypeName + "." + result.Method),
                 new XAttribute("methodname", result.Method),
                 new XAttribute("classname", result.Type),

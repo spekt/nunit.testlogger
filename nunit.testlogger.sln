@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31825.309
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DB72843C-27A3-4646-BE18-164E33702212}"
 EndProject
@@ -16,6 +16,21 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnit.Xml.TestLogger.AcceptanceTests", "test\NUnit.Xml.TestLogger.AcceptanceTests\NUnit.Xml.TestLogger.AcceptanceTests.csproj", "{A47EDBAD-CF86-4F2D-9CE6-02510954CE10}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnit.Xml.TestLogger.UnitTests", "test\NUnit.Xml.TestLogger.UnitTests\NUnit.Xml.TestLogger.UnitTests.csproj", "{FC0600B1-5E2E-4C19-AFD9-BF418A739E17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2102F56E-4A4C-41A6-8B6B-08247E622B50}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{78E78E41-D1B3-4664-B7AC-075204EA8F3C}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\dependencies.props = scripts\dependencies.props
+		scripts\settings.targets = scripts\settings.targets
+		scripts\stylecop.json = scripts\stylecop.json
+		scripts\stylecop.ruleset = scripts\stylecop.ruleset
+		scripts\stylecop.test.ruleset = scripts\stylecop.test.ruleset
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

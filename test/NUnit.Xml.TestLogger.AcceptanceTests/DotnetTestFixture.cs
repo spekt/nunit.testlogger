@@ -41,6 +41,9 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             var testProject = RootDirectory;
             var testLogger = $"--logger:\"nunit;LogFilePath={resultsFile}\"";
 
+            // Enable reporting of internal properties in the adapter
+            var runsettings = "-- NUnit.ShowInternalProperties=true";
+
             // Delete stale results file
             var testLogFile = Path.Combine(testProject, resultsFile);
 
@@ -70,7 +73,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.FileName = "dotnet";
-                p.StartInfo.Arguments = $"test --no-build {testLogger} {testProject}";
+                p.StartInfo.Arguments = $"test --no-build {testLogger} {testProject} {runsettings}";
                 p.Start();
 
                 Console.WriteLine("dotnet arguments: " + p.StartInfo.Arguments);

@@ -204,6 +204,22 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
         [TestMethod]
         public void TestResultFileShouldContainTestCaseCategoryForTestWithCategory()
         {
+            var query = "/test-run//test-case[@fullname='NUnit.Xml.TestLogger.Tests2.UnitTest1.PassTest11']";
+            var testCaseElement = this.resultsXml.XPathSelectElement(query);
+            Assert.IsNotNull(testCaseElement, "test-case element");
+
+            var propertiesElement = testCaseElement.Element("properties");
+            Assert.IsNotNull(propertiesElement, "properties element");
+            Assert.AreEqual(1, propertiesElement.Descendants().Count());
+
+            var propertyElement = propertiesElement.Element("property");
+            Assert.IsNotNull(propertyElement, "property element");
+            Assert.AreEqual("Description", propertyElement.Attribute("name")?.Value);
+        }
+
+        [TestMethod]
+        public void TestResultFileShouldContainTestCaseCategoryForTestWithDescription()
+        {
             var testNamespace = "NUnit.Xml.TestLogger.NetFull.Tests";
             var query = $"/test-run//test-case[@fullname='{testNamespace}.UnitTest1.WithCategory']";
             var testCaseElement = this.resultsXml.XPathSelectElement(query);
