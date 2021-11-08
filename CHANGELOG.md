@@ -2,6 +2,10 @@
 
 ## Unreleased (v3.1.x)
 
+* Update core testlogger to 3.0.51 for nunit test adapter
+* Fix: Explicit tests should be marked as Skipped. See
+  https://github.com/spekt/nunit.testlogger/issues/86
+
 ## v3.0.117 - 2021/11/06
 
 * Upgrade core testlogger to 3.0.47
