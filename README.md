@@ -16,9 +16,9 @@ If you're looking for `xunit`, `junit` or `appveyor` loggers, visit following re
 * <https://github.com/spekt/appveyor.testlogger>
 
 ## Usage
-NUnit logger can generate xml reports in the NUnit v3 format (https://github.com/nunit/docs/wiki/Test-Result-XML-Format).
+NUnit logger can generate xml reports in the [NUnit v3 format](https://docs.nunit.org/articles/nunit/technical-notes/usage/Test-Result-XML-Format.html).
 
-1. Add a reference to the [NUnit Logger](https://www.nuget.org/packages/NUnitXml.TestLogger) nuget package in test project
+1. Add a reference to the [NUnit Logger](https://www.nuget.org/packages/NUnitXml.TestLogger) NuGet package in test project
 2. Use the following command line in tests
 ```
 > dotnet test --logger:nunit
