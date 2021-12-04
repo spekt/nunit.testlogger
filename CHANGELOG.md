@@ -2,9 +2,11 @@
 
 ## Unreleased (v3.1.x)
 
-* Update core testlogger to 3.0.51 for nunit test adapter
+* Update core testlogger to 3.0.54 for nunit test adapter
 * Fix: Explicit tests should be marked as Skipped. See
   https://github.com/spekt/nunit.testlogger/issues/86
+* Fix: Test case parse error if name contains special characters. See
+  https://github.com/spekt/nunit.testlogger/issues/90
 
 ## v3.0.117 - 2021/11/06
 
