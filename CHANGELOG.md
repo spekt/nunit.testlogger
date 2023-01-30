@@ -2,6 +2,11 @@
 
 ## Unreleased (v3.1.x)
 
+## v3.0.131 - 2023/01/30
+
+* Update core testlogger to 3.0.86
+* Fix: issue with numeral parsing in test name parser. See https://github.com/spekt/testlogger/issues/35
+
 ## v3.0.127 - 2022/09/10
 
 * Update core testlogger to 3.0.78 for nunit test adapter
