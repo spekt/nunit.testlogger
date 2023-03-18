@@ -274,8 +274,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             {
                 element.Add(new XElement(
                     "failure",
-                    new XElement("message", result.ErrorMessage.ReplaceInvalidXmlChar()),
-                    new XElement("stack-trace", result.ErrorStackTrace.ReplaceInvalidXmlChar())));
+                    new XElement("message", result.ErrorMessage),
+                    new XElement("stack-trace", result.ErrorStackTrace)));
             }
 
             return element;
