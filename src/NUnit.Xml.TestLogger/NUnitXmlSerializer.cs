@@ -20,6 +20,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
         private const string ResultStatusPassed = "Passed";
         private const string ResultStatusFailed = "Failed";
 
+        public IInputSanitizer InputSanitizer { get;  } = new InputSanitizerXml();
+
         public static IEnumerable<TestSuite> GroupTestSuites(IEnumerable<TestSuite> suites)
         {
             var groups = suites;
