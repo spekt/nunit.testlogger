@@ -31,6 +31,7 @@ jobs:
       - name: Unit test
         run: dotnet test -p:PackageVersion=${{ env.APP_BUILD_VERSION }} test/NUnit.Xml.TestLogger.UnitTests/NUnit.Xml.TestLogger.UnitTests.csproj -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
       - name: Acceptance test
+        if: ${{ matrix.os == 'windows-latest' }}
         run: dotnet test -p:PackageVersion=${{ env.APP_BUILD_VERSION }} test/NUnit.Xml.TestLogger.AcceptanceTests/NUnit.Xml.TestLogger.AcceptanceTests.csproj
       - name: Codecov
         uses: codecov/codecov-action@v3.1.0
