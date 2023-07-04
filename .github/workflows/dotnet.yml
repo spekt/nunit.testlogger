@@ -37,9 +37,12 @@ jobs:
         uses: codecov/codecov-action@v3.1.0
         with:
           files: test/NUnit.Xml.TestLogger.UnitTests/coverage.opencover.xml
+  publish:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
       - name: Publish packages
-        if: ${{ github.event_name == 'push' && matrix.os == 'windows-latest' }}
+        if: ${{ github.event_name == 'push' && needs.build.result == 'success' }}
         run: |
           dotnet nuget push 'src/package/bin/Release/*.nupkg' --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/spekt/index.json
           dotnet nuget push 'src/package/bin/Release/*.nupkg' --api-key ${{ secrets.SPEKT_MYGET_KEY }} --source https://www.myget.org/F/spekt/api/v3/index.json
-        shell: bash
