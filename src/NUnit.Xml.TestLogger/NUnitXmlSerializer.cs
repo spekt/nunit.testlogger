@@ -20,6 +20,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
         private const string ResultStatusPassed = "Passed";
         private const string ResultStatusFailed = "Failed";
 
+        public IInputSanitizer InputSanitizer { get;  } = new InputSanitizerXml();
+
         public static IEnumerable<TestSuite> GroupTestSuites(IEnumerable<TestSuite> suites)
         {
             var groups = suites;
@@ -242,7 +244,7 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
         {
             var element = new XElement(
                 "test-case",
-                new XAttribute("name", result.TestCase.DisplayName),
+                new XAttribute("name", result.DisplayName),
                 new XAttribute("fullname", result.FullTypeName + "." + result.Method),
                 new XAttribute("methodname", result.Method),
                 new XAttribute("classname", result.Type),
@@ -251,8 +253,8 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                 new XAttribute("end-time", result.EndTime.ToString(DateFormat, CultureInfo.InvariantCulture)),
                 new XAttribute("duration", result.Duration.TotalSeconds),
                 new XAttribute("asserts", 0),
-                CreateSeedAttribute(result.TestCase),
-                CreatePropertiesElement(result.TestCase));
+                CreateSeedAttribute(result),
+                CreatePropertiesElement(result));
 
             StringBuilder stdOut = new StringBuilder();
             foreach (var m in result.Messages)
@@ -272,22 +274,22 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             {
                 element.Add(new XElement(
                     "failure",
-                    new XElement("message", result.ErrorMessage.ReplaceInvalidXmlChar()),
-                    new XElement("stack-trace", result.ErrorStackTrace.ReplaceInvalidXmlChar())));
+                    new XElement("message", result.ErrorMessage),
+                    new XElement("stack-trace", result.ErrorStackTrace)));
             }
 
             return element;
         }
 
-        private static XAttribute CreateSeedAttribute(TestCase result)
+        private static XAttribute CreateSeedAttribute(TestResultInfo result)
         {
-            var seed = result.Properties.SingleOrDefault(p => p.Id == "NUnit.Seed");
-            return seed != null
-                ? new XAttribute("seed", result.GetPropertyValue(seed))
+            var seed = result.Properties.SingleOrDefault(p => p.Key == "NUnit.Seed");
+            return seed.Key == "NUnit.Seed"
+                ? new XAttribute("seed", seed.Value)
                 : null;
         }
 
-        private static XElement CreatePropertiesElement(TestCase result)
+        private static XElement CreatePropertiesElement(TestResultInfo result)
         {
             var propertyElements = new HashSet<XElement>(result.Traits.Select(CreatePropertyElement));
 
@@ -295,16 +297,15 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
 
             // Required since TestCase.Properties is a superset of TestCase.Traits
             // Unfortunately not all NUnit properties are available as traits
-            var traitProperties = result.Properties.Where(t => t.Attributes.HasFlag(TestPropertyAttributes.Trait));
+            var traitProperties = result.Properties;
 
 #pragma warning restore CS0618 // Type or member is obsolete
 
             foreach (var p in traitProperties)
             {
-                var propValue = result.GetPropertyValue(p);
-
-                if (p.Id == "NUnit.TestCategory")
+                if (p.Key == "NUnit.TestCategory")
                 {
+                    var propValue = p.Value;
                     var elements = CreatePropertyElement("Category", (string[])propValue);
 
                     foreach (var element in elements)
