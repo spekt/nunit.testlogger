@@ -53,8 +53,14 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
             List<TestResultInfo> results,
             List<TestMessageInfo> messages)
         {
-            var doc = new XDocument(this.CreateTestRunElement(results, runConfiguration));
-            return doc.ToString();
+            var doc = new XDocument(
+                new XDeclaration("1.0", "utf-8", "no"),
+                this.CreateTestRunElement(results, runConfiguration));
+            using (var sw = new StringWriter())
+            {
+                doc.Save(sw);
+                return sw.ToString();
+            }
         }
 
         private static TestSuite AggregateTestSuites(

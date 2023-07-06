@@ -68,22 +68,23 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             Console.WriteLine();
 
             // Run dotnet test with logger
-            using (var p = new Process())
-            {
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.FileName = "dotnet";
-                p.StartInfo.Arguments = $"test --no-build {testLogger} {testProject} {runsettings}";
-                p.Start();
+            using var p = new Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.FileName = "dotnet";
+            p.StartInfo.Arguments = $"test --no-build {testLogger} {testProject} {runsettings}";
 
-                Console.WriteLine("dotnet arguments: " + p.StartInfo.Arguments);
+            // Use invariant globalization for netcoreapp3.1 on linux
+            p.StartInfo.EnvironmentVariables.Add("DOTNET_SYSTEM_GLOBALIZATION_INVARIANT", "1");
+            p.Start();
 
-                // To avoid deadlocks, always read the output stream first and then wait.
-                string output = p.StandardOutput.ReadToEnd();
-                p.WaitForExit();
-                Console.WriteLine("dotnet output: " + output);
-                Console.WriteLine("------------");
-            }
+            Console.WriteLine("dotnet arguments: " + p.StartInfo.Arguments);
+
+            // To avoid deadlocks, always read the output stream first and then wait.
+            string output = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+            Console.WriteLine("dotnet output: " + output);
+            Console.WriteLine("------------");
         }
 
         public static void Execute(string resultsFileName, string filePath)
