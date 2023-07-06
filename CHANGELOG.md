@@ -2,8 +2,10 @@
 
 ## Unreleased (v3.1.x)
 
+## v3.1.15 - 2023/07/06
+
 * Update core testlogger to 3.1.130
-* Support for test attachments for test cases. See https://github.com/spekt/nunit.testlogger/pull/101
+* Support for test attachments for test cases. See https://github.com/spekt/nunit.testlogger/pull/101 and #54
 * Fix for illegal xml characters in various names. See https://github.com/spekt/testlogger/pull/37
 * Various infra fixes: move to net7.0, add github ci, and remove appveyor.
 
