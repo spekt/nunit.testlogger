@@ -75,7 +75,7 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             p.StartInfo.Arguments = $"test --no-build {testLogger} {testProject} {runsettings}";
 
             // Use invariant globalization for netcoreapp3.1 on linux
-            p.StartInfo.EnvironmentVariables.Add("DOTNET_SYSTEM_GLOBALIZATION_INVARIANT", "1");
+            p.StartInfo.EnvironmentVariables["DOTNET_SYSTEM_GLOBALIZATION_INVARIANT"] = "1";
             p.Start();
 
             Console.WriteLine("dotnet arguments: " + p.StartInfo.Arguments);
