@@ -14,8 +14,8 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
     [TestClass]
     public class NUnitTestLoggerAcceptanceTests
     {
-        private const string ExpectedTestCaseCount = "53";
-        private const string ExpectedTestCasePassedCount = "25";
+        private const string ExpectedTestCaseCount = "54";
+        private const string ExpectedTestCasePassedCount = "26";
 
         private readonly string resultsFile;
         private readonly XDocument resultsXml;
@@ -90,8 +90,8 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             var node = this.resultsXml.XPathSelectElement(query);
 
             Assert.IsNotNull(node);
-            Assert.AreEqual("29", node.Attribute(XName.Get("total")).Value);
-            Assert.AreEqual("15", node.Attribute(XName.Get("passed")).Value);
+            Assert.AreEqual("30", node.Attribute(XName.Get("total")).Value);
+            Assert.AreEqual("16", node.Attribute(XName.Get("passed")).Value);
             Assert.AreEqual("7", node.Attribute(XName.Get("failed")).Value);
             Assert.AreEqual("3", node.Attribute(XName.Get("inconclusive")).Value);
             Assert.AreEqual("4", node.Attribute(XName.Get("skipped")).Value);
@@ -302,6 +302,24 @@ namespace NUnit.Xml.TestLogger.AcceptanceTests
             propertyElement = propertiesElement.XPathSelectElement("descendant::property[@value='Property value 2']");
             Assert.IsNotNull(propertyElement, "property element");
             Assert.AreEqual("Property name", propertyElement.Attribute("name")?.Value);
+        }
+
+        [TestMethod]
+        public void TestResultFileShouldContainTestCaseAttachments()
+        {
+            var testNamespace = "NUnit.Xml.TestLogger.NetFull.Tests";
+            var query = $"/test-run//test-case[@fullname='{testNamespace}.AttachmentTest.TestAddAttachment']";
+            var testCaseElement = this.resultsXml.XPathSelectElement(query);
+            Assert.IsNotNull(testCaseElement, "test-case element");
+
+            var attachmentsElement = testCaseElement.Element("attachments");
+            Assert.IsNotNull(attachmentsElement, "attachments element");
+            Assert.AreEqual(3, attachmentsElement.Descendants().Count());
+
+            var attachmentElement = attachmentsElement.Descendants().First();
+            Assert.IsNotNull(attachmentElement, "attachment element");
+            StringAssert.Contains(attachmentElement.Descendants().First().Value, "x.txt");
+            StringAssert.Contains(attachmentElement.Descendants().Last().Value, "description");
         }
     }
 }

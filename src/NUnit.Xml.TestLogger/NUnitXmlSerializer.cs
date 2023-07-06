@@ -278,6 +278,22 @@ namespace Microsoft.VisualStudio.TestPlatform.Extension.NUnit.Xml.TestLogger
                     new XElement("stack-trace", result.ErrorStackTrace)));
             }
 
+            // Add attachments if available
+            if (result.Attachments.Any())
+            {
+                // See spec here: https://docs.nunit.org/articles/nunit/technical-notes/usage/Test-Result-XML-Format.html#attachments
+                var attachmentElement = new XElement("attachments");
+                foreach (var attachment in result.Attachments)
+                {
+                    attachmentElement.Add(new XElement(
+                                "attachment",
+                                new XElement("filePath", attachment.FilePath),
+                                new XElement("description", new XCData(attachment.Description))));
+                }
+
+                element.Add(attachmentElement);
+            }
+
             return element;
         }
 
