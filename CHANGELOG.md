@@ -2,7 +2,7 @@
 
 ## Unreleased (v3.1.x)
 
-## v3.1.16 - 2024/02/10
+## v3.1.20 - 2024/02/10
 
 - Update core testlogger to 3.1.140.
 - Fix: exclude testlogger assemblies from code coverage. See
