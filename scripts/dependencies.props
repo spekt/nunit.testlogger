@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MSTestVersion>3.0.4</MSTestVersion>
-    <NETTestSdkVersion>17.3.2</NETTestSdkVersion>
+    <NETTestSdkVersion>17.13.0</NETTestSdkVersion>
     <MoqVersion>4.18.4</MoqVersion>
     <TestLoggerVersion>3.1.140</TestLoggerVersion>
 
